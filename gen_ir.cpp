@@ -3,7 +3,7 @@
 #include <string>
 
 extern CodeBuffer buffer;
-extern SymbolTableStack tables;
+extern SymbolTableStack symbol_table_stack;
 
 using namespace std;
 
@@ -106,4 +106,83 @@ void GenIR::gen_relop(Exp &res, const Exp &exp1, const Exp &exp2, const string &
     res.false_list = buffer.makelist(pair<int, BranchLabelIndex>(address, SECOND));
 }
 
+void GenIR::gen_int_and_byte(Exp &exp) {
+    buffer.emit(exp.reg + " = add i32 " + exp.value + ", 0");
+}
 
+void GenIR::gen_string(Exp &exp) {
+    string str = exp.value;
+    str.pop_back();
+    string reg = new_glob_reg();
+    string get_ptr = "getelementptr [" + to_string(str.length()) + " x i8], [" + to_string(str.length()) + " x i8]* " + reg + ", i32 0, i32 0";
+    str += + "\\00\"";
+    buffer.emitGlobal(reg + " = constant [" + to_string(str.length()) + " x i8] c" + str );
+    reg.replace(0, 1, "%");
+    buffer.emit(reg + ".ptr = " + get_ptr);
+    exp.reg = reg + ".ptr";
+}
+
+void GenIR::gen_bool(Exp &exp) {
+    int address = buffer.emit("br label @");
+    if (exp.value == "true") {
+        exp.true_list = buffer.makelist(pair<int, BranchLabelIndex>(address, FIRST));
+    } else {
+        exp.false_list = buffer.makelist(pair<int, BranchLabelIndex>(address, SECOND));
+    }
+}
+
+void GenIR::gen_id(Exp &exp) {
+    auto symbol = symbol_table_stack.get_symbol(exp.value);
+    if (symbol->offset < 0) {
+        exp.reg = "%" + std::to_string(((-1) * symbol->offset - 1));
+    } else {
+        exp.reg = gen_load(symbol_table_stack.get_current_symbol_table()->head, symbol->offset);
+    }
+
+    if (exp.type == "bool") {
+        string cond = new_reg();
+        buffer.emit(cond + " = icmp eq i32 0, " + exp.reg);
+        int address = buffer.emit("br i1 " + cond + ", label @, label @");
+        exp.true_list = buffer.makelist(pair<int, BranchLabelIndex>(address, SECOND));
+        exp.false_list = buffer.makelist(pair<int, BranchLabelIndex>(address, FIRST));
+    }
+}
+
+string GenIR::gen_load(string head, int offset) {
+    string ptr_reg = new_reg();
+    buffer.emit(ptr_reg + " = getelementptr i32, i32* " + head + ", i32 " + std::to_string(offset));
+    string ret_reg = new_reg();
+    buffer.emit(ret_reg + " = load i32, i32* " + ptr_reg);
+    return ret_reg;
+}
+
+void GenIR::gen_call(Call &call) {
+    call.reg = new_reg();
+    string arg_str = "";
+    for (auto exp : call.exp_list->expressions) {
+        if (exp->type == "string") {
+            arg_str += "i8*";
+        } else {
+            arg_str += "i32";
+        }
+        arg_str += " " + exp->reg;
+        if (exp != call.exp_list->expressions.back())
+            arg_str += ", ";
+    }
+    
+    if (call.ret_type == "void")
+        buffer.emit("call void @" + call.id + "(" + arg_str + ")");
+    else if(call.ret_type == "string"){
+        buffer.emit(call.reg + " = call  i8* @" + call.id + "(" + arg_str + ")");
+    }
+    else if(call.ret_type == "bool") {
+        buffer.emit(call.reg + " = call i32 @" + call.id + "(" + arg_str + ")");
+        string cond = new_reg();
+        buffer.emit(cond + " = icmp eq i32 0, " + call.reg);
+        int address = buffer.emit("br i1 " + cond + ", label @, label @");
+        call.true_list = buffer.makelist(pair<int, BranchLabelIndex>(address, SECOND));
+        call.false_list = buffer.makelist(pair<int, BranchLabelIndex>(address, FIRST));
+    } else {
+        buffer.emit(call.reg + " = call  i32 @" + call.id + "(" + arg_str + ")");
+    }
+}

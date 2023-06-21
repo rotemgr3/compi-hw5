@@ -4,6 +4,8 @@
     #include "hw3_output.hpp"
     #include "types.h"
     #include "symbol_table.h"
+    #include "gen_ir.h"
+    #include "bp.hpp"
 
     using namespace output;
     extern int yylineno;
@@ -85,10 +87,15 @@ Label:                                                                          
 %%
 
 SymbolTableStack symbol_table_stack = SymbolTableStack();
+GenIR gen_ir = GenIR();
+CodeBuffer buffer = CodeBuffer();
 
 int main(){
-        int res = yyparse();
-        return res;
+    // buffer.emit_init();
+    int res = yyparse();
+    // buffer.printGlobalBuffer();
+    // buffer.printCodeBuffer();
+    return res;
 }
 
 int yyerror(const char *){

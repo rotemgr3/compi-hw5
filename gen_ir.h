@@ -20,6 +20,12 @@ class GenIR {
         void gen_notop(Exp &res, const Exp &exp);
         void gen_relop(Exp &res, const Exp &exp1, const Exp &exp2, const string &op);
         void gen_label(const string &label);    
+        void gen_int_and_byte(Exp &exp);
+        void gen_bool(Exp &exp);
+        void gen_string(Exp &exp);
+        void gen_id(Exp &exp);
+        string gen_load(string head, int offset);
+        void gen_call(Call &call);
 
 };
 

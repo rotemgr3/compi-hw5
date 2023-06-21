@@ -5,7 +5,6 @@
 #include <vector>
 #include <memory>
 #include <iostream>
-#include "gen_ir.h"
 
 using namespace std;
 
@@ -25,6 +24,9 @@ class Statement;
 class Call;
 class Label;
 
+//this enum is used to distinguish between the two possible missing labels of a conditional branch in LLVM during backpatching.
+//for an unconditional branch (which contains only a single label) use FIRST.
+enum BranchLabelIndex {FIRST, SECOND};
 typedef vector<std::pair<int, BranchLabelIndex>> AddrList;
 
 class Node {
@@ -171,6 +173,10 @@ class Call : public Node {
         string id;
         shared_ptr<Explist> exp_list;
         string ret_type;
+        string reg;
+        AddrList true_list = {};
+        AddrList false_list = {};
+        AddrList next_list = {};
 
         Call(Node* id);
         Call(Node* id, Explist* exp_list);

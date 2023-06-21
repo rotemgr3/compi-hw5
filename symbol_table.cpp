@@ -91,11 +91,13 @@ SymbolTableStack::SymbolTableStack() : symbol_tables(), offsets() {
 
 void SymbolTableStack::push_symbol_table(bool is_loop, string return_type){
     shared_ptr<SymbolTable> new_symbol_table = make_shared<SymbolTable>(is_loop, return_type);
-    symbol_tables.push_back(new_symbol_table);
-    if (offsets.empty()){
+    if (symbol_tables.empty()){
+        symbol_tables.push_back(new_symbol_table);
         offsets.push_back(0);
     }
     else{
+        new_symbol_table->head = symbol_tables.back()->head;
+        symbol_tables.push_back(new_symbol_table);
         offsets.push_back(offsets.back());
     }
 }

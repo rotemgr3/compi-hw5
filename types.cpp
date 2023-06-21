@@ -1,6 +1,7 @@
 #include "types.h"
 #include "symbol_table.h"
 #include "hw3_output.hpp"
+#include "gen_ir.h"
 #include <string.h>
 #include <set>
 
@@ -81,7 +82,8 @@ Formaldecl::Formaldecl(Type* type, Node* id) : type(type), id(id->text) {
     }
 }
 
-Exp::Exp(Exp* exp) : type(exp->type), value(exp->value), is_var(exp->is_var) {}
+Exp::Exp(Exp* exp) : type(exp->type), value(exp->value), is_var(exp->is_var), 
+                    reg(exp->reg), true_list(exp->true_list), false_list(exp->false_list), next_list(exp->next_list) {}
 
 Exp::Exp(Exp* exp1, Node* op, Exp* exp2, Label* label){
     if (exp1->is_var){
@@ -139,24 +141,32 @@ Exp::Exp(Node* str) : value(str->text) {
     if (str->text == "true" || str->text == "false"){
         type = "bool";
         value = str->text;
+        gen_ir.gen_bool(*this);
         return;
     }
     if (str->text[0] == '\"') {
         type = "string";
+        gen_ir.gen_string(*this);
         return;
     }
     if (isdigit(str->text[0])) {
         type = "int";
+        reg = gen_ir.new_reg();
+        gen_ir.gen_int_and_byte(*this);
         return;
     }
     symbol_table_stack.verify_symbol(str->text);
     type = symbol_table_stack.get_symbol(str->text)->type;
     is_var = true;
+    gen_ir.gen_id(*this);
 }
 
 Exp::Exp(Call* call) {
     symbol_table_stack.verify_symbol(call->id);
     type = call->ret_type;
+    reg = call->reg;
+    true_list = call->true_list;
+    false_list = call->false_list;
 }
 
 Exp::Exp(Node* str1, Node* byte){
@@ -166,6 +176,8 @@ Exp::Exp(Node* str1, Node* byte){
         output::errorByteTooLarge(yylineno, str1->text);
         exit(0);
     }
+    reg = gen_ir.new_reg();
+    gen_ir.gen_int_and_byte(*this);
 }
 
 // str = not
@@ -189,6 +201,7 @@ Exp::Exp(Type* type, Exp* exp){
         }
         this->type = type->type;
         this->value = exp->value;
+        this->reg = exp->reg;
         return;
     }
     output::errorMismatch(yylineno);
@@ -271,10 +284,12 @@ Statement::Statement(Node* str) {
 
 Call::Call(Node* id) : id(id->text), exp_list(make_shared<Explist>()) {
     ret_type = symbol_table_stack.match_function_symbol(id->text, exp_list->expressions)->ret_type->type->type;
+    gen_ir.gen_call(*this);
 }
 
 Call::Call(Node* id, Explist* exp_list) : id(id->text), exp_list(exp_list) {
     ret_type = symbol_table_stack.match_function_symbol(id->text, exp_list->expressions)->ret_type->type->type;
+    gen_ir.gen_call(*this);
 }
 
 Explist::Explist(Exp* exp, Explist* exp_list) : expressions(){

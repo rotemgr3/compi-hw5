@@ -38,6 +38,8 @@ class SymbolTable{
         vector<shared_ptr<Symbol>> symbols;
         bool is_loop = false;
         string return_type;
+        string head = "";
+        
 
         SymbolTable() = default;
         SymbolTable(bool is_loop, string return_type) : symbols(), is_loop(is_loop), return_type(return_type) {};

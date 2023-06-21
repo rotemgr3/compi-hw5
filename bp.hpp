@@ -3,20 +3,19 @@
 
 #include <vector>
 #include <string>
+#include "types.h"
 
 using namespace std;
 
-//this enum is used to distinguish between the two possible missing labels of a conditional branch in LLVM during backpatching.
-//for an unconditional branch (which contains only a single label) use FIRST.
-enum BranchLabelIndex {FIRST, SECOND};
 
 class CodeBuffer{
+public:
 	CodeBuffer();
 	CodeBuffer(CodeBuffer const&);
     void operator=(CodeBuffer const&);
 	std::vector<std::string> buffer;
 	std::vector<std::string> globalDefs;
-public:
+
 	static CodeBuffer &instance();
 
 	// ******** Methods to handle the code section ******** //
