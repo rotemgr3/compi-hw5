@@ -11,9 +11,6 @@ extern int yylineno;
 extern GenIR gen_ir;
 extern CodeBuffer buffer;
 
-Label::Label() : Node() {
-    text = gen_ir.new_label();
-}
 
 Program::Program() {
     symbol_table_stack.verify_main();
@@ -34,6 +31,9 @@ Funcdecl::Funcdecl(Override* override, Rettype* return_type, Node* id, Formals* 
     }
 
     symbol_table_stack.push_function_symbol(make_shared<Funcdecl>(*this));
+
+    gen_ir.gen_funcdecl(this->id, return_type->type->type, this->formals);
+    symbol_table_stack.get_current_symbol_table()->head = gen_ir.allocate_function_frame();
 }
 
 Funcdecl::Funcdecl(shared_ptr<Override> override, shared_ptr<Rettype> return_type, shared_ptr<Node> id, shared_ptr<Formals> params) {
@@ -50,6 +50,9 @@ Funcdecl::Funcdecl(shared_ptr<Override> override, shared_ptr<Rettype> return_typ
     }
 
     symbol_table_stack.push_function_symbol(make_shared<Funcdecl>(*this), true);
+
+    gen_ir.gen_funcdecl(this->id, return_type->type->type, this->formals);
+    symbol_table_stack.get_current_symbol_table()->head = gen_ir.allocate_function_frame();
 }
 
 Formalslist::Formalslist(Formaldecl* formaldecl) : list() {
@@ -81,6 +84,9 @@ Formaldecl::Formaldecl(Type* type, Node* id) : type(type), id(id->text) {
         exit(0);
     }
 }
+
+Exp::Exp() : type(), value(), is_var(false), reg(), true_list(), false_list(), next_list() {
+} 
 
 Exp::Exp(Exp* exp) : type(exp->type), value(exp->value), is_var(exp->is_var), 
                     reg(exp->reg), true_list(exp->true_list), false_list(exp->false_list), next_list(exp->next_list) {}
@@ -210,6 +216,19 @@ Exp::Exp(Type* type, Exp* exp){
 
 Statement::Statement(Type* type, Node* id) {
     symbol_table_stack.push_symbol(type->type, id->text);
+
+    int offset = symbol_table_stack.get_symbol(id->text)->offset;
+    Exp exp = Exp();
+    exp.reg = gen_ir.new_reg();
+    exp.type = type->type;
+    if (type->type == "bool") {
+        exp.value = "false";
+        gen_ir.gen_bool(exp);
+    } else { // Int or Byte
+        exp.value = "0";
+        gen_ir.gen_int_and_byte(exp);
+        gen_ir.gen_assign(exp, offset);
+    }
 }
 
 Statement::Statement(Type* type, Node* id, Exp* exp){
@@ -223,6 +242,9 @@ Statement::Statement(Type* type, Node* id, Exp* exp){
         }  
     }
     symbol_table_stack.push_symbol(type->type, id->text);
+
+    int offset = symbol_table_stack.get_symbol(id->text)->offset;
+    gen_ir.gen_assign(*exp, offset);
 }
 
 // str = id or return
@@ -241,6 +263,49 @@ Statement::Statement(Node* str, Exp* exp) {
         if (!(symbol_table_stack.verify_return_type(exp->type))) {
             output::errorMismatch(yylineno);
             exit(0);
+        }
+        string head = symbol_table_stack.get_current_symbol_table()->head;
+        string return_type = symbol_table_stack.get_current_symbol_table()->return_type;
+        string reg;
+        auto symbol = symbol_table_stack.get_symbol(exp->value);
+        if (exp->is_var) {
+            if (symbol->type == "function") {
+                output::errorUndef(yylineno, symbol->name);
+                exit(0);
+            }
+            if (symbol->offset >= 0) {
+                reg = gen_ir.gen_load(head, symbol->offset);
+            } else {
+                reg = "%" + std::to_string(((-1) * symbol->offset -1));
+            }
+            if(exp->type == "bool"){
+                exp->reg = reg;
+                auto new_exp = gen_ir.gen_bool_exp(*exp);
+                gen_ir.gen_return(*new_exp, true);
+            } else {
+                auto new_exp = make_shared<Exp>();
+                new_exp->type = return_type;
+                new_exp->reg = reg;
+                gen_ir.gen_return(*new_exp, true);
+            }
+        } else {
+            if (exp->type == "void") {
+                buffer.emit("ret void");
+            } else if(exp->type == "bool") {
+                auto new_exp = gen_ir.gen_bool_exp(*exp);
+                gen_ir.gen_return(*new_exp, true);
+            } else {
+                if(!exp->value.empty()){
+                    if(symbol){
+                        // Function call
+                        gen_ir.gen_return(*exp, true);
+                    } else {
+                        gen_ir.gen_return(*exp, false);
+                    }
+                } else {
+                    gen_ir.gen_return(*exp, true);
+                }
+            }
         }  
     }
     else {
@@ -256,6 +321,10 @@ Statement::Statement(Node* str, Exp* exp) {
                 exit(0);
             }  
         }
+        int offset = symbol_table_stack.get_symbol(str->text)->offset;
+        if(symbol->offset >= 0 ) {
+            gen_ir.gen_assign(*exp, offset);
+        }
     }
 }
 
@@ -266,12 +335,16 @@ Statement::Statement(Node* str) {
             output::errorMismatch(yylineno);
             exit(0);
         }
+        buffer.emit("ret void");
+        return;
     }
-    else if (str->text == "break") {
+    int addr = buffer.emit("br label @");
+    if (str->text == "break") {
         if (!symbol_table_stack.is_loop()) {
             output::errorUnexpectedBreak(yylineno);
             exit(0);
         }
+        this->break_list = buffer.makelist(pair<int, BranchLabelIndex>(addr, FIRST));
     }
     // str = continue
     else {
@@ -279,7 +352,66 @@ Statement::Statement(Node* str) {
             output::errorUnexpectedContinue(yylineno);
             exit(0);
         }
+        this->cont_list = buffer.makelist(pair<int, BranchLabelIndex>(addr, FIRST));
     }
+}
+
+Statement::Statement(Call *call) {
+    Exp exp = Exp();
+    exp.type = call->ret_type;
+    exp.true_list = call->true_list;
+    exp.false_list = call->false_list;
+    gen_ir.gen_bool_exp(exp);
+}
+
+Statement::Statement(Statements *statements) {
+    break_list = buffer.merge(break_list, statements->break_list);
+    cont_list = buffer.merge(cont_list, statements->cont_list);
+}
+
+Statement::Statement(Statement* statement, Exp *exp, Label *label) {
+    if (exp->type != "bool") {
+        output::errorMismatch(yylineno);
+        exit(0);
+    }
+    break_list = buffer.merge(break_list, statement->break_list);
+    cont_list = buffer.merge(cont_list, statement->cont_list);
+
+    buffer.bpatch(exp->true_list, label->text);
+    string new_label = gen_ir.new_label();
+    buffer.emit("br label %" + new_label);
+    buffer.emit(new_label + ":");
+    buffer.bpatch(exp->false_list, new_label);
+    buffer.bpatch(exp->next_list, new_label);
+}
+
+Statement::Statement(Statement* statement1, Statement* statement2, Exp *exp, Label *true_label, Label *false_label) {
+    if (exp->type != "bool") {
+        output::errorMismatch(yylineno);
+        exit(0);
+    }
+    cont_list =  buffer.merge(statement1->cont_list, statement2->cont_list);
+    break_list = buffer.merge(statement1->break_list, statement2->break_list);
+
+    buffer.bpatch(exp->true_list, true_label->text);
+    buffer.bpatch(exp->false_list, false_label->text);
+    string new_label = gen_ir.new_label();
+    buffer.emit("br label %" + new_label);
+    buffer.emit(new_label + ":");
+    buffer.bpatch(exp->next_list, new_label);
+}
+
+Statement::Statement(Exp *exp, Label *exp_label, Label *true_label, Statement *statement) {
+    buffer.emit("br label %" + exp_label->text);
+    string new_label = gen_ir.new_label();
+    buffer.emit("br label %" + new_label);
+    buffer.emit(new_label + ":");
+
+    buffer.bpatch(exp->true_list, true_label->text);
+    buffer.bpatch(exp->false_list, new_label);
+    buffer.bpatch(exp->next_list, new_label);
+    buffer.bpatch(statement->break_list, new_label);
+    buffer.bpatch(statement->cont_list, exp_label->text);
 }
 
 Call::Call(Node* id) : id(id->text), exp_list(make_shared<Explist>()) {
@@ -293,12 +425,30 @@ Call::Call(Node* id, Explist* exp_list) : id(id->text), exp_list(exp_list) {
 }
 
 Explist::Explist(Exp* exp, Explist* exp_list) : expressions(){
-    expressions.push_back(make_shared<Exp>(*exp));
+    auto new_exp = gen_ir.gen_bool_exp(*exp);
+    expressions.push_back(new_exp);
     if (exp_list != nullptr) {
         expressions.insert(expressions.end(), exp_list->expressions.begin(), exp_list->expressions.end());
     }
 }
 
 Explist::Explist(Exp* exp) : expressions(){
-    expressions.push_back(make_shared<Exp>(*exp));
+    auto new_exp = gen_ir.gen_bool_exp(*exp);
+    expressions.push_back(new_exp);
+}
+
+Label::Label() : Node() {
+    text = gen_ir.new_label();
+    buffer.emit("br label %" + text);
+    buffer.emit(text + ":");
+}
+
+Statements::Statements(Statement *statement) : break_list(), cont_list() {
+    break_list = buffer.merge(break_list, statement->break_list);
+    cont_list = buffer.merge(cont_list, statement->cont_list);
+}
+
+Statements::Statements(Statements *statements, Statement *statement) : Node(), cont_list(), break_list() {
+    break_list = buffer.merge(statements->break_list, statement->break_list);
+    cont_list = buffer.merge(statements->cont_list, statement->cont_list);
 }

@@ -11,6 +11,8 @@
     extern int yylineno;
     extern int yylex();
     extern SymbolTableStack symbol_table_stack;
+    extern GenIR gen_ir;
+    extern CodeBuffer buffer;
     int yyerror(const char*);
 %}
 
@@ -31,7 +33,7 @@
 Program: Funcs                                                                  {$$ = new Program();}
 Funcs: /*epsilon*/                                                              {}                                            
 Funcs: FuncDecl Funcs                                                           {}                                        
-FuncDecl: OverRide RetType ID LPAREN Formals {$$ = new Funcdecl(dynamic_cast<Override*>($1), dynamic_cast<Rettype*>($2), $3, dynamic_cast<Formals*>($5));} RPAREN LBRACE Statements RBRACE Pop
+FuncDecl: OverRide RetType ID LPAREN Formals {$$ = new Funcdecl(dynamic_cast<Override*>($1), dynamic_cast<Rettype*>($2), $3, dynamic_cast<Formals*>($5));} RPAREN LBRACE Statements RBRACE Pop {gen_ir.gen_close_func(dynamic_cast<Rettype*>($2));}
 OverRide: /*epsilon*/                                                           {$$ = new Override(false);}                                                      
 OverRide: OVERRIDE                                                              {$$ = new Override(true);}
 RetType: Type                                                                   {$$ = new Rettype(dynamic_cast<Type*>($1));}
@@ -41,18 +43,18 @@ Formals: FormalsList                                                            
 FormalsList: FormalDecl                                                         {$$ = new Formalslist(dynamic_cast<Formaldecl*>($1));}
 FormalsList: FormalDecl COMMA FormalsList                                       {$$ = new Formalslist(dynamic_cast<Formaldecl*>($1), dynamic_cast<Formalslist*>($3));}
 FormalDecl: Type ID                                                             {$$ = new Formaldecl(dynamic_cast<Type*>($1), $2);}
-Statements: Statement                                                           {$$ = new Statements();}
-Statements: Statements Statement                                                {$$ = new Statements();}
-Statement: LBRACE Push Statements RBRACE Pop                                    {} 
+Statements: Statement                                                           {$$ = new Statements(dynamic_cast<Statement*>($1));}
+Statements: Statements Statement                                                {$$ = new Statements(dynamic_cast<Statements*>($1), dynamic_cast<Statement*>($2));}
+Statement: LBRACE Push Statements RBRACE Pop                                    {$$ = new Statement(dynamic_cast<Statements*>($3));}
 Statement: Type ID SC                                                           {$$ = new Statement(dynamic_cast<Type*>($1), $2);}
 Statement: Type ID ASSIGN Exp SC                                                {$$ = new Statement(dynamic_cast<Type*>($1), $2, dynamic_cast<Exp*>($4));}
 Statement: ID ASSIGN Exp SC                                                     {$$ = new Statement($1, dynamic_cast<Exp*>($3));}
-Statement: Call SC                                                              {}
+Statement: Call SC                                                              {$$ = new Statement(dynamic_cast<Call*>($1));}
 Statement: RETURN SC                                                            {$$ = new Statement($1);}
 Statement: RETURN Exp SC                                                        {$$ = new Statement($1, dynamic_cast<Exp*>($2));}
-Statement: IF LPAREN verify_bool RPAREN Push Statement {symbol_table_stack.pop_symbol_table();}
-Statement: IF LPAREN verify_bool RPAREN Push Statement ELSE {symbol_table_stack.pop_symbol_table();} Push Statement {symbol_table_stack.pop_symbol_table();}
-Statement: WHILE LPAREN verify_bool RPAREN {symbol_table_stack.push_symbol_table(true);} Statement {symbol_table_stack.pop_symbol_table();}
+Statement: IF LPAREN verify_bool RPAREN Push Label Statement   {$$ = new Statement(dynamic_cast<Statement*>($7), dynamic_cast<Exp*>($3), dynamic_cast<Label*>($6)); symbol_table_stack.pop_symbol_table();}
+Statement: IF LPAREN verify_bool RPAREN Push Label Statement ELSE {gen_ir.gen_nextlist_label(dynamic_cast<Exp*>($3)); symbol_table_stack.pop_symbol_table();} Push Label Statement {$$ = new Statement(dynamic_cast<Statement*>($7), dynamic_cast<Statement*>($12), dynamic_cast<Exp*>($3), dynamic_cast<Label*>($6), dynamic_cast<Label*>($11)); symbol_table_stack.pop_symbol_table();}
+Statement: WHILE LPAREN Label verify_bool RPAREN {symbol_table_stack.push_symbol_table(true);} Label Statement {$$ = new Statement(dynamic_cast<Exp*>($4), dynamic_cast<Label*>($3), dynamic_cast<Label*>($6), dynamic_cast<Statement*>($8)); symbol_table_stack.pop_symbol_table();}
 Statement: BREAK SC                                                             {$$ = new Statement($1);}
 Statement: CONTINUE SC                                                          {$$ = new Statement($1);}
 Call: ID LPAREN ExpList RPAREN                                                  {$$ = new Call($1, dynamic_cast<Explist*>($3));}

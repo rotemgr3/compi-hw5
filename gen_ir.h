@@ -25,8 +25,15 @@ class GenIR {
         void gen_string(Exp &exp);
         void gen_id(Exp &exp);
         string gen_load(string head, int offset);
+        void gen_store(string head, int offset, string reg);
         void gen_call(Call &call);
-
+        shared_ptr<Exp> gen_bool_exp(Exp &exp);
+        void gen_assign(Exp &exp, int offset);
+        void gen_return(Exp& exp, bool is_reg);
+        void gen_funcdecl(string id, string return_type, vector<shared_ptr<Formaldecl>> params);
+        string allocate_function_frame();
+        void gen_close_func(Rettype *rettype);
+        void gen_nextlist_label(Exp *exp);
 };
 
 #endif // GEN_IR_H

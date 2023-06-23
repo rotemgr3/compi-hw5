@@ -43,7 +43,6 @@ public:
 
 class Label : public Node {
     public:
-
         Label();
         virtual ~Label() = default;
 };
@@ -124,7 +123,11 @@ class Formals : public Node {
 
 class Statements : public Node {
     public:
-        Statements() = default;
+        AddrList cont_list;
+        AddrList break_list;
+
+        Statements(Statement *Statement); 
+        Statements(Statements *statements, Statement *statement);
         virtual ~Statements() = default;
 };
 
@@ -148,7 +151,8 @@ class Exp : public Node {
         AddrList true_list = {};
         AddrList false_list = {};
         AddrList next_list = {};
-
+        
+        Exp();
         Exp(Exp* exp);
         Exp(Exp* exp1, Node* op, Exp* exp2, Label* label = nullptr);
         Exp(Node* str); // str = id or num or string true or false
@@ -161,10 +165,25 @@ class Exp : public Node {
 
 class Statement : public Node {
     public:
+        string type;
+        string value;
+        string reg;
+        AddrList true_list = {};
+        AddrList false_list = {};
+        AddrList next_list = {};
+        AddrList cont_list = {};
+        AddrList break_list = {};
+
+        Statement() = default;
         Statement(Type* type, Node* id);
         Statement(Type* type, Node* id, Exp* exp);
         Statement(Node* str, Exp* exp); // str = id or return
         Statement(Node* str); // str = break or continue or return
+        Statement(Call *call);
+        Statement(Statements *statements);
+        Statement(Statement* statement, Exp *exp, Label *label);
+        Statement(Statement* statement1, Statement* statement2, Exp *exp, Label *true_label, Label *false_label);
+        Statement(Exp *exp, Label *exp_label, Label *true_label, Statement *statement);
         virtual ~Statement() = default;
 };
 

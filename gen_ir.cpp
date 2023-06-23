@@ -156,6 +156,12 @@ string GenIR::gen_load(string head, int offset) {
     return ret_reg;
 }
 
+void GenIR::gen_store(string head, int offset, string reg) {
+    string ptr_reg = new_reg();
+    buffer.emit(ptr_reg + " = getelementptr i32, i32* " + head + ", i32 " + std::to_string(offset));
+    buffer.emit("store i32 " + reg + ", i32* " + ptr_reg);
+}
+
 void GenIR::gen_call(Call &call) {
     call.reg = new_reg();
     string arg_str = "";
@@ -185,4 +191,93 @@ void GenIR::gen_call(Call &call) {
     } else {
         buffer.emit(call.reg + " = call  i32 @" + call.id + "(" + arg_str + ")");
     }
+}
+
+void GenIR::gen_assign(Exp &exp, int offset) {
+    if (exp.type == "bool") {
+        auto new_exp = gen_bool_exp(exp);
+        gen_store(symbol_table_stack.get_current_symbol_table()->head, offset, new_exp->reg);
+    } else {
+        gen_store(symbol_table_stack.get_current_symbol_table()->head, offset, exp.reg);
+    }
+}
+
+shared_ptr<Exp> GenIR::gen_bool_exp(Exp &exp) {
+    if (exp.type != "bool") {
+        return nullptr;
+    }
+
+    shared_ptr<Exp> new_exp = make_shared<Exp>();
+    new_exp->reg = new_reg();
+    new_exp->type = "bool";
+    string true_list = new_label();
+    string false_list = new_label();
+    string next_list = new_label();
+
+    buffer.emit("br label %" + true_list);
+    buffer.emit(true_list + ":");
+    int addr1 = buffer.emit("br label @");
+
+    buffer.emit(false_list + ":");
+    int addr2 = buffer.emit("br label @");
+
+    buffer.emit(next_list + ":");
+
+    AddrList next = buffer.merge(buffer.makelist(pair<int, BranchLabelIndex>(addr1, FIRST)),
+                               buffer.makelist(pair<int, BranchLabelIndex>(addr2, FIRST)));
+
+    buffer.bpatch(exp.true_list, true_list);
+    buffer.bpatch(exp.false_list, false_list);
+    buffer.bpatch(next, next_list);
+    buffer.emit(new_exp->reg + " = phi i32 [ 1, %" + true_list +"], [0, %" + false_list + "]");
+
+    return new_exp;
+}
+
+void GenIR::gen_return(Exp &exp, bool print_reg) {
+    string str = print_reg ? exp.reg : exp.value;
+    if (exp.type == "string") {
+        buffer.emit("ret i8* " + str);
+    } else {
+        buffer.emit("ret i32 " + str);
+    }
+}
+
+void GenIR::gen_funcdecl(string id, string return_type, vector<shared_ptr<Formaldecl>> params) {
+    string arg_str = "";
+    for (auto param : params) {
+        if (param->type->type == "string") {
+            arg_str += "i8*";
+        } else {
+            arg_str += "i32";
+        }
+        if (param != params.back())
+            arg_str += ", ";
+    }
+    string ret_type_str;
+    if (return_type == "void") {
+        ret_type_str = "void";
+    } else if (return_type == "string") {
+        ret_type_str = "i8*";
+    } else {
+        ret_type_str = "i32";
+    }
+    buffer.emit("define " + ret_type_str + " @" + id + "(" + arg_str + "){");
+}
+
+string GenIR::allocate_function_frame() {
+    string head = new_reg();
+    buffer.emit(head + " = alloca i32, i32 50");
+    return head;
+}
+
+void GenIR::gen_close_func(Rettype *rettype) {
+    string str = rettype->type->type == "void" ? "void" : "i32 0";
+    buffer.emit("ret " + str + " }");
+}
+
+void GenIR::gen_nextlist_label(Exp *exp) {
+    int addr = buffer.emit("br label @");
+    exp->next_list = buffer.merge(buffer.makelist(pair<int, BranchLabelIndex>(addr, FIRST)), exp->next_list);
+
 }
