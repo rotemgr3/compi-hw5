@@ -54,7 +54,7 @@ Statement: RETURN SC                                                            
 Statement: RETURN Exp SC                                                        {$$ = new Statement($1, dynamic_cast<Exp*>($2));}
 Statement: IF LPAREN verify_bool RPAREN Push Label Statement   {$$ = new Statement(dynamic_cast<Statement*>($7), dynamic_cast<Exp*>($3), dynamic_cast<Label*>($6)); symbol_table_stack.pop_symbol_table();}
 Statement: IF LPAREN verify_bool RPAREN Push Label Statement ELSE {gen_ir.gen_nextlist_label(dynamic_cast<Exp*>($3)); symbol_table_stack.pop_symbol_table();} Push Label Statement {$$ = new Statement(dynamic_cast<Statement*>($7), dynamic_cast<Statement*>($12), dynamic_cast<Exp*>($3), dynamic_cast<Label*>($6), dynamic_cast<Label*>($11)); symbol_table_stack.pop_symbol_table();}
-Statement: WHILE LPAREN Label verify_bool RPAREN {symbol_table_stack.push_symbol_table(true);} Label Statement {$$ = new Statement(dynamic_cast<Exp*>($4), dynamic_cast<Label*>($3), dynamic_cast<Label*>($6), dynamic_cast<Statement*>($8)); symbol_table_stack.pop_symbol_table();}
+Statement: WHILE LPAREN Label verify_bool RPAREN {symbol_table_stack.push_symbol_table(true);} Label Statement {$$ = new Statement(dynamic_cast<Exp*>($4), dynamic_cast<Label*>($3), dynamic_cast<Label*>($7), dynamic_cast<Statement*>($8)); symbol_table_stack.pop_symbol_table();}
 Statement: BREAK SC                                                             {$$ = new Statement($1);}
 Statement: CONTINUE SC                                                          {$$ = new Statement($1);}
 Call: ID LPAREN ExpList RPAREN                                                  {$$ = new Call($1, dynamic_cast<Explist*>($3));}
@@ -93,10 +93,11 @@ GenIR gen_ir = GenIR();
 CodeBuffer buffer = CodeBuffer();
 
 int main(){
-    // buffer.emit_init();
+    gen_ir.gen_init();
+    buffer.init();
     int res = yyparse();
-    // buffer.printGlobalBuffer();
-    // buffer.printCodeBuffer();
+    buffer.printGlobalBuffer();
+    buffer.printCodeBuffer();
     return res;
 }
 

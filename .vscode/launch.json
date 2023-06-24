@@ -1,0 +1,18 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/hw5",
+            "args": ["<", "./hw5_win23_tests/hw5_win23_tests/tests_student/test67.in"],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}"
+        }
+    ]
+}

@@ -119,20 +119,20 @@ void SymbolTableStack::pop_symbol_table(){
     shared_ptr<SymbolTable> symbols = symbol_tables.back();
     symbol_tables.pop_back();
     offsets.pop_back();
-    output::endScope();
-    for (auto symbol : symbols->symbols){
-        if (symbol->type == "function") {
-            shared_ptr<FunctionSymbol> function_symbol = dynamic_pointer_cast<FunctionSymbol>(symbol);
-            vector<string> args_types;
-            for (auto arg : function_symbol->args) {
-                args_types.push_back(upper(arg->type->type));
-            }
-            output::printID(symbol->name, symbol->offset, output::makeFunctionType(upper(function_symbol->ret_type->type->type), args_types));
-        }
-        else {
-            output::printID(symbol->name, symbol->offset, upper(symbol->type));
-        }
-    }
+    // output::endScope();
+    // for (auto symbol : symbols->symbols){
+    //     if (symbol->type == "function") {
+    //         shared_ptr<FunctionSymbol> function_symbol = dynamic_pointer_cast<FunctionSymbol>(symbol);
+    //         vector<string> args_types;
+    //         for (auto arg : function_symbol->args) {
+    //             args_types.push_back(upper(arg->type->type));
+    //         }
+    //         output::printID(symbol->name, symbol->offset, output::makeFunctionType(upper(function_symbol->ret_type->type->type), args_types));
+    //     }
+    //     else {
+    //         output::printID(symbol->name, symbol->offset, upper(symbol->type));
+    //     }
+    // }
 }
 
 void SymbolTableStack::push_symbol(string type, string name){

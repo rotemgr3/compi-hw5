@@ -158,6 +158,7 @@ Exp::Exp(Node* str) : value(str->text) {
     if (isdigit(str->text[0])) {
         type = "int";
         reg = gen_ir.new_reg();
+        value = str->text;
         gen_ir.gen_int_and_byte(*this);
         return;
     }
@@ -183,6 +184,7 @@ Exp::Exp(Node* str1, Node* byte){
         exit(0);
     }
     reg = gen_ir.new_reg();
+    this->value = str1->text;
     gen_ir.gen_int_and_byte(*this);
 }
 
@@ -361,7 +363,8 @@ Statement::Statement(Call *call) {
     exp.type = call->ret_type;
     exp.true_list = call->true_list;
     exp.false_list = call->false_list;
-    gen_ir.gen_bool_exp(exp);
+    if (exp.type == "bool")
+        gen_ir.gen_bool_exp(exp);
 }
 
 Statement::Statement(Statements *statements) {
@@ -425,7 +428,9 @@ Call::Call(Node* id, Explist* exp_list) : id(id->text), exp_list(exp_list) {
 }
 
 Explist::Explist(Exp* exp, Explist* exp_list) : expressions(){
-    auto new_exp = gen_ir.gen_bool_exp(*exp);
+    auto new_exp = make_shared<Exp>(*exp);
+    if (exp->type == "bool")
+        new_exp = gen_ir.gen_bool_exp(*exp);
     expressions.push_back(new_exp);
     if (exp_list != nullptr) {
         expressions.insert(expressions.end(), exp_list->expressions.begin(), exp_list->expressions.end());
@@ -433,7 +438,9 @@ Explist::Explist(Exp* exp, Explist* exp_list) : expressions(){
 }
 
 Explist::Explist(Exp* exp) : expressions(){
-    auto new_exp = gen_ir.gen_bool_exp(*exp);
+    auto new_exp = make_shared<Exp>(*exp);
+    if (exp->type == "bool")
+        new_exp = gen_ir.gen_bool_exp(*exp);
     expressions.push_back(new_exp);
 }
 

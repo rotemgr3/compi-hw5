@@ -34,6 +34,7 @@ class GenIR {
         string allocate_function_frame();
         void gen_close_func(Rettype *rettype);
         void gen_nextlist_label(Exp *exp);
+        void gen_init();
 };
 
 #endif // GEN_IR_H

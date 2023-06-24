@@ -115,8 +115,7 @@ void GenIR::gen_string(Exp &exp) {
     str.pop_back();
     string reg = new_glob_reg();
     string get_ptr = "getelementptr [" + to_string(str.length()) + " x i8], [" + to_string(str.length()) + " x i8]* " + reg + ", i32 0, i32 0";
-    str += + "\\00\"";
-    buffer.emitGlobal(reg + " = constant [" + to_string(str.length()) + " x i8] c" + str );
+    buffer.emitGlobal(reg + " = constant [" + to_string(str.length()) + " x i8] c" + str + "\\00\"");
     reg.replace(0, 1, "%");
     buffer.emit(reg + ".ptr = " + get_ptr);
     exp.reg = reg + ".ptr";
@@ -203,9 +202,9 @@ void GenIR::gen_assign(Exp &exp, int offset) {
 }
 
 shared_ptr<Exp> GenIR::gen_bool_exp(Exp &exp) {
-    if (exp.type != "bool") {
-        return nullptr;
-    }
+    // if (exp.type != "bool") {
+    //     return make_shared<Exp>(exp);
+    // }
 
     shared_ptr<Exp> new_exp = make_shared<Exp>();
     new_exp->reg = new_reg();
@@ -280,4 +279,19 @@ void GenIR::gen_nextlist_label(Exp *exp) {
     int addr = buffer.emit("br label @");
     exp->next_list = buffer.merge(buffer.makelist(pair<int, BranchLabelIndex>(addr, FIRST)), exp->next_list);
 
+}
+
+void GenIR::gen_init() {
+    buffer.emit("@.DIV_BY_ZERO_ERROR = internal constant [23 x i8] c\"Error division by zero\\00\"");
+
+    buffer.emit("define void @check_division(i32) {");
+    buffer.emit("%valid = icmp eq i32 %0, 0");
+    buffer.emit("br i1 %valid, label %ILLEGAL, label %LEGAL");
+    buffer.emit("ILLEGAL:");
+    buffer.emit("call void @printzero(i8* getelementptr([23 x i8], [23 x i8]* @.DIV_BY_ZERO_ERROR, i32 0, i32 0))");
+    buffer.emit("call void @exit(i32 0)");
+    buffer.emit("ret void");
+    buffer.emit("LEGAL:");
+    buffer.emit("ret void");
+    buffer.emit("}");
 }

@@ -1,0 +1,58 @@
+@var_3 = constant [29 x i8] c"this is the very first test!\00"
+@var_5 = constant [43 x i8] c"Here we test basic calculation and storing\00"
+@var_7 = constant [19 x i8] c"Calculating 1+2...\00"
+@var_13 = constant [16 x i8] c"the result is: \00"
+@var_18 = constant [5 x i8] c"Bye!\00"
+@.DIV_BY_ZERO_ERROR = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @printzero(i8* getelementptr([23 x i8], [23 x i8]* @.DIV_BY_ZERO_ERROR, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+@.int_internal = internal constant [4 x i8] c"%d\0A\00"
+@.DIVIDE_BY_ZERO.str = internal constant [23 x i8] c"Error division by zero\00"
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int = constant [4 x i8] c"%d\0A\00"
+@.str = constant [4 x i8] c"%s\0A\00"
+@.zero_str = constant [3 x i8] c"%s\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printzero(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([3 x i8], [3 x i8]* @.zero_str, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_internal, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_internal, i32 0, i32 0), i32 %0)
+ret void
+}
+define void @main(){
+%var_2 = alloca i32, i32 50
+%var_3.ptr = getelementptr [29 x i8], [29 x i8]* @var_3, i32 0, i32 0
+call void @print(i8* %var_3.ptr)
+%var_5.ptr = getelementptr [43 x i8], [43 x i8]* @var_5, i32 0, i32 0
+call void @print(i8* %var_5.ptr)
+%var_7.ptr = getelementptr [19 x i8], [19 x i8]* @var_7, i32 0, i32 0
+call void @print(i8* %var_7.ptr)
+%var_9 = add i32 1, 0
+%var_10 = add i32 2, 0
+%var_11 = add i32 %var_9, %var_10
+%var_12 = getelementptr i32, i32* %var_2, i32 0
+store i32 %var_11, i32* %var_12
+%var_13.ptr = getelementptr [16 x i8], [16 x i8]* @var_13, i32 0, i32 0
+call void @print(i8* %var_13.ptr)
+%var_15 = getelementptr i32, i32* %var_2, i32 0
+%var_16 = load i32, i32* %var_15
+call void @printi(i32 %var_16)
+%var_18.ptr = getelementptr [5 x i8], [5 x i8]* @var_18, i32 0, i32 0
+call void @print(i8* %var_18.ptr)
+ret void
+ret void }

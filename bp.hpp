@@ -57,6 +57,8 @@ public:
 	//print the content of the global buffer to stdout
 	void printGlobalBuffer();
 
+	void init();
+
 };
 
 #endif

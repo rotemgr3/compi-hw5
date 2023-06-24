@@ -1,0 +1,95 @@
+@.DIV_BY_ZERO_ERROR = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @printzero(i8* getelementptr([23 x i8], [23 x i8]* @.DIV_BY_ZERO_ERROR, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+@.int_internal = internal constant [4 x i8] c"%d\0A\00"
+@.DIVIDE_BY_ZERO.str = internal constant [23 x i8] c"Error division by zero\00"
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int = constant [4 x i8] c"%d\0A\00"
+@.str = constant [4 x i8] c"%s\0A\00"
+@.zero_str = constant [3 x i8] c"%s\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printzero(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([3 x i8], [3 x i8]* @.zero_str, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_internal, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_internal, i32 0, i32 0), i32 %0)
+ret void
+}
+define void @main(){
+%var_2 = alloca i32, i32 50
+%var_3 = add i32 0, 0
+%var_4 = getelementptr i32, i32* %var_2, i32 0
+store i32 %var_3, i32* %var_4
+%var_5 = getelementptr i32, i32* %var_2, i32 0
+%var_6 = load i32, i32* %var_5
+call void @printi(i32 %var_6)
+%var_8 = getelementptr i32, i32* %var_2, i32 0
+%var_9 = load i32, i32* %var_8
+%var_10 = add i32 2, 0
+%var_11 = mul i32 %var_9, %var_10
+%var_12 = and i32 255, %var_11
+call void @printi(i32 %var_12)
+%var_14 = getelementptr i32, i32* %var_2, i32 0
+%var_15 = load i32, i32* %var_14
+%var_16 = add i32 1, 0
+%var_17 = add i32 %var_15, %var_16
+%var_18 = and i32 255, %var_17
+call void @printi(i32 %var_18)
+%var_20 = add i32 0, 0
+%var_21 = add i32 1, 0
+%var_22 = sub i32 %var_20, %var_21
+%var_23 = and i32 255, %var_22
+call void @printi(i32 %var_23)
+%var_25 = getelementptr i32, i32* %var_2, i32 0
+%var_26 = load i32, i32* %var_25
+%var_27 = add i32 1, 0
+call void @check_division(i32 %var_27)
+%var_28 = udiv i32 %var_26, %var_27
+%var_29 = and i32 255, %var_28
+call void @printi(i32 %var_29)
+%var_31 = add i32 250, 0
+%var_32 = add i32 250, 0
+%var_33 = add i32 %var_31, %var_32
+%var_34 = and i32 255, %var_33
+call void @printi(i32 %var_34)
+%var_36 = add i32 250, 0
+%var_37 = add i32 2, 0
+%var_38 = mul i32 %var_36, %var_37
+%var_39 = and i32 255, %var_38
+call void @printi(i32 %var_39)
+%var_41 = add i32 8, 0
+%var_42 = add i32 2, 0
+call void @check_division(i32 %var_42)
+%var_43 = udiv i32 %var_41, %var_42
+%var_44 = and i32 255, %var_43
+call void @printi(i32 %var_44)
+%var_46 = add i32 10, 0
+%var_47 = add i32 4, 0
+call void @check_division(i32 %var_47)
+%var_48 = udiv i32 %var_46, %var_47
+%var_49 = and i32 255, %var_48
+call void @printi(i32 %var_49)
+%var_51 = getelementptr i32, i32* %var_2, i32 0
+%var_52 = load i32, i32* %var_51
+%var_53 = getelementptr i32, i32* %var_2, i32 0
+%var_54 = load i32, i32* %var_53
+call void @check_division(i32 %var_54)
+%var_55 = udiv i32 %var_52, %var_54
+%var_56 = and i32 255, %var_55
+call void @printi(i32 %var_56)
+ret void
+ret void }

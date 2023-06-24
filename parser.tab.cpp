@@ -161,7 +161,7 @@ enum yysymbol_kind_t
   YYSYMBOL_Statements = 45,                /* Statements  */
   YYSYMBOL_Statement = 46,                 /* Statement  */
   YYSYMBOL_47_2 = 47,                      /* $@2  */
-  YYSYMBOL_48_3 = 48,                      /* @3  */
+  YYSYMBOL_48_3 = 48,                      /* $@3  */
   YYSYMBOL_Call = 49,                      /* Call  */
   YYSYMBOL_ExpList = 50,                   /* ExpList  */
   YYSYMBOL_Type = 51,                      /* Type  */
@@ -579,7 +579,7 @@ static const char *const yytname[] =
   "OR", "AND", "RELOP", "PLUS", "MINUS", "MULT", "DIV", "NOT", "LPAREN",
   "RPAREN", "LBRACE", "RBRACE", "ELSE", "$accept", "Program", "Funcs",
   "FuncDecl", "@1", "OverRide", "RetType", "Formals", "FormalsList",
-  "FormalDecl", "Statements", "Statement", "$@2", "@3", "Call", "ExpList",
+  "FormalDecl", "Statements", "Statement", "$@2", "$@3", "Call", "ExpList",
   "Type", "Exp", "Push", "Pop", "verify_bool", "Label", YY_NULLPTR
 };
 
@@ -1380,15 +1380,15 @@ yyreduce:
 #line 1381 "parser.tab.cpp"
     break;
 
-  case 28: /* @3: %empty  */
+  case 28: /* $@3: %empty  */
 #line 57 "parser.ypp"
                                                  {symbol_table_stack.push_symbol_table(true);}
 #line 1387 "parser.tab.cpp"
     break;
 
-  case 29: /* Statement: WHILE LPAREN Label verify_bool RPAREN @3 Label Statement  */
+  case 29: /* Statement: WHILE LPAREN Label verify_bool RPAREN $@3 Label Statement  */
 #line 57 "parser.ypp"
-                                                                                                               {yyval = new Statement(dynamic_cast<Exp*>(yyvsp[-4]), dynamic_cast<Label*>(yyvsp[-5]), dynamic_cast<Label*>(yyvsp[-2]), dynamic_cast<Statement*>(yyvsp[0])); symbol_table_stack.pop_symbol_table();}
+                                                                                                               {yyval = new Statement(dynamic_cast<Exp*>(yyvsp[-4]), dynamic_cast<Label*>(yyvsp[-5]), dynamic_cast<Label*>(yyvsp[-1]), dynamic_cast<Statement*>(yyvsp[0])); symbol_table_stack.pop_symbol_table();}
 #line 1393 "parser.tab.cpp"
     break;
 
@@ -1775,10 +1775,11 @@ GenIR gen_ir = GenIR();
 CodeBuffer buffer = CodeBuffer();
 
 int main(){
-    // buffer.emit_init();
+    gen_ir.gen_init();
+    buffer.init();
     int res = yyparse();
-    // buffer.printGlobalBuffer();
-    // buffer.printCodeBuffer();
+    buffer.printGlobalBuffer();
+    buffer.printCodeBuffer();
     return res;
 }
 
