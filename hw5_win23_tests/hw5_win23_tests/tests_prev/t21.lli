@@ -194,52 +194,52 @@ ret i32 0 }
 define void @main(){
 %var_57 = alloca i32, i32 50
 br label %label_33
-%var_58 = add i32 5, 0
-%var_59 = add i32 15, 0
 br label %label_32
 label_32:
 br label %label_34
 label_33:
 br label %label_34
 label_34:
-%var_60 = phi i32 [ 1, %label_32], [0, %label_33]
-%var_61 = call  i32 @foo(i32 %var_60, i32 %var_58, i32 %var_59)
+%var_58 = phi i32 [ 1, %label_32], [0, %label_33]
+%var_59 = add i32 5, 0
+%var_60 = add i32 15, 0
+%var_61 = call  i32 @foo(i32 %var_58, i32 %var_59, i32 %var_60)
 call void @printi(i32 %var_61)
 br label %label_35
-%var_63 = add i32 5, 0
-%var_64 = add i32 21, 0
 br label %label_35
 label_35:
 br label %label_37
 label_36:
 br label %label_37
 label_37:
-%var_65 = phi i32 [ 1, %label_35], [0, %label_36]
-%var_66 = call  i32 @foo(i32 %var_65, i32 %var_63, i32 %var_64)
+%var_63 = phi i32 [ 1, %label_35], [0, %label_36]
+%var_64 = add i32 5, 0
+%var_65 = add i32 21, 0
+%var_66 = call  i32 @foo(i32 %var_63, i32 %var_64, i32 %var_65)
 call void @printi(i32 %var_66)
 br label %label_38
-%var_68 = add i32 11, 0
-%var_69 = add i32 4, 0
 br label %label_38
 label_38:
 br label %label_40
 label_39:
 br label %label_40
 label_40:
-%var_70 = phi i32 [ 1, %label_38], [0, %label_39]
-%var_71 = call  i32 @foo(i32 %var_70, i32 %var_68, i32 %var_69)
+%var_68 = phi i32 [ 1, %label_38], [0, %label_39]
+%var_69 = add i32 11, 0
+%var_70 = add i32 4, 0
+%var_71 = call  i32 @foo(i32 %var_68, i32 %var_69, i32 %var_70)
 call void @printi(i32 %var_71)
 br label %label_41
-%var_73 = add i32 10, 0
-%var_74 = add i32 13, 0
 br label %label_41
 label_41:
 br label %label_43
 label_42:
 br label %label_43
 label_43:
-%var_75 = phi i32 [ 1, %label_41], [0, %label_42]
-%var_76 = call  i32 @foo(i32 %var_75, i32 %var_73, i32 %var_74)
+%var_73 = phi i32 [ 1, %label_41], [0, %label_42]
+%var_74 = add i32 10, 0
+%var_75 = add i32 13, 0
+%var_76 = call  i32 @foo(i32 %var_73, i32 %var_74, i32 %var_75)
 call void @printi(i32 %var_76)
 br label %label_45
 br label %label_44

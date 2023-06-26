@@ -209,6 +209,7 @@ class Explist : public Node {
         Explist(Exp* exp, Explist* exp_list);
         Explist(Exp* exp);
         Explist() = default;
+        Explist(Explist *explist) : expressions(explist->expressions) {};
         virtual ~Explist() = default;
 };
 

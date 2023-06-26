@@ -70,10 +70,7 @@ label_7:
 ret void }
 define void @maxTestsTestMultipleBooleans(){
 %var_15 = alloca i32, i32 50
-br label %label_17
-br label %label_15
-br label %label_11
-br label %label_9
+br label %label_8
 br label %label_8
 label_8:
 br label %label_10
@@ -81,6 +78,7 @@ label_9:
 br label %label_10
 label_10:
 %var_16 = phi i32 [ 1, %label_8], [0, %label_9]
+br label %label_12
 br label %label_11
 label_11:
 br label %label_13
@@ -89,12 +87,14 @@ br label %label_13
 label_13:
 %var_17 = phi i32 [ 1, %label_11], [0, %label_12]
 br label %label_14
+br label %label_14
 label_14:
 br label %label_16
 label_15:
 br label %label_16
 label_16:
 %var_18 = phi i32 [ 1, %label_14], [0, %label_15]
+br label %label_18
 br label %label_17
 label_17:
 br label %label_19
@@ -102,7 +102,7 @@ label_18:
 br label %label_19
 label_19:
 %var_19 = phi i32 [ 1, %label_17], [0, %label_18]
-call void @Func(i32 %var_19, i32 %var_18, i32 %var_17, i32 %var_16)
+call void @Func(i32 %var_16, i32 %var_17, i32 %var_18, i32 %var_19)
 ret void }
 define void @main(){
 %var_21 = alloca i32, i32 50

@@ -125,17 +125,17 @@ define i32 @foo(){
 %var_22 = alloca i32, i32 50
 %var_23 = call i32 @TRUE()
 %var_24 = icmp eq i32 0, %var_23
-br i1 %var_24, label %label_27, label %label_26
-%var_25 = call i32 @FALSE()
-%var_26 = icmp eq i32 0, %var_25
-br i1 %var_26, label %label_24, label %label_23
+br i1 %var_24, label %label_24, label %label_23
 br label %label_23
 label_23:
 br label %label_25
 label_24:
 br label %label_25
 label_25:
-%var_27 = phi i32 [ 1, %label_23], [0, %label_24]
+%var_25 = phi i32 [ 1, %label_23], [0, %label_24]
+%var_26 = call i32 @FALSE()
+%var_27 = icmp eq i32 0, %var_26
+br i1 %var_27, label %label_27, label %label_26
 br label %label_26
 label_26:
 br label %label_28
@@ -143,7 +143,7 @@ label_27:
 br label %label_28
 label_28:
 %var_28 = phi i32 [ 1, %label_26], [0, %label_27]
-%var_29 = call i32 @OR(i32 %var_28, i32 %var_27)
+%var_29 = call i32 @OR(i32 %var_25, i32 %var_28)
 %var_30 = icmp eq i32 0, %var_29
 br i1 %var_30, label %label_31, label %label_29
 br label %label_29

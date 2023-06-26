@@ -52,8 +52,7 @@ label_3:
 ret void }
 define void @maxTestscallFunctionWithBoolean(){
 %var_9 = alloca i32, i32 50
-br label %label_7
-br label %label_5
+br label %label_4
 br label %label_4
 label_4:
 br label %label_6
@@ -61,6 +60,7 @@ label_5:
 br label %label_6
 label_6:
 %var_10 = phi i32 [ 1, %label_4], [0, %label_5]
+br label %label_8
 br label %label_7
 label_7:
 br label %label_9
@@ -68,7 +68,7 @@ label_8:
 br label %label_9
 label_9:
 %var_11 = phi i32 [ 1, %label_7], [0, %label_8]
-call void @Func(i32 %var_11, i32 %var_10)
+call void @Func(i32 %var_10, i32 %var_11)
 ret void }
 define void @main(){
 %var_13 = alloca i32, i32 50

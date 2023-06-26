@@ -82,26 +82,26 @@ define void @main(){
 %var_21 = add i32 5, 0
 %var_22 = add i32 6, 0
 %var_23 = icmp slt i32 %var_21, %var_22
-br i1 %var_23, label %label_11, label %label_12
-%var_24 = add i32 2, 0
-%var_25 = add i32 4, 0
-%var_26 = add i32 %var_24, %var_25
-br label %label_8
-%var_27 = add i32 2, 0
-%var_28 = call  i32 @inc(i32 %var_27)
+br i1 %var_23, label %label_8, label %label_9
 br label %label_8
 label_8:
 br label %label_10
 label_9:
 br label %label_10
 label_10:
-%var_29 = phi i32 [ 1, %label_8], [0, %label_9]
+%var_24 = phi i32 [ 1, %label_8], [0, %label_9]
+%var_25 = add i32 2, 0
+%var_26 = add i32 4, 0
+%var_27 = add i32 %var_25, %var_26
+br label %label_11
 br label %label_11
 label_11:
 br label %label_13
 label_12:
 br label %label_13
 label_13:
-%var_30 = phi i32 [ 1, %label_11], [0, %label_12]
-call void @printFoo(i32 %var_30, i32 %var_26, i32 %var_29, i32 %var_28)
+%var_28 = phi i32 [ 1, %label_11], [0, %label_12]
+%var_29 = add i32 2, 0
+%var_30 = call  i32 @inc(i32 %var_29)
+call void @printFoo(i32 %var_24, i32 %var_27, i32 %var_28, i32 %var_30)
 ret void }

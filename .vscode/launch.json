@@ -10,9 +10,12 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/hw5",
-            "args": ["<", "./hw5_win23_tests/hw5_win23_tests/tests_student/test67.in"],
+            "args": ["<", "./hw5_win23_tests/hw5_win23_tests/tests_student/test64.in"],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}"
+            "cwd": "${fileDirname}",
+            "skipFiles": [
+                "${workspaceFolder}/parser.tab.cpp",
+            ]
         }
     ]
 }

@@ -170,37 +170,37 @@ ret i32 %var_48
 ret i32 0 }
 define void @main(){
 %var_49 = alloca i32, i32 50
-br label %label_38
-br label %label_35
-br label %label_32
-%var_50 = add i32 1, 0
-%var_51 = add i32 2, 0
-%var_52 = add i32 3, 0
-%var_53 = add i32 4, 0
-%var_54 = add i32 5, 0
-%var_55 = add i32 6, 0
-br label %label_30
+br label %label_29
 br label %label_29
 label_29:
 br label %label_31
 label_30:
 br label %label_31
 label_31:
-%var_56 = phi i32 [ 1, %label_29], [0, %label_30]
+%var_50 = phi i32 [ 1, %label_29], [0, %label_30]
+br label %label_32
 br label %label_32
 label_32:
 br label %label_34
 label_33:
 br label %label_34
 label_34:
-%var_57 = phi i32 [ 1, %label_32], [0, %label_33]
+%var_51 = phi i32 [ 1, %label_32], [0, %label_33]
+br label %label_35
 br label %label_35
 label_35:
 br label %label_37
 label_36:
 br label %label_37
 label_37:
-%var_58 = phi i32 [ 1, %label_35], [0, %label_36]
+%var_52 = phi i32 [ 1, %label_35], [0, %label_36]
+%var_53 = add i32 1, 0
+%var_54 = add i32 2, 0
+%var_55 = add i32 3, 0
+%var_56 = add i32 4, 0
+%var_57 = add i32 5, 0
+%var_58 = add i32 6, 0
+br label %label_39
 br label %label_38
 label_38:
 br label %label_40
@@ -208,7 +208,7 @@ label_39:
 br label %label_40
 label_40:
 %var_59 = phi i32 [ 1, %label_38], [0, %label_39]
-%var_60 = call i32 @little(i32 %var_59, i32 %var_58, i32 %var_57, i32 %var_50, i32 %var_51, i32 %var_52, i32 %var_53, i32 %var_54, i32 %var_55, i32 %var_56)
+%var_60 = call i32 @little(i32 %var_50, i32 %var_51, i32 %var_52, i32 %var_53, i32 %var_54, i32 %var_55, i32 %var_56, i32 %var_57, i32 %var_58, i32 %var_59)
 %var_61 = icmp eq i32 0, %var_60
 br i1 %var_61, label %label_42, label %label_41
 br label %label_41
@@ -217,15 +217,6 @@ label_41:
 call void @print(i8* %var_62.ptr)
 br label %label_42
 label_42:
-br label %label_53
-br label %label_50
-br label %label_46
-%var_64 = add i32 9, 0
-%var_65 = add i32 8, 0
-%var_66 = add i32 7, 0
-%var_67 = add i32 6, 0
-%var_68 = add i32 5, 0
-%var_69 = add i32 4, 0
 br label %label_44
 br label %label_43
 label_43:
@@ -233,21 +224,30 @@ br label %label_45
 label_44:
 br label %label_45
 label_45:
-%var_70 = phi i32 [ 1, %label_43], [0, %label_44]
+%var_64 = phi i32 [ 1, %label_43], [0, %label_44]
+br label %label_47
 br label %label_46
 label_46:
 br label %label_48
 label_47:
 br label %label_48
 label_48:
-%var_71 = phi i32 [ 1, %label_46], [0, %label_47]
+%var_65 = phi i32 [ 1, %label_46], [0, %label_47]
+br label %label_49
 br label %label_49
 label_49:
 br label %label_51
 label_50:
 br label %label_51
 label_51:
-%var_72 = phi i32 [ 1, %label_49], [0, %label_50]
+%var_66 = phi i32 [ 1, %label_49], [0, %label_50]
+%var_67 = add i32 9, 0
+%var_68 = add i32 8, 0
+%var_69 = add i32 7, 0
+%var_70 = add i32 6, 0
+%var_71 = add i32 5, 0
+%var_72 = add i32 4, 0
+br label %label_53
 br label %label_52
 label_52:
 br label %label_54
@@ -255,7 +255,7 @@ label_53:
 br label %label_54
 label_54:
 %var_73 = phi i32 [ 1, %label_52], [0, %label_53]
-%var_74 = call i32 @little2(i32 %var_73, i32 %var_72, i32 %var_71, i32 %var_64, i32 %var_65, i32 %var_66, i32 %var_67, i32 %var_68, i32 %var_69, i32 %var_70)
+%var_74 = call i32 @little2(i32 %var_64, i32 %var_65, i32 %var_66, i32 %var_67, i32 %var_68, i32 %var_69, i32 %var_70, i32 %var_71, i32 %var_72, i32 %var_73)
 %var_75 = icmp eq i32 0, %var_74
 br i1 %var_75, label %label_56, label %label_55
 br label %label_55
@@ -264,37 +264,37 @@ label_55:
 call void @print(i8* %var_76.ptr)
 br label %label_56
 label_56:
-br label %label_66
-br label %label_64
-br label %label_60
-%var_78 = add i32 9, 0
-%var_79 = add i32 8, 0
-%var_80 = add i32 7, 0
-%var_81 = add i32 6, 0
-%var_82 = add i32 5, 0
-%var_83 = add i32 4, 0
-br label %label_58
+br label %label_57
 br label %label_57
 label_57:
 br label %label_59
 label_58:
 br label %label_59
 label_59:
-%var_84 = phi i32 [ 1, %label_57], [0, %label_58]
+%var_78 = phi i32 [ 1, %label_57], [0, %label_58]
+br label %label_61
 br label %label_60
 label_60:
 br label %label_62
 label_61:
 br label %label_62
 label_62:
-%var_85 = phi i32 [ 1, %label_60], [0, %label_61]
+%var_79 = phi i32 [ 1, %label_60], [0, %label_61]
+br label %label_63
 br label %label_63
 label_63:
 br label %label_65
 label_64:
 br label %label_65
 label_65:
-%var_86 = phi i32 [ 1, %label_63], [0, %label_64]
+%var_80 = phi i32 [ 1, %label_63], [0, %label_64]
+%var_81 = add i32 9, 0
+%var_82 = add i32 8, 0
+%var_83 = add i32 7, 0
+%var_84 = add i32 6, 0
+%var_85 = add i32 5, 0
+%var_86 = add i32 4, 0
+br label %label_67
 br label %label_66
 label_66:
 br label %label_68
@@ -302,7 +302,7 @@ label_67:
 br label %label_68
 label_68:
 %var_87 = phi i32 [ 1, %label_66], [0, %label_67]
-%var_88 = call i32 @little2(i32 %var_87, i32 %var_86, i32 %var_85, i32 %var_78, i32 %var_79, i32 %var_80, i32 %var_81, i32 %var_82, i32 %var_83, i32 %var_84)
+%var_88 = call i32 @little2(i32 %var_78, i32 %var_79, i32 %var_80, i32 %var_81, i32 %var_82, i32 %var_83, i32 %var_84, i32 %var_85, i32 %var_86, i32 %var_87)
 %var_89 = icmp eq i32 0, %var_88
 br i1 %var_89, label %label_70, label %label_69
 br label %label_69

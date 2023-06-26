@@ -35,6 +35,7 @@ class GenIR {
         void gen_close_func(Rettype *rettype);
         void gen_nextlist_label(Exp *exp);
         void gen_init();
+        Exp* gen_bool_exp2(Exp *exp);
 };
 
 #endif // GEN_IR_H

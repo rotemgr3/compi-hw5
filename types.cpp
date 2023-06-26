@@ -164,6 +164,10 @@ Exp::Exp(Node* str) : value(str->text) {
     }
     symbol_table_stack.verify_symbol(str->text);
     type = symbol_table_stack.get_symbol(str->text)->type;
+    if (type == "function") {
+        output::errorUndef(yylineno, str->text);
+        exit(0);
+    }
     is_var = true;
     gen_ir.gen_id(*this);
 }
@@ -226,6 +230,7 @@ Statement::Statement(Type* type, Node* id) {
     if (type->type == "bool") {
         exp.value = "false";
         gen_ir.gen_bool(exp);
+        gen_ir.gen_assign(exp, offset);
     } else { // Int or Byte
         exp.value = "0";
         gen_ir.gen_int_and_byte(exp);
@@ -259,10 +264,7 @@ Statement::Statement(Node* str, Exp* exp) {
             output::errorMismatch(yylineno);
             exit(0);
         }
-        if(symbol_table_stack.verify_return_type("int") && exp->type == "byte"){
-            return;
-        }
-        if (!(symbol_table_stack.verify_return_type(exp->type))) {
+        if (!(symbol_table_stack.verify_return_type(exp->type)) && !(exp->type == "byte" && symbol_table_stack.verify_return_type("int"))) {
             output::errorMismatch(yylineno);
             exit(0);
         }
@@ -429,8 +431,8 @@ Call::Call(Node* id, Explist* exp_list) : id(id->text), exp_list(exp_list) {
 
 Explist::Explist(Exp* exp, Explist* exp_list) : expressions(){
     auto new_exp = make_shared<Exp>(*exp);
-    if (exp->type == "bool")
-        new_exp = gen_ir.gen_bool_exp(*exp);
+    // if (exp->type == "bool")
+    //     new_exp = gen_ir.gen_bool_exp(*exp);
     expressions.push_back(new_exp);
     if (exp_list != nullptr) {
         expressions.insert(expressions.end(), exp_list->expressions.begin(), exp_list->expressions.end());
@@ -439,8 +441,8 @@ Explist::Explist(Exp* exp, Explist* exp_list) : expressions(){
 
 Explist::Explist(Exp* exp) : expressions(){
     auto new_exp = make_shared<Exp>(*exp);
-    if (exp->type == "bool")
-        new_exp = gen_ir.gen_bool_exp(*exp);
+    // if (exp->type == "bool")
+    //     new_exp = gen_ir.gen_bool_exp(*exp);
     expressions.push_back(new_exp);
 }
 

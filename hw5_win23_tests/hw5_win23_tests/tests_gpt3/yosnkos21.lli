@@ -53,40 +53,49 @@ ret i32 %var_15
 ret i32 0 }
 define i32 @zoo(){
 %var_16 = alloca i32, i32 50
-br label @
-%var_18 = getelementptr i32, i32* %var_16, i32 0
-%var_19 = load i32, i32* %var_18
-%var_20 = icmp eq i32 0, %var_19
-br i1 %var_20, label %label_1, label %label_0
-%var_21 = getelementptr i32, i32* %var_16, i32 0
-%var_22 = load i32, i32* %var_21
+br label %label_1
 br label %label_0
 label_0:
 br label %label_2
 label_1:
 br label %label_2
 label_2:
-%var_23 = phi i32 [ 1, %label_0], [0, %label_1]
-ret i32 %var_23
-ret i32 0 }
-define void @main(){
-%var_24 = alloca i32, i32 50
-%var_25 = call  i32 @foo()
-call void @printi(i32 %var_25)
-%var_27 = call  i32 @bar()
-call void @printi(i32 %var_27)
-%var_29 = call i32 @zoo()
-%var_30 = icmp eq i32 0, %var_29
-br i1 %var_30, label %label_4, label %label_3
+%var_18 = phi i32 [ 1, %label_0], [0, %label_1]
+%var_19 = getelementptr i32, i32* %var_16, i32 0
+store i32 %var_18, i32* %var_19
+%var_20 = getelementptr i32, i32* %var_16, i32 0
+%var_21 = load i32, i32* %var_20
+%var_22 = icmp eq i32 0, %var_21
+br i1 %var_22, label %label_4, label %label_3
+%var_23 = getelementptr i32, i32* %var_16, i32 0
+%var_24 = load i32, i32* %var_23
 br label %label_3
 label_3:
-%var_31 = add i32 1, 0
-call void @printi(i32 %var_31)
 br label %label_5
-br label %label_4
 label_4:
-%var_33 = add i32 0, 0
-call void @printi(i32 %var_33)
 br label %label_5
 label_5:
+%var_25 = phi i32 [ 1, %label_3], [0, %label_4]
+ret i32 %var_25
+ret i32 0 }
+define void @main(){
+%var_26 = alloca i32, i32 50
+%var_27 = call  i32 @foo()
+call void @printi(i32 %var_27)
+%var_29 = call  i32 @bar()
+call void @printi(i32 %var_29)
+%var_31 = call i32 @zoo()
+%var_32 = icmp eq i32 0, %var_31
+br i1 %var_32, label %label_7, label %label_6
+br label %label_6
+label_6:
+%var_33 = add i32 1, 0
+call void @printi(i32 %var_33)
+br label %label_8
+br label %label_7
+label_7:
+%var_35 = add i32 0, 0
+call void @printi(i32 %var_35)
+br label %label_8
+label_8:
 ret void }

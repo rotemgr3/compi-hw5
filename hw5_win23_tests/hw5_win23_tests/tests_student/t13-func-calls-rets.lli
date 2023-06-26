@@ -66,6 +66,7 @@ ret i32 0 }
 define i32 @func4(){
 %var_14 = alloca i32, i32 50
 %var_15 = add i32 67, 0
+ret i32 67
 ret i32 0 }
 define i32 @func5(i32){
 %var_16 = alloca i32, i32 50

@@ -159,13 +159,13 @@ define void @main(){
 %var_68 = alloca i32, i32 50
 %var_69 = add i32 5, 0
 br label %label_18
-%var_70 = add i32 144, 0
 br label %label_18
 label_18:
 br label %label_20
 label_19:
 br label %label_20
 label_20:
-%var_71 = phi i32 [ 1, %label_18], [0, %label_19]
-call void @change(i32 %var_69, i32 %var_71, i32 %var_70)
+%var_70 = phi i32 [ 1, %label_18], [0, %label_19]
+%var_71 = add i32 144, 0
+call void @change(i32 %var_69, i32 %var_70, i32 %var_71)
 ret void }
