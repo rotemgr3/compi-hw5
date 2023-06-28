@@ -20,19 +20,20 @@ Program::Program() {
 Funcdecl::Funcdecl(Override* override, Rettype* return_type, Node* id, Formals* params) {
     is_override = override->is_override;
     ret_type = make_shared<Rettype>(*return_type);
-    this->id = id->text;
     formals = params->formals_list->list;
-
+    this->id = id->text;
+    string new_name = id->text;
     for (auto formal : formals) {
         if (formal->id == id->text) {
             output::errorDef(yylineno, formal->id);
             exit(0);
         }
+        new_name += "_" + formal->type->type;
     }
-
+    
     symbol_table_stack.push_function_symbol(make_shared<Funcdecl>(*this));
-
-    gen_ir.gen_funcdecl(this->id, return_type->type->type, this->formals);
+    
+    gen_ir.gen_funcdecl(new_name, return_type->type->type, this->formals);
     symbol_table_stack.get_current_symbol_table()->head = gen_ir.allocate_function_frame();
 }
 
@@ -41,7 +42,6 @@ Funcdecl::Funcdecl(shared_ptr<Override> override, shared_ptr<Rettype> return_typ
     ret_type = return_type;
     this->id = id->text;
     formals = params->formals_list->list;
-
      for (auto formal : formals) {
         if (formal->id == id->text) {
             output::errorDef(yylineno, formal->id);
@@ -214,6 +214,10 @@ Exp::Exp(Type* type, Exp* exp){
         this->type = type->type;
         this->value = exp->value;
         this->reg = exp->reg;
+        if (type->type == "byte") {
+            this->reg = gen_ir.new_reg();
+            buffer.emit(this->reg + " = and i32 255, " + exp->reg);
+        }
         return;
     }
     output::errorMismatch(yylineno);
@@ -383,9 +387,10 @@ Statement::Statement(Statement* statement, Exp *exp, Label *label) {
     cont_list = buffer.merge(cont_list, statement->cont_list);
 
     buffer.bpatch(exp->true_list, label->text);
-    string new_label = gen_ir.new_label();
-    buffer.emit("br label %" + new_label);
-    buffer.emit(new_label + ":");
+    // string new_label = gen_ir.new_label();
+    // buffer.emit("br label %" + new_label);
+    // buffer.emit(new_label + ":");
+    string new_label = buffer.genLabel(true);
     buffer.bpatch(exp->false_list, new_label);
     buffer.bpatch(exp->next_list, new_label);
 }
@@ -400,17 +405,19 @@ Statement::Statement(Statement* statement1, Statement* statement2, Exp *exp, Lab
 
     buffer.bpatch(exp->true_list, true_label->text);
     buffer.bpatch(exp->false_list, false_label->text);
-    string new_label = gen_ir.new_label();
-    buffer.emit("br label %" + new_label);
-    buffer.emit(new_label + ":");
+    // string new_label = gen_ir.new_label();
+    // buffer.emit("br label %" + new_label);
+    // buffer.emit(new_label + ":");
+    string new_label = buffer.genLabel(true);
     buffer.bpatch(exp->next_list, new_label);
 }
 
 Statement::Statement(Exp *exp, Label *exp_label, Label *true_label, Statement *statement) {
     buffer.emit("br label %" + exp_label->text);
-    string new_label = gen_ir.new_label();
-    buffer.emit("br label %" + new_label);
-    buffer.emit(new_label + ":");
+    // string new_label = gen_ir.new_label();
+    // buffer.emit("br label %" + new_label);
+    // buffer.emit(new_label + ":");
+    string new_label = buffer.genLabel(true);
 
     buffer.bpatch(exp->true_list, true_label->text);
     buffer.bpatch(exp->false_list, new_label);
@@ -421,18 +428,27 @@ Statement::Statement(Exp *exp, Label *exp_label, Label *true_label, Statement *s
 
 Call::Call(Node* id) : id(id->text), exp_list(make_shared<Explist>()) {
     ret_type = symbol_table_stack.match_function_symbol(id->text, exp_list->expressions)->ret_type->type->type;
-    gen_ir.gen_call(*this);
+    gen_ir.gen_call(*this, id->text);
 }
 
 Call::Call(Node* id, Explist* exp_list) : id(id->text), exp_list(exp_list) {
-    ret_type = symbol_table_stack.match_function_symbol(id->text, exp_list->expressions)->ret_type->type->type;
-    gen_ir.gen_call(*this);
+    auto function_symbol = symbol_table_stack.match_function_symbol(this->id, exp_list->expressions);
+    ret_type = function_symbol->ret_type->type->type;
+    string new_name = function_symbol->name;
+    for (auto exp : function_symbol->args) {
+        new_name += "_" + exp->type->type;
+    }
+    if (exp_list->expressions.size() == 1 &&
+     (((exp_list->expressions[0]->type == "int" || exp_list->expressions[0]->type == "byte") && id->text == "printi") ||
+      exp_list->expressions[0]->type == "string" && id->text == "print")) {
+        gen_ir.gen_call(*this, id->text);
+        return;
+    }
+    gen_ir.gen_call(*this, new_name);
 }
 
 Explist::Explist(Exp* exp, Explist* exp_list) : expressions(){
     auto new_exp = make_shared<Exp>(*exp);
-    // if (exp->type == "bool")
-    //     new_exp = gen_ir.gen_bool_exp(*exp);
     expressions.push_back(new_exp);
     if (exp_list != nullptr) {
         expressions.insert(expressions.end(), exp_list->expressions.begin(), exp_list->expressions.end());
@@ -441,15 +457,14 @@ Explist::Explist(Exp* exp, Explist* exp_list) : expressions(){
 
 Explist::Explist(Exp* exp) : expressions(){
     auto new_exp = make_shared<Exp>(*exp);
-    // if (exp->type == "bool")
-    //     new_exp = gen_ir.gen_bool_exp(*exp);
     expressions.push_back(new_exp);
 }
 
 Label::Label() : Node() {
-    text = gen_ir.new_label();
-    buffer.emit("br label %" + text);
-    buffer.emit(text + ":");
+    // text = gen_ir.new_label();
+    // buffer.emit("br label %" + text);
+    // buffer.emit(text + ":");
+    text = buffer.genLabel(true);
 }
 
 Statements::Statements(Statement *statement) : break_list(), cont_list() {

@@ -1,0 +1,2392 @@
+@.division_zero_error_str = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @print(i8* getelementptr([23 x i8], [23 x i8]* @.division_zero_error_str, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int_specifier = constant [4 x i8] c"%d\0A\00"
+@.str_specifier = constant [4 x i8] c"%s\0A\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str_specifier, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0), i32 %0)
+ret void
+}
+define i32 @Int(){
+%var_2 = alloca i32, i32 50
+%var_3 = add i32 500, 0
+ret i32 500
+ret i32 0 }
+define i32 @Byte(){
+%var_4 = alloca i32, i32 50
+%var_5 = add i32 3, 0
+ret i32 3
+ret i32 0 }
+define void @main(){
+%var_6 = alloca i32, i32 50
+%var_7 = add i32 400, 0
+%var_8 = getelementptr i32, i32* %var_6, i32 0
+store i32 %var_7, i32* %var_8
+%var_9 = add i32 2, 0
+%var_10 = getelementptr i32, i32* %var_6, i32 1
+store i32 %var_9, i32* %var_10
+%var_11 = add i32 0, 0
+%var_12 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_11, i32* %var_12
+%var_13 = add i32 300, 0
+%var_14 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_13, i32* %var_14
+%var_15 = getelementptr i32, i32* %var_6, i32 2
+%var_16 = load i32, i32* %var_15
+call void @printi(i32 %var_16)
+%var_18 = getelementptr i32, i32* %var_6, i32 0
+%var_19 = load i32, i32* %var_18
+%var_20 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_19, i32* %var_20
+%var_21 = getelementptr i32, i32* %var_6, i32 2
+%var_22 = load i32, i32* %var_21
+call void @printi(i32 %var_22)
+%var_24 = call  i32 @Int()
+%var_25 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_24, i32* %var_25
+%var_26 = getelementptr i32, i32* %var_6, i32 2
+%var_27 = load i32, i32* %var_26
+call void @printi(i32 %var_27)
+%var_29 = add i32 200, 0
+%var_30 = add i32 400, 0
+%var_31 = add i32 %var_29, %var_30
+%var_32 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_31, i32* %var_32
+%var_33 = getelementptr i32, i32* %var_6, i32 2
+%var_34 = load i32, i32* %var_33
+call void @printi(i32 %var_34)
+%var_36 = add i32 350, 0
+%var_37 = add i32 2, 0
+%var_38 = mul i32 %var_36, %var_37
+%var_39 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_38, i32* %var_39
+%var_40 = getelementptr i32, i32* %var_6, i32 2
+%var_41 = load i32, i32* %var_40
+call void @printi(i32 %var_41)
+%var_43 = add i32 300, 0
+%var_44 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_43, i32* %var_44
+%var_45 = getelementptr i32, i32* %var_6, i32 2
+%var_46 = load i32, i32* %var_45
+call void @printi(i32 %var_46)
+%var_48 = getelementptr i32, i32* %var_6, i32 0
+%var_49 = load i32, i32* %var_48
+%var_50 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_49, i32* %var_50
+%var_51 = getelementptr i32, i32* %var_6, i32 2
+%var_52 = load i32, i32* %var_51
+call void @printi(i32 %var_52)
+%var_54 = call  i32 @Int()
+%var_55 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_54, i32* %var_55
+%var_56 = getelementptr i32, i32* %var_6, i32 2
+%var_57 = load i32, i32* %var_56
+call void @printi(i32 %var_57)
+%var_59 = add i32 200, 0
+%var_60 = add i32 400, 0
+%var_61 = add i32 %var_59, %var_60
+%var_62 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_61, i32* %var_62
+%var_63 = getelementptr i32, i32* %var_6, i32 2
+%var_64 = load i32, i32* %var_63
+call void @printi(i32 %var_64)
+%var_66 = add i32 350, 0
+%var_67 = add i32 2, 0
+%var_68 = mul i32 %var_66, %var_67
+%var_69 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_68, i32* %var_69
+%var_70 = getelementptr i32, i32* %var_6, i32 2
+%var_71 = load i32, i32* %var_70
+call void @printi(i32 %var_71)
+%var_73 = add i32 300, 0
+%var_74 = add i32 300, 0
+%var_75 = add i32 %var_73, %var_74
+%var_76 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_75, i32* %var_76
+%var_77 = getelementptr i32, i32* %var_6, i32 2
+%var_78 = load i32, i32* %var_77
+call void @printi(i32 %var_78)
+%var_80 = add i32 300, 0
+%var_81 = getelementptr i32, i32* %var_6, i32 0
+%var_82 = load i32, i32* %var_81
+%var_83 = add i32 %var_80, %var_82
+%var_84 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_83, i32* %var_84
+%var_85 = getelementptr i32, i32* %var_6, i32 2
+%var_86 = load i32, i32* %var_85
+call void @printi(i32 %var_86)
+%var_88 = add i32 300, 0
+%var_89 = call  i32 @Int()
+%var_90 = add i32 %var_88, %var_89
+%var_91 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_90, i32* %var_91
+%var_92 = getelementptr i32, i32* %var_6, i32 2
+%var_93 = load i32, i32* %var_92
+call void @printi(i32 %var_93)
+%var_95 = add i32 300, 0
+%var_96 = add i32 200, 0
+%var_97 = add i32 400, 0
+%var_98 = add i32 %var_96, %var_97
+%var_99 = add i32 %var_95, %var_98
+%var_100 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_99, i32* %var_100
+%var_101 = getelementptr i32, i32* %var_6, i32 2
+%var_102 = load i32, i32* %var_101
+call void @printi(i32 %var_102)
+%var_104 = add i32 300, 0
+%var_105 = add i32 350, 0
+%var_106 = add i32 2, 0
+%var_107 = mul i32 %var_105, %var_106
+%var_108 = add i32 %var_104, %var_107
+%var_109 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_108, i32* %var_109
+%var_110 = getelementptr i32, i32* %var_6, i32 2
+%var_111 = load i32, i32* %var_110
+call void @printi(i32 %var_111)
+%var_113 = getelementptr i32, i32* %var_6, i32 0
+%var_114 = load i32, i32* %var_113
+%var_115 = add i32 300, 0
+%var_116 = add i32 %var_114, %var_115
+%var_117 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_116, i32* %var_117
+%var_118 = getelementptr i32, i32* %var_6, i32 2
+%var_119 = load i32, i32* %var_118
+call void @printi(i32 %var_119)
+%var_121 = getelementptr i32, i32* %var_6, i32 0
+%var_122 = load i32, i32* %var_121
+%var_123 = getelementptr i32, i32* %var_6, i32 0
+%var_124 = load i32, i32* %var_123
+%var_125 = add i32 %var_122, %var_124
+%var_126 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_125, i32* %var_126
+%var_127 = getelementptr i32, i32* %var_6, i32 2
+%var_128 = load i32, i32* %var_127
+call void @printi(i32 %var_128)
+%var_130 = getelementptr i32, i32* %var_6, i32 0
+%var_131 = load i32, i32* %var_130
+%var_132 = call  i32 @Int()
+%var_133 = add i32 %var_131, %var_132
+%var_134 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_133, i32* %var_134
+%var_135 = getelementptr i32, i32* %var_6, i32 2
+%var_136 = load i32, i32* %var_135
+call void @printi(i32 %var_136)
+%var_138 = getelementptr i32, i32* %var_6, i32 0
+%var_139 = load i32, i32* %var_138
+%var_140 = add i32 200, 0
+%var_141 = add i32 400, 0
+%var_142 = add i32 %var_140, %var_141
+%var_143 = add i32 %var_139, %var_142
+%var_144 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_143, i32* %var_144
+%var_145 = getelementptr i32, i32* %var_6, i32 2
+%var_146 = load i32, i32* %var_145
+call void @printi(i32 %var_146)
+%var_148 = getelementptr i32, i32* %var_6, i32 0
+%var_149 = load i32, i32* %var_148
+%var_150 = add i32 350, 0
+%var_151 = add i32 2, 0
+%var_152 = mul i32 %var_150, %var_151
+%var_153 = add i32 %var_149, %var_152
+%var_154 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_153, i32* %var_154
+%var_155 = getelementptr i32, i32* %var_6, i32 2
+%var_156 = load i32, i32* %var_155
+call void @printi(i32 %var_156)
+%var_158 = call  i32 @Int()
+%var_159 = add i32 300, 0
+%var_160 = add i32 %var_158, %var_159
+%var_161 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_160, i32* %var_161
+%var_162 = getelementptr i32, i32* %var_6, i32 2
+%var_163 = load i32, i32* %var_162
+call void @printi(i32 %var_163)
+%var_165 = call  i32 @Int()
+%var_166 = getelementptr i32, i32* %var_6, i32 0
+%var_167 = load i32, i32* %var_166
+%var_168 = add i32 %var_165, %var_167
+%var_169 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_168, i32* %var_169
+%var_170 = getelementptr i32, i32* %var_6, i32 2
+%var_171 = load i32, i32* %var_170
+call void @printi(i32 %var_171)
+%var_173 = call  i32 @Int()
+%var_174 = call  i32 @Int()
+%var_175 = add i32 %var_173, %var_174
+%var_176 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_175, i32* %var_176
+%var_177 = getelementptr i32, i32* %var_6, i32 2
+%var_178 = load i32, i32* %var_177
+call void @printi(i32 %var_178)
+%var_180 = call  i32 @Int()
+%var_181 = add i32 200, 0
+%var_182 = add i32 400, 0
+%var_183 = add i32 %var_181, %var_182
+%var_184 = add i32 %var_180, %var_183
+%var_185 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_184, i32* %var_185
+%var_186 = getelementptr i32, i32* %var_6, i32 2
+%var_187 = load i32, i32* %var_186
+call void @printi(i32 %var_187)
+%var_189 = call  i32 @Int()
+%var_190 = add i32 350, 0
+%var_191 = add i32 2, 0
+%var_192 = mul i32 %var_190, %var_191
+%var_193 = add i32 %var_189, %var_192
+%var_194 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_193, i32* %var_194
+%var_195 = getelementptr i32, i32* %var_6, i32 2
+%var_196 = load i32, i32* %var_195
+call void @printi(i32 %var_196)
+%var_198 = add i32 200, 0
+%var_199 = add i32 400, 0
+%var_200 = add i32 %var_198, %var_199
+%var_201 = add i32 300, 0
+%var_202 = add i32 %var_200, %var_201
+%var_203 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_202, i32* %var_203
+%var_204 = getelementptr i32, i32* %var_6, i32 2
+%var_205 = load i32, i32* %var_204
+call void @printi(i32 %var_205)
+%var_207 = add i32 200, 0
+%var_208 = add i32 400, 0
+%var_209 = add i32 %var_207, %var_208
+%var_210 = getelementptr i32, i32* %var_6, i32 0
+%var_211 = load i32, i32* %var_210
+%var_212 = add i32 %var_209, %var_211
+%var_213 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_212, i32* %var_213
+%var_214 = getelementptr i32, i32* %var_6, i32 2
+%var_215 = load i32, i32* %var_214
+call void @printi(i32 %var_215)
+%var_217 = add i32 200, 0
+%var_218 = add i32 400, 0
+%var_219 = add i32 %var_217, %var_218
+%var_220 = call  i32 @Int()
+%var_221 = add i32 %var_219, %var_220
+%var_222 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_221, i32* %var_222
+%var_223 = getelementptr i32, i32* %var_6, i32 2
+%var_224 = load i32, i32* %var_223
+call void @printi(i32 %var_224)
+%var_226 = add i32 200, 0
+%var_227 = add i32 400, 0
+%var_228 = add i32 %var_226, %var_227
+%var_229 = add i32 200, 0
+%var_230 = add i32 400, 0
+%var_231 = add i32 %var_229, %var_230
+%var_232 = add i32 %var_228, %var_231
+%var_233 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_232, i32* %var_233
+%var_234 = getelementptr i32, i32* %var_6, i32 2
+%var_235 = load i32, i32* %var_234
+call void @printi(i32 %var_235)
+%var_237 = add i32 200, 0
+%var_238 = add i32 400, 0
+%var_239 = add i32 %var_237, %var_238
+%var_240 = add i32 350, 0
+%var_241 = add i32 2, 0
+%var_242 = mul i32 %var_240, %var_241
+%var_243 = add i32 %var_239, %var_242
+%var_244 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_243, i32* %var_244
+%var_245 = getelementptr i32, i32* %var_6, i32 2
+%var_246 = load i32, i32* %var_245
+call void @printi(i32 %var_246)
+%var_248 = add i32 350, 0
+%var_249 = add i32 2, 0
+%var_250 = mul i32 %var_248, %var_249
+%var_251 = add i32 300, 0
+%var_252 = add i32 %var_250, %var_251
+%var_253 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_252, i32* %var_253
+%var_254 = getelementptr i32, i32* %var_6, i32 2
+%var_255 = load i32, i32* %var_254
+call void @printi(i32 %var_255)
+%var_257 = add i32 350, 0
+%var_258 = add i32 2, 0
+%var_259 = mul i32 %var_257, %var_258
+%var_260 = getelementptr i32, i32* %var_6, i32 0
+%var_261 = load i32, i32* %var_260
+%var_262 = add i32 %var_259, %var_261
+%var_263 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_262, i32* %var_263
+%var_264 = getelementptr i32, i32* %var_6, i32 2
+%var_265 = load i32, i32* %var_264
+call void @printi(i32 %var_265)
+%var_267 = add i32 350, 0
+%var_268 = add i32 2, 0
+%var_269 = mul i32 %var_267, %var_268
+%var_270 = call  i32 @Int()
+%var_271 = add i32 %var_269, %var_270
+%var_272 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_271, i32* %var_272
+%var_273 = getelementptr i32, i32* %var_6, i32 2
+%var_274 = load i32, i32* %var_273
+call void @printi(i32 %var_274)
+%var_276 = add i32 350, 0
+%var_277 = add i32 2, 0
+%var_278 = mul i32 %var_276, %var_277
+%var_279 = add i32 200, 0
+%var_280 = add i32 400, 0
+%var_281 = add i32 %var_279, %var_280
+%var_282 = add i32 %var_278, %var_281
+%var_283 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_282, i32* %var_283
+%var_284 = getelementptr i32, i32* %var_6, i32 2
+%var_285 = load i32, i32* %var_284
+call void @printi(i32 %var_285)
+%var_287 = add i32 350, 0
+%var_288 = add i32 2, 0
+%var_289 = mul i32 %var_287, %var_288
+%var_290 = add i32 350, 0
+%var_291 = add i32 2, 0
+%var_292 = mul i32 %var_290, %var_291
+%var_293 = add i32 %var_289, %var_292
+%var_294 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_293, i32* %var_294
+%var_295 = getelementptr i32, i32* %var_6, i32 2
+%var_296 = load i32, i32* %var_295
+call void @printi(i32 %var_296)
+%var_298 = add i32 300, 0
+%var_299 = add i32 300, 0
+%var_300 = mul i32 %var_298, %var_299
+%var_301 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_300, i32* %var_301
+%var_302 = getelementptr i32, i32* %var_6, i32 2
+%var_303 = load i32, i32* %var_302
+call void @printi(i32 %var_303)
+%var_305 = add i32 300, 0
+%var_306 = getelementptr i32, i32* %var_6, i32 0
+%var_307 = load i32, i32* %var_306
+%var_308 = mul i32 %var_305, %var_307
+%var_309 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_308, i32* %var_309
+%var_310 = getelementptr i32, i32* %var_6, i32 2
+%var_311 = load i32, i32* %var_310
+call void @printi(i32 %var_311)
+%var_313 = add i32 300, 0
+%var_314 = call  i32 @Int()
+%var_315 = mul i32 %var_313, %var_314
+%var_316 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_315, i32* %var_316
+%var_317 = getelementptr i32, i32* %var_6, i32 2
+%var_318 = load i32, i32* %var_317
+call void @printi(i32 %var_318)
+%var_320 = add i32 300, 0
+%var_321 = add i32 200, 0
+%var_322 = add i32 400, 0
+%var_323 = add i32 %var_321, %var_322
+%var_324 = mul i32 %var_320, %var_323
+%var_325 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_324, i32* %var_325
+%var_326 = getelementptr i32, i32* %var_6, i32 2
+%var_327 = load i32, i32* %var_326
+call void @printi(i32 %var_327)
+%var_329 = add i32 300, 0
+%var_330 = add i32 350, 0
+%var_331 = mul i32 %var_329, %var_330
+%var_332 = add i32 2, 0
+%var_333 = mul i32 %var_331, %var_332
+%var_334 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_333, i32* %var_334
+%var_335 = getelementptr i32, i32* %var_6, i32 2
+%var_336 = load i32, i32* %var_335
+call void @printi(i32 %var_336)
+%var_338 = getelementptr i32, i32* %var_6, i32 0
+%var_339 = load i32, i32* %var_338
+%var_340 = add i32 300, 0
+%var_341 = mul i32 %var_339, %var_340
+%var_342 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_341, i32* %var_342
+%var_343 = getelementptr i32, i32* %var_6, i32 2
+%var_344 = load i32, i32* %var_343
+call void @printi(i32 %var_344)
+%var_346 = getelementptr i32, i32* %var_6, i32 0
+%var_347 = load i32, i32* %var_346
+%var_348 = getelementptr i32, i32* %var_6, i32 0
+%var_349 = load i32, i32* %var_348
+%var_350 = mul i32 %var_347, %var_349
+%var_351 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_350, i32* %var_351
+%var_352 = getelementptr i32, i32* %var_6, i32 2
+%var_353 = load i32, i32* %var_352
+call void @printi(i32 %var_353)
+%var_355 = getelementptr i32, i32* %var_6, i32 0
+%var_356 = load i32, i32* %var_355
+%var_357 = call  i32 @Int()
+%var_358 = mul i32 %var_356, %var_357
+%var_359 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_358, i32* %var_359
+%var_360 = getelementptr i32, i32* %var_6, i32 2
+%var_361 = load i32, i32* %var_360
+call void @printi(i32 %var_361)
+%var_363 = getelementptr i32, i32* %var_6, i32 0
+%var_364 = load i32, i32* %var_363
+%var_365 = add i32 200, 0
+%var_366 = add i32 400, 0
+%var_367 = add i32 %var_365, %var_366
+%var_368 = mul i32 %var_364, %var_367
+%var_369 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_368, i32* %var_369
+%var_370 = getelementptr i32, i32* %var_6, i32 2
+%var_371 = load i32, i32* %var_370
+call void @printi(i32 %var_371)
+%var_373 = getelementptr i32, i32* %var_6, i32 0
+%var_374 = load i32, i32* %var_373
+%var_375 = add i32 350, 0
+%var_376 = mul i32 %var_374, %var_375
+%var_377 = add i32 2, 0
+%var_378 = mul i32 %var_376, %var_377
+%var_379 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_378, i32* %var_379
+%var_380 = getelementptr i32, i32* %var_6, i32 2
+%var_381 = load i32, i32* %var_380
+call void @printi(i32 %var_381)
+%var_383 = call  i32 @Int()
+%var_384 = add i32 300, 0
+%var_385 = mul i32 %var_383, %var_384
+%var_386 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_385, i32* %var_386
+%var_387 = getelementptr i32, i32* %var_6, i32 2
+%var_388 = load i32, i32* %var_387
+call void @printi(i32 %var_388)
+%var_390 = call  i32 @Int()
+%var_391 = getelementptr i32, i32* %var_6, i32 0
+%var_392 = load i32, i32* %var_391
+%var_393 = mul i32 %var_390, %var_392
+%var_394 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_393, i32* %var_394
+%var_395 = getelementptr i32, i32* %var_6, i32 2
+%var_396 = load i32, i32* %var_395
+call void @printi(i32 %var_396)
+%var_398 = call  i32 @Int()
+%var_399 = call  i32 @Int()
+%var_400 = mul i32 %var_398, %var_399
+%var_401 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_400, i32* %var_401
+%var_402 = getelementptr i32, i32* %var_6, i32 2
+%var_403 = load i32, i32* %var_402
+call void @printi(i32 %var_403)
+%var_405 = call  i32 @Int()
+%var_406 = add i32 200, 0
+%var_407 = add i32 400, 0
+%var_408 = add i32 %var_406, %var_407
+%var_409 = mul i32 %var_405, %var_408
+%var_410 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_409, i32* %var_410
+%var_411 = getelementptr i32, i32* %var_6, i32 2
+%var_412 = load i32, i32* %var_411
+call void @printi(i32 %var_412)
+%var_414 = call  i32 @Int()
+%var_415 = add i32 350, 0
+%var_416 = mul i32 %var_414, %var_415
+%var_417 = add i32 2, 0
+%var_418 = mul i32 %var_416, %var_417
+%var_419 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_418, i32* %var_419
+%var_420 = getelementptr i32, i32* %var_6, i32 2
+%var_421 = load i32, i32* %var_420
+call void @printi(i32 %var_421)
+%var_423 = add i32 200, 0
+%var_424 = add i32 400, 0
+%var_425 = add i32 %var_423, %var_424
+%var_426 = add i32 300, 0
+%var_427 = mul i32 %var_425, %var_426
+%var_428 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_427, i32* %var_428
+%var_429 = getelementptr i32, i32* %var_6, i32 2
+%var_430 = load i32, i32* %var_429
+call void @printi(i32 %var_430)
+%var_432 = add i32 200, 0
+%var_433 = add i32 400, 0
+%var_434 = add i32 %var_432, %var_433
+%var_435 = getelementptr i32, i32* %var_6, i32 0
+%var_436 = load i32, i32* %var_435
+%var_437 = mul i32 %var_434, %var_436
+%var_438 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_437, i32* %var_438
+%var_439 = getelementptr i32, i32* %var_6, i32 2
+%var_440 = load i32, i32* %var_439
+call void @printi(i32 %var_440)
+%var_442 = add i32 200, 0
+%var_443 = add i32 400, 0
+%var_444 = add i32 %var_442, %var_443
+%var_445 = call  i32 @Int()
+%var_446 = mul i32 %var_444, %var_445
+%var_447 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_446, i32* %var_447
+%var_448 = getelementptr i32, i32* %var_6, i32 2
+%var_449 = load i32, i32* %var_448
+call void @printi(i32 %var_449)
+%var_451 = add i32 200, 0
+%var_452 = add i32 400, 0
+%var_453 = add i32 %var_451, %var_452
+%var_454 = add i32 200, 0
+%var_455 = add i32 400, 0
+%var_456 = add i32 %var_454, %var_455
+%var_457 = mul i32 %var_453, %var_456
+%var_458 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_457, i32* %var_458
+%var_459 = getelementptr i32, i32* %var_6, i32 2
+%var_460 = load i32, i32* %var_459
+call void @printi(i32 %var_460)
+%var_462 = add i32 200, 0
+%var_463 = add i32 400, 0
+%var_464 = add i32 %var_462, %var_463
+%var_465 = add i32 350, 0
+%var_466 = mul i32 %var_464, %var_465
+%var_467 = add i32 2, 0
+%var_468 = mul i32 %var_466, %var_467
+%var_469 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_468, i32* %var_469
+%var_470 = getelementptr i32, i32* %var_6, i32 2
+%var_471 = load i32, i32* %var_470
+call void @printi(i32 %var_471)
+%var_473 = add i32 350, 0
+%var_474 = add i32 2, 0
+%var_475 = mul i32 %var_473, %var_474
+%var_476 = add i32 300, 0
+%var_477 = mul i32 %var_475, %var_476
+%var_478 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_477, i32* %var_478
+%var_479 = getelementptr i32, i32* %var_6, i32 2
+%var_480 = load i32, i32* %var_479
+call void @printi(i32 %var_480)
+%var_482 = add i32 350, 0
+%var_483 = add i32 2, 0
+%var_484 = mul i32 %var_482, %var_483
+%var_485 = getelementptr i32, i32* %var_6, i32 0
+%var_486 = load i32, i32* %var_485
+%var_487 = mul i32 %var_484, %var_486
+%var_488 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_487, i32* %var_488
+%var_489 = getelementptr i32, i32* %var_6, i32 2
+%var_490 = load i32, i32* %var_489
+call void @printi(i32 %var_490)
+%var_492 = add i32 350, 0
+%var_493 = add i32 2, 0
+%var_494 = mul i32 %var_492, %var_493
+%var_495 = call  i32 @Int()
+%var_496 = mul i32 %var_494, %var_495
+%var_497 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_496, i32* %var_497
+%var_498 = getelementptr i32, i32* %var_6, i32 2
+%var_499 = load i32, i32* %var_498
+call void @printi(i32 %var_499)
+%var_501 = add i32 350, 0
+%var_502 = add i32 2, 0
+%var_503 = mul i32 %var_501, %var_502
+%var_504 = add i32 200, 0
+%var_505 = add i32 400, 0
+%var_506 = add i32 %var_504, %var_505
+%var_507 = mul i32 %var_503, %var_506
+%var_508 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_507, i32* %var_508
+%var_509 = getelementptr i32, i32* %var_6, i32 2
+%var_510 = load i32, i32* %var_509
+call void @printi(i32 %var_510)
+%var_512 = add i32 350, 0
+%var_513 = add i32 2, 0
+%var_514 = mul i32 %var_512, %var_513
+%var_515 = add i32 350, 0
+%var_516 = mul i32 %var_514, %var_515
+%var_517 = add i32 2, 0
+%var_518 = mul i32 %var_516, %var_517
+%var_519 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_518, i32* %var_519
+%var_520 = getelementptr i32, i32* %var_6, i32 2
+%var_521 = load i32, i32* %var_520
+call void @printi(i32 %var_521)
+%var_523 = add i32 1, 0
+%var_524 = add i32 300, 0
+%var_525 = add i32 %var_523, %var_524
+%var_526 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_525, i32* %var_526
+%var_527 = getelementptr i32, i32* %var_6, i32 2
+%var_528 = load i32, i32* %var_527
+call void @printi(i32 %var_528)
+%var_530 = add i32 1, 0
+%var_531 = getelementptr i32, i32* %var_6, i32 0
+%var_532 = load i32, i32* %var_531
+%var_533 = add i32 %var_530, %var_532
+%var_534 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_533, i32* %var_534
+%var_535 = getelementptr i32, i32* %var_6, i32 2
+%var_536 = load i32, i32* %var_535
+call void @printi(i32 %var_536)
+%var_538 = add i32 1, 0
+%var_539 = call  i32 @Int()
+%var_540 = add i32 %var_538, %var_539
+%var_541 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_540, i32* %var_541
+%var_542 = getelementptr i32, i32* %var_6, i32 2
+%var_543 = load i32, i32* %var_542
+call void @printi(i32 %var_543)
+%var_545 = add i32 1, 0
+%var_546 = add i32 200, 0
+%var_547 = add i32 400, 0
+%var_548 = add i32 %var_546, %var_547
+%var_549 = add i32 %var_545, %var_548
+%var_550 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_549, i32* %var_550
+%var_551 = getelementptr i32, i32* %var_6, i32 2
+%var_552 = load i32, i32* %var_551
+call void @printi(i32 %var_552)
+%var_554 = add i32 1, 0
+%var_555 = add i32 350, 0
+%var_556 = add i32 2, 0
+%var_557 = mul i32 %var_555, %var_556
+%var_558 = add i32 %var_554, %var_557
+%var_559 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_558, i32* %var_559
+%var_560 = getelementptr i32, i32* %var_6, i32 2
+%var_561 = load i32, i32* %var_560
+call void @printi(i32 %var_561)
+%var_563 = getelementptr i32, i32* %var_6, i32 1
+%var_564 = load i32, i32* %var_563
+%var_565 = add i32 300, 0
+%var_566 = add i32 %var_564, %var_565
+%var_567 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_566, i32* %var_567
+%var_568 = getelementptr i32, i32* %var_6, i32 2
+%var_569 = load i32, i32* %var_568
+call void @printi(i32 %var_569)
+%var_571 = getelementptr i32, i32* %var_6, i32 1
+%var_572 = load i32, i32* %var_571
+%var_573 = getelementptr i32, i32* %var_6, i32 0
+%var_574 = load i32, i32* %var_573
+%var_575 = add i32 %var_572, %var_574
+%var_576 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_575, i32* %var_576
+%var_577 = getelementptr i32, i32* %var_6, i32 2
+%var_578 = load i32, i32* %var_577
+call void @printi(i32 %var_578)
+%var_580 = getelementptr i32, i32* %var_6, i32 1
+%var_581 = load i32, i32* %var_580
+%var_582 = call  i32 @Int()
+%var_583 = add i32 %var_581, %var_582
+%var_584 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_583, i32* %var_584
+%var_585 = getelementptr i32, i32* %var_6, i32 2
+%var_586 = load i32, i32* %var_585
+call void @printi(i32 %var_586)
+%var_588 = getelementptr i32, i32* %var_6, i32 1
+%var_589 = load i32, i32* %var_588
+%var_590 = add i32 200, 0
+%var_591 = add i32 400, 0
+%var_592 = add i32 %var_590, %var_591
+%var_593 = add i32 %var_589, %var_592
+%var_594 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_593, i32* %var_594
+%var_595 = getelementptr i32, i32* %var_6, i32 2
+%var_596 = load i32, i32* %var_595
+call void @printi(i32 %var_596)
+%var_598 = getelementptr i32, i32* %var_6, i32 1
+%var_599 = load i32, i32* %var_598
+%var_600 = add i32 350, 0
+%var_601 = add i32 2, 0
+%var_602 = mul i32 %var_600, %var_601
+%var_603 = add i32 %var_599, %var_602
+%var_604 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_603, i32* %var_604
+%var_605 = getelementptr i32, i32* %var_6, i32 2
+%var_606 = load i32, i32* %var_605
+call void @printi(i32 %var_606)
+%var_608 = call  i32 @Byte()
+%var_609 = add i32 300, 0
+%var_610 = add i32 %var_608, %var_609
+%var_611 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_610, i32* %var_611
+%var_612 = getelementptr i32, i32* %var_6, i32 2
+%var_613 = load i32, i32* %var_612
+call void @printi(i32 %var_613)
+%var_615 = call  i32 @Byte()
+%var_616 = getelementptr i32, i32* %var_6, i32 0
+%var_617 = load i32, i32* %var_616
+%var_618 = add i32 %var_615, %var_617
+%var_619 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_618, i32* %var_619
+%var_620 = getelementptr i32, i32* %var_6, i32 2
+%var_621 = load i32, i32* %var_620
+call void @printi(i32 %var_621)
+%var_623 = call  i32 @Byte()
+%var_624 = call  i32 @Int()
+%var_625 = add i32 %var_623, %var_624
+%var_626 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_625, i32* %var_626
+%var_627 = getelementptr i32, i32* %var_6, i32 2
+%var_628 = load i32, i32* %var_627
+call void @printi(i32 %var_628)
+%var_630 = call  i32 @Byte()
+%var_631 = add i32 200, 0
+%var_632 = add i32 400, 0
+%var_633 = add i32 %var_631, %var_632
+%var_634 = add i32 %var_630, %var_633
+%var_635 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_634, i32* %var_635
+%var_636 = getelementptr i32, i32* %var_6, i32 2
+%var_637 = load i32, i32* %var_636
+call void @printi(i32 %var_637)
+%var_639 = call  i32 @Byte()
+%var_640 = add i32 350, 0
+%var_641 = add i32 2, 0
+%var_642 = mul i32 %var_640, %var_641
+%var_643 = add i32 %var_639, %var_642
+%var_644 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_643, i32* %var_644
+%var_645 = getelementptr i32, i32* %var_6, i32 2
+%var_646 = load i32, i32* %var_645
+call void @printi(i32 %var_646)
+%var_648 = add i32 1, 0
+%var_649 = add i32 3, 0
+%var_650 = add i32 %var_648, %var_649
+%var_651 = and i32 255, %var_650
+%var_652 = add i32 300, 0
+%var_653 = add i32 %var_651, %var_652
+%var_654 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_653, i32* %var_654
+%var_655 = getelementptr i32, i32* %var_6, i32 2
+%var_656 = load i32, i32* %var_655
+call void @printi(i32 %var_656)
+%var_658 = add i32 1, 0
+%var_659 = add i32 3, 0
+%var_660 = add i32 %var_658, %var_659
+%var_661 = and i32 255, %var_660
+%var_662 = getelementptr i32, i32* %var_6, i32 0
+%var_663 = load i32, i32* %var_662
+%var_664 = add i32 %var_661, %var_663
+%var_665 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_664, i32* %var_665
+%var_666 = getelementptr i32, i32* %var_6, i32 2
+%var_667 = load i32, i32* %var_666
+call void @printi(i32 %var_667)
+%var_669 = add i32 1, 0
+%var_670 = add i32 3, 0
+%var_671 = add i32 %var_669, %var_670
+%var_672 = and i32 255, %var_671
+%var_673 = call  i32 @Int()
+%var_674 = add i32 %var_672, %var_673
+%var_675 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_674, i32* %var_675
+%var_676 = getelementptr i32, i32* %var_6, i32 2
+%var_677 = load i32, i32* %var_676
+call void @printi(i32 %var_677)
+%var_679 = add i32 1, 0
+%var_680 = add i32 3, 0
+%var_681 = add i32 %var_679, %var_680
+%var_682 = and i32 255, %var_681
+%var_683 = add i32 200, 0
+%var_684 = add i32 400, 0
+%var_685 = add i32 %var_683, %var_684
+%var_686 = add i32 %var_682, %var_685
+%var_687 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_686, i32* %var_687
+%var_688 = getelementptr i32, i32* %var_6, i32 2
+%var_689 = load i32, i32* %var_688
+call void @printi(i32 %var_689)
+%var_691 = add i32 1, 0
+%var_692 = add i32 3, 0
+%var_693 = add i32 %var_691, %var_692
+%var_694 = and i32 255, %var_693
+%var_695 = add i32 350, 0
+%var_696 = add i32 2, 0
+%var_697 = mul i32 %var_695, %var_696
+%var_698 = add i32 %var_694, %var_697
+%var_699 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_698, i32* %var_699
+%var_700 = getelementptr i32, i32* %var_6, i32 2
+%var_701 = load i32, i32* %var_700
+call void @printi(i32 %var_701)
+%var_703 = add i32 2, 0
+%var_704 = add i32 4, 0
+%var_705 = mul i32 %var_703, %var_704
+%var_706 = and i32 255, %var_705
+%var_707 = add i32 300, 0
+%var_708 = add i32 %var_706, %var_707
+%var_709 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_708, i32* %var_709
+%var_710 = getelementptr i32, i32* %var_6, i32 2
+%var_711 = load i32, i32* %var_710
+call void @printi(i32 %var_711)
+%var_713 = add i32 2, 0
+%var_714 = add i32 4, 0
+%var_715 = mul i32 %var_713, %var_714
+%var_716 = and i32 255, %var_715
+%var_717 = getelementptr i32, i32* %var_6, i32 0
+%var_718 = load i32, i32* %var_717
+%var_719 = add i32 %var_716, %var_718
+%var_720 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_719, i32* %var_720
+%var_721 = getelementptr i32, i32* %var_6, i32 2
+%var_722 = load i32, i32* %var_721
+call void @printi(i32 %var_722)
+%var_724 = add i32 2, 0
+%var_725 = add i32 4, 0
+%var_726 = mul i32 %var_724, %var_725
+%var_727 = and i32 255, %var_726
+%var_728 = call  i32 @Int()
+%var_729 = add i32 %var_727, %var_728
+%var_730 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_729, i32* %var_730
+%var_731 = getelementptr i32, i32* %var_6, i32 2
+%var_732 = load i32, i32* %var_731
+call void @printi(i32 %var_732)
+%var_734 = add i32 2, 0
+%var_735 = add i32 4, 0
+%var_736 = mul i32 %var_734, %var_735
+%var_737 = and i32 255, %var_736
+%var_738 = add i32 200, 0
+%var_739 = add i32 400, 0
+%var_740 = add i32 %var_738, %var_739
+%var_741 = add i32 %var_737, %var_740
+%var_742 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_741, i32* %var_742
+%var_743 = getelementptr i32, i32* %var_6, i32 2
+%var_744 = load i32, i32* %var_743
+call void @printi(i32 %var_744)
+%var_746 = add i32 2, 0
+%var_747 = add i32 4, 0
+%var_748 = mul i32 %var_746, %var_747
+%var_749 = and i32 255, %var_748
+%var_750 = add i32 350, 0
+%var_751 = add i32 2, 0
+%var_752 = mul i32 %var_750, %var_751
+%var_753 = add i32 %var_749, %var_752
+%var_754 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_753, i32* %var_754
+%var_755 = getelementptr i32, i32* %var_6, i32 2
+%var_756 = load i32, i32* %var_755
+call void @printi(i32 %var_756)
+%var_758 = add i32 300, 0
+%var_759 = add i32 1, 0
+%var_760 = add i32 %var_758, %var_759
+%var_761 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_760, i32* %var_761
+%var_762 = getelementptr i32, i32* %var_6, i32 2
+%var_763 = load i32, i32* %var_762
+call void @printi(i32 %var_763)
+%var_765 = add i32 300, 0
+%var_766 = getelementptr i32, i32* %var_6, i32 1
+%var_767 = load i32, i32* %var_766
+%var_768 = add i32 %var_765, %var_767
+%var_769 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_768, i32* %var_769
+%var_770 = getelementptr i32, i32* %var_6, i32 2
+%var_771 = load i32, i32* %var_770
+call void @printi(i32 %var_771)
+%var_773 = add i32 300, 0
+%var_774 = call  i32 @Byte()
+%var_775 = add i32 %var_773, %var_774
+%var_776 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_775, i32* %var_776
+%var_777 = getelementptr i32, i32* %var_6, i32 2
+%var_778 = load i32, i32* %var_777
+call void @printi(i32 %var_778)
+%var_780 = add i32 300, 0
+%var_781 = add i32 1, 0
+%var_782 = add i32 3, 0
+%var_783 = add i32 %var_781, %var_782
+%var_784 = and i32 255, %var_783
+%var_785 = add i32 %var_780, %var_784
+%var_786 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_785, i32* %var_786
+%var_787 = getelementptr i32, i32* %var_6, i32 2
+%var_788 = load i32, i32* %var_787
+call void @printi(i32 %var_788)
+%var_790 = add i32 300, 0
+%var_791 = add i32 2, 0
+%var_792 = add i32 4, 0
+%var_793 = mul i32 %var_791, %var_792
+%var_794 = and i32 255, %var_793
+%var_795 = add i32 %var_790, %var_794
+%var_796 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_795, i32* %var_796
+%var_797 = getelementptr i32, i32* %var_6, i32 2
+%var_798 = load i32, i32* %var_797
+call void @printi(i32 %var_798)
+%var_800 = getelementptr i32, i32* %var_6, i32 0
+%var_801 = load i32, i32* %var_800
+%var_802 = add i32 1, 0
+%var_803 = add i32 %var_801, %var_802
+%var_804 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_803, i32* %var_804
+%var_805 = getelementptr i32, i32* %var_6, i32 2
+%var_806 = load i32, i32* %var_805
+call void @printi(i32 %var_806)
+%var_808 = getelementptr i32, i32* %var_6, i32 0
+%var_809 = load i32, i32* %var_808
+%var_810 = getelementptr i32, i32* %var_6, i32 1
+%var_811 = load i32, i32* %var_810
+%var_812 = add i32 %var_809, %var_811
+%var_813 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_812, i32* %var_813
+%var_814 = getelementptr i32, i32* %var_6, i32 2
+%var_815 = load i32, i32* %var_814
+call void @printi(i32 %var_815)
+%var_817 = getelementptr i32, i32* %var_6, i32 0
+%var_818 = load i32, i32* %var_817
+%var_819 = call  i32 @Byte()
+%var_820 = add i32 %var_818, %var_819
+%var_821 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_820, i32* %var_821
+%var_822 = getelementptr i32, i32* %var_6, i32 2
+%var_823 = load i32, i32* %var_822
+call void @printi(i32 %var_823)
+%var_825 = getelementptr i32, i32* %var_6, i32 0
+%var_826 = load i32, i32* %var_825
+%var_827 = add i32 1, 0
+%var_828 = add i32 3, 0
+%var_829 = add i32 %var_827, %var_828
+%var_830 = and i32 255, %var_829
+%var_831 = add i32 %var_826, %var_830
+%var_832 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_831, i32* %var_832
+%var_833 = getelementptr i32, i32* %var_6, i32 2
+%var_834 = load i32, i32* %var_833
+call void @printi(i32 %var_834)
+%var_836 = getelementptr i32, i32* %var_6, i32 0
+%var_837 = load i32, i32* %var_836
+%var_838 = add i32 2, 0
+%var_839 = add i32 4, 0
+%var_840 = mul i32 %var_838, %var_839
+%var_841 = and i32 255, %var_840
+%var_842 = add i32 %var_837, %var_841
+%var_843 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_842, i32* %var_843
+%var_844 = getelementptr i32, i32* %var_6, i32 2
+%var_845 = load i32, i32* %var_844
+call void @printi(i32 %var_845)
+%var_847 = call  i32 @Int()
+%var_848 = add i32 1, 0
+%var_849 = add i32 %var_847, %var_848
+%var_850 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_849, i32* %var_850
+%var_851 = getelementptr i32, i32* %var_6, i32 2
+%var_852 = load i32, i32* %var_851
+call void @printi(i32 %var_852)
+%var_854 = call  i32 @Int()
+%var_855 = getelementptr i32, i32* %var_6, i32 1
+%var_856 = load i32, i32* %var_855
+%var_857 = add i32 %var_854, %var_856
+%var_858 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_857, i32* %var_858
+%var_859 = getelementptr i32, i32* %var_6, i32 2
+%var_860 = load i32, i32* %var_859
+call void @printi(i32 %var_860)
+%var_862 = call  i32 @Int()
+%var_863 = call  i32 @Byte()
+%var_864 = add i32 %var_862, %var_863
+%var_865 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_864, i32* %var_865
+%var_866 = getelementptr i32, i32* %var_6, i32 2
+%var_867 = load i32, i32* %var_866
+call void @printi(i32 %var_867)
+%var_869 = call  i32 @Int()
+%var_870 = add i32 1, 0
+%var_871 = add i32 3, 0
+%var_872 = add i32 %var_870, %var_871
+%var_873 = and i32 255, %var_872
+%var_874 = add i32 %var_869, %var_873
+%var_875 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_874, i32* %var_875
+%var_876 = getelementptr i32, i32* %var_6, i32 2
+%var_877 = load i32, i32* %var_876
+call void @printi(i32 %var_877)
+%var_879 = call  i32 @Int()
+%var_880 = add i32 2, 0
+%var_881 = add i32 4, 0
+%var_882 = mul i32 %var_880, %var_881
+%var_883 = and i32 255, %var_882
+%var_884 = add i32 %var_879, %var_883
+%var_885 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_884, i32* %var_885
+%var_886 = getelementptr i32, i32* %var_6, i32 2
+%var_887 = load i32, i32* %var_886
+call void @printi(i32 %var_887)
+%var_889 = add i32 200, 0
+%var_890 = add i32 400, 0
+%var_891 = add i32 %var_889, %var_890
+%var_892 = add i32 1, 0
+%var_893 = add i32 %var_891, %var_892
+%var_894 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_893, i32* %var_894
+%var_895 = getelementptr i32, i32* %var_6, i32 2
+%var_896 = load i32, i32* %var_895
+call void @printi(i32 %var_896)
+%var_898 = add i32 200, 0
+%var_899 = add i32 400, 0
+%var_900 = add i32 %var_898, %var_899
+%var_901 = getelementptr i32, i32* %var_6, i32 1
+%var_902 = load i32, i32* %var_901
+%var_903 = add i32 %var_900, %var_902
+%var_904 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_903, i32* %var_904
+%var_905 = getelementptr i32, i32* %var_6, i32 2
+%var_906 = load i32, i32* %var_905
+call void @printi(i32 %var_906)
+%var_908 = add i32 200, 0
+%var_909 = add i32 400, 0
+%var_910 = add i32 %var_908, %var_909
+%var_911 = call  i32 @Byte()
+%var_912 = add i32 %var_910, %var_911
+%var_913 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_912, i32* %var_913
+%var_914 = getelementptr i32, i32* %var_6, i32 2
+%var_915 = load i32, i32* %var_914
+call void @printi(i32 %var_915)
+%var_917 = add i32 200, 0
+%var_918 = add i32 400, 0
+%var_919 = add i32 %var_917, %var_918
+%var_920 = add i32 1, 0
+%var_921 = add i32 3, 0
+%var_922 = add i32 %var_920, %var_921
+%var_923 = and i32 255, %var_922
+%var_924 = add i32 %var_919, %var_923
+%var_925 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_924, i32* %var_925
+%var_926 = getelementptr i32, i32* %var_6, i32 2
+%var_927 = load i32, i32* %var_926
+call void @printi(i32 %var_927)
+%var_929 = add i32 200, 0
+%var_930 = add i32 400, 0
+%var_931 = add i32 %var_929, %var_930
+%var_932 = add i32 2, 0
+%var_933 = add i32 4, 0
+%var_934 = mul i32 %var_932, %var_933
+%var_935 = and i32 255, %var_934
+%var_936 = add i32 %var_931, %var_935
+%var_937 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_936, i32* %var_937
+%var_938 = getelementptr i32, i32* %var_6, i32 2
+%var_939 = load i32, i32* %var_938
+call void @printi(i32 %var_939)
+%var_941 = add i32 350, 0
+%var_942 = add i32 2, 0
+%var_943 = mul i32 %var_941, %var_942
+%var_944 = add i32 1, 0
+%var_945 = add i32 %var_943, %var_944
+%var_946 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_945, i32* %var_946
+%var_947 = getelementptr i32, i32* %var_6, i32 2
+%var_948 = load i32, i32* %var_947
+call void @printi(i32 %var_948)
+%var_950 = add i32 350, 0
+%var_951 = add i32 2, 0
+%var_952 = mul i32 %var_950, %var_951
+%var_953 = getelementptr i32, i32* %var_6, i32 1
+%var_954 = load i32, i32* %var_953
+%var_955 = add i32 %var_952, %var_954
+%var_956 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_955, i32* %var_956
+%var_957 = getelementptr i32, i32* %var_6, i32 2
+%var_958 = load i32, i32* %var_957
+call void @printi(i32 %var_958)
+%var_960 = add i32 350, 0
+%var_961 = add i32 2, 0
+%var_962 = mul i32 %var_960, %var_961
+%var_963 = call  i32 @Byte()
+%var_964 = add i32 %var_962, %var_963
+%var_965 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_964, i32* %var_965
+%var_966 = getelementptr i32, i32* %var_6, i32 2
+%var_967 = load i32, i32* %var_966
+call void @printi(i32 %var_967)
+%var_969 = add i32 350, 0
+%var_970 = add i32 2, 0
+%var_971 = mul i32 %var_969, %var_970
+%var_972 = add i32 1, 0
+%var_973 = add i32 3, 0
+%var_974 = add i32 %var_972, %var_973
+%var_975 = and i32 255, %var_974
+%var_976 = add i32 %var_971, %var_975
+%var_977 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_976, i32* %var_977
+%var_978 = getelementptr i32, i32* %var_6, i32 2
+%var_979 = load i32, i32* %var_978
+call void @printi(i32 %var_979)
+%var_981 = add i32 350, 0
+%var_982 = add i32 2, 0
+%var_983 = mul i32 %var_981, %var_982
+%var_984 = add i32 2, 0
+%var_985 = add i32 4, 0
+%var_986 = mul i32 %var_984, %var_985
+%var_987 = and i32 255, %var_986
+%var_988 = add i32 %var_983, %var_987
+%var_989 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_988, i32* %var_989
+%var_990 = getelementptr i32, i32* %var_6, i32 2
+%var_991 = load i32, i32* %var_990
+call void @printi(i32 %var_991)
+%var_993 = add i32 1, 0
+%var_994 = add i32 300, 0
+%var_995 = mul i32 %var_993, %var_994
+%var_996 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_995, i32* %var_996
+%var_997 = getelementptr i32, i32* %var_6, i32 2
+%var_998 = load i32, i32* %var_997
+call void @printi(i32 %var_998)
+%var_1000 = add i32 1, 0
+%var_1001 = getelementptr i32, i32* %var_6, i32 0
+%var_1002 = load i32, i32* %var_1001
+%var_1003 = mul i32 %var_1000, %var_1002
+%var_1004 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1003, i32* %var_1004
+%var_1005 = getelementptr i32, i32* %var_6, i32 2
+%var_1006 = load i32, i32* %var_1005
+call void @printi(i32 %var_1006)
+%var_1008 = add i32 1, 0
+%var_1009 = call  i32 @Int()
+%var_1010 = mul i32 %var_1008, %var_1009
+%var_1011 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1010, i32* %var_1011
+%var_1012 = getelementptr i32, i32* %var_6, i32 2
+%var_1013 = load i32, i32* %var_1012
+call void @printi(i32 %var_1013)
+%var_1015 = add i32 1, 0
+%var_1016 = add i32 200, 0
+%var_1017 = add i32 400, 0
+%var_1018 = add i32 %var_1016, %var_1017
+%var_1019 = mul i32 %var_1015, %var_1018
+%var_1020 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1019, i32* %var_1020
+%var_1021 = getelementptr i32, i32* %var_6, i32 2
+%var_1022 = load i32, i32* %var_1021
+call void @printi(i32 %var_1022)
+%var_1024 = add i32 1, 0
+%var_1025 = add i32 350, 0
+%var_1026 = mul i32 %var_1024, %var_1025
+%var_1027 = add i32 2, 0
+%var_1028 = mul i32 %var_1026, %var_1027
+%var_1029 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1028, i32* %var_1029
+%var_1030 = getelementptr i32, i32* %var_6, i32 2
+%var_1031 = load i32, i32* %var_1030
+call void @printi(i32 %var_1031)
+%var_1033 = getelementptr i32, i32* %var_6, i32 1
+%var_1034 = load i32, i32* %var_1033
+%var_1035 = add i32 300, 0
+%var_1036 = mul i32 %var_1034, %var_1035
+%var_1037 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1036, i32* %var_1037
+%var_1038 = getelementptr i32, i32* %var_6, i32 2
+%var_1039 = load i32, i32* %var_1038
+call void @printi(i32 %var_1039)
+%var_1041 = getelementptr i32, i32* %var_6, i32 1
+%var_1042 = load i32, i32* %var_1041
+%var_1043 = getelementptr i32, i32* %var_6, i32 0
+%var_1044 = load i32, i32* %var_1043
+%var_1045 = mul i32 %var_1042, %var_1044
+%var_1046 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1045, i32* %var_1046
+%var_1047 = getelementptr i32, i32* %var_6, i32 2
+%var_1048 = load i32, i32* %var_1047
+call void @printi(i32 %var_1048)
+%var_1050 = getelementptr i32, i32* %var_6, i32 1
+%var_1051 = load i32, i32* %var_1050
+%var_1052 = call  i32 @Int()
+%var_1053 = mul i32 %var_1051, %var_1052
+%var_1054 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1053, i32* %var_1054
+%var_1055 = getelementptr i32, i32* %var_6, i32 2
+%var_1056 = load i32, i32* %var_1055
+call void @printi(i32 %var_1056)
+%var_1058 = getelementptr i32, i32* %var_6, i32 1
+%var_1059 = load i32, i32* %var_1058
+%var_1060 = add i32 200, 0
+%var_1061 = add i32 400, 0
+%var_1062 = add i32 %var_1060, %var_1061
+%var_1063 = mul i32 %var_1059, %var_1062
+%var_1064 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1063, i32* %var_1064
+%var_1065 = getelementptr i32, i32* %var_6, i32 2
+%var_1066 = load i32, i32* %var_1065
+call void @printi(i32 %var_1066)
+%var_1068 = getelementptr i32, i32* %var_6, i32 1
+%var_1069 = load i32, i32* %var_1068
+%var_1070 = add i32 350, 0
+%var_1071 = mul i32 %var_1069, %var_1070
+%var_1072 = add i32 2, 0
+%var_1073 = mul i32 %var_1071, %var_1072
+%var_1074 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1073, i32* %var_1074
+%var_1075 = getelementptr i32, i32* %var_6, i32 2
+%var_1076 = load i32, i32* %var_1075
+call void @printi(i32 %var_1076)
+%var_1078 = call  i32 @Byte()
+%var_1079 = add i32 300, 0
+%var_1080 = mul i32 %var_1078, %var_1079
+%var_1081 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1080, i32* %var_1081
+%var_1082 = getelementptr i32, i32* %var_6, i32 2
+%var_1083 = load i32, i32* %var_1082
+call void @printi(i32 %var_1083)
+%var_1085 = call  i32 @Byte()
+%var_1086 = getelementptr i32, i32* %var_6, i32 0
+%var_1087 = load i32, i32* %var_1086
+%var_1088 = mul i32 %var_1085, %var_1087
+%var_1089 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1088, i32* %var_1089
+%var_1090 = getelementptr i32, i32* %var_6, i32 2
+%var_1091 = load i32, i32* %var_1090
+call void @printi(i32 %var_1091)
+%var_1093 = call  i32 @Byte()
+%var_1094 = call  i32 @Int()
+%var_1095 = mul i32 %var_1093, %var_1094
+%var_1096 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1095, i32* %var_1096
+%var_1097 = getelementptr i32, i32* %var_6, i32 2
+%var_1098 = load i32, i32* %var_1097
+call void @printi(i32 %var_1098)
+%var_1100 = call  i32 @Byte()
+%var_1101 = add i32 200, 0
+%var_1102 = add i32 400, 0
+%var_1103 = add i32 %var_1101, %var_1102
+%var_1104 = mul i32 %var_1100, %var_1103
+%var_1105 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1104, i32* %var_1105
+%var_1106 = getelementptr i32, i32* %var_6, i32 2
+%var_1107 = load i32, i32* %var_1106
+call void @printi(i32 %var_1107)
+%var_1109 = call  i32 @Byte()
+%var_1110 = add i32 350, 0
+%var_1111 = mul i32 %var_1109, %var_1110
+%var_1112 = add i32 2, 0
+%var_1113 = mul i32 %var_1111, %var_1112
+%var_1114 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1113, i32* %var_1114
+%var_1115 = getelementptr i32, i32* %var_6, i32 2
+%var_1116 = load i32, i32* %var_1115
+call void @printi(i32 %var_1116)
+%var_1118 = add i32 1, 0
+%var_1119 = add i32 3, 0
+%var_1120 = add i32 %var_1118, %var_1119
+%var_1121 = and i32 255, %var_1120
+%var_1122 = add i32 300, 0
+%var_1123 = mul i32 %var_1121, %var_1122
+%var_1124 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1123, i32* %var_1124
+%var_1125 = getelementptr i32, i32* %var_6, i32 2
+%var_1126 = load i32, i32* %var_1125
+call void @printi(i32 %var_1126)
+%var_1128 = add i32 1, 0
+%var_1129 = add i32 3, 0
+%var_1130 = add i32 %var_1128, %var_1129
+%var_1131 = and i32 255, %var_1130
+%var_1132 = getelementptr i32, i32* %var_6, i32 0
+%var_1133 = load i32, i32* %var_1132
+%var_1134 = mul i32 %var_1131, %var_1133
+%var_1135 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1134, i32* %var_1135
+%var_1136 = getelementptr i32, i32* %var_6, i32 2
+%var_1137 = load i32, i32* %var_1136
+call void @printi(i32 %var_1137)
+%var_1139 = add i32 1, 0
+%var_1140 = add i32 3, 0
+%var_1141 = add i32 %var_1139, %var_1140
+%var_1142 = and i32 255, %var_1141
+%var_1143 = call  i32 @Int()
+%var_1144 = mul i32 %var_1142, %var_1143
+%var_1145 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1144, i32* %var_1145
+%var_1146 = getelementptr i32, i32* %var_6, i32 2
+%var_1147 = load i32, i32* %var_1146
+call void @printi(i32 %var_1147)
+%var_1149 = add i32 1, 0
+%var_1150 = add i32 3, 0
+%var_1151 = add i32 %var_1149, %var_1150
+%var_1152 = and i32 255, %var_1151
+%var_1153 = add i32 200, 0
+%var_1154 = add i32 400, 0
+%var_1155 = add i32 %var_1153, %var_1154
+%var_1156 = mul i32 %var_1152, %var_1155
+%var_1157 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1156, i32* %var_1157
+%var_1158 = getelementptr i32, i32* %var_6, i32 2
+%var_1159 = load i32, i32* %var_1158
+call void @printi(i32 %var_1159)
+%var_1161 = add i32 1, 0
+%var_1162 = add i32 3, 0
+%var_1163 = add i32 %var_1161, %var_1162
+%var_1164 = and i32 255, %var_1163
+%var_1165 = add i32 350, 0
+%var_1166 = mul i32 %var_1164, %var_1165
+%var_1167 = add i32 2, 0
+%var_1168 = mul i32 %var_1166, %var_1167
+%var_1169 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1168, i32* %var_1169
+%var_1170 = getelementptr i32, i32* %var_6, i32 2
+%var_1171 = load i32, i32* %var_1170
+call void @printi(i32 %var_1171)
+%var_1173 = add i32 2, 0
+%var_1174 = add i32 4, 0
+%var_1175 = mul i32 %var_1173, %var_1174
+%var_1176 = and i32 255, %var_1175
+%var_1177 = add i32 300, 0
+%var_1178 = mul i32 %var_1176, %var_1177
+%var_1179 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1178, i32* %var_1179
+%var_1180 = getelementptr i32, i32* %var_6, i32 2
+%var_1181 = load i32, i32* %var_1180
+call void @printi(i32 %var_1181)
+%var_1183 = add i32 2, 0
+%var_1184 = add i32 4, 0
+%var_1185 = mul i32 %var_1183, %var_1184
+%var_1186 = and i32 255, %var_1185
+%var_1187 = getelementptr i32, i32* %var_6, i32 0
+%var_1188 = load i32, i32* %var_1187
+%var_1189 = mul i32 %var_1186, %var_1188
+%var_1190 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1189, i32* %var_1190
+%var_1191 = getelementptr i32, i32* %var_6, i32 2
+%var_1192 = load i32, i32* %var_1191
+call void @printi(i32 %var_1192)
+%var_1194 = add i32 2, 0
+%var_1195 = add i32 4, 0
+%var_1196 = mul i32 %var_1194, %var_1195
+%var_1197 = and i32 255, %var_1196
+%var_1198 = call  i32 @Int()
+%var_1199 = mul i32 %var_1197, %var_1198
+%var_1200 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1199, i32* %var_1200
+%var_1201 = getelementptr i32, i32* %var_6, i32 2
+%var_1202 = load i32, i32* %var_1201
+call void @printi(i32 %var_1202)
+%var_1204 = add i32 2, 0
+%var_1205 = add i32 4, 0
+%var_1206 = mul i32 %var_1204, %var_1205
+%var_1207 = and i32 255, %var_1206
+%var_1208 = add i32 200, 0
+%var_1209 = add i32 400, 0
+%var_1210 = add i32 %var_1208, %var_1209
+%var_1211 = mul i32 %var_1207, %var_1210
+%var_1212 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1211, i32* %var_1212
+%var_1213 = getelementptr i32, i32* %var_6, i32 2
+%var_1214 = load i32, i32* %var_1213
+call void @printi(i32 %var_1214)
+%var_1216 = add i32 2, 0
+%var_1217 = add i32 4, 0
+%var_1218 = mul i32 %var_1216, %var_1217
+%var_1219 = and i32 255, %var_1218
+%var_1220 = add i32 350, 0
+%var_1221 = mul i32 %var_1219, %var_1220
+%var_1222 = add i32 2, 0
+%var_1223 = mul i32 %var_1221, %var_1222
+%var_1224 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1223, i32* %var_1224
+%var_1225 = getelementptr i32, i32* %var_6, i32 2
+%var_1226 = load i32, i32* %var_1225
+call void @printi(i32 %var_1226)
+%var_1228 = add i32 300, 0
+%var_1229 = add i32 1, 0
+%var_1230 = mul i32 %var_1228, %var_1229
+%var_1231 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1230, i32* %var_1231
+%var_1232 = getelementptr i32, i32* %var_6, i32 2
+%var_1233 = load i32, i32* %var_1232
+call void @printi(i32 %var_1233)
+%var_1235 = add i32 300, 0
+%var_1236 = getelementptr i32, i32* %var_6, i32 1
+%var_1237 = load i32, i32* %var_1236
+%var_1238 = mul i32 %var_1235, %var_1237
+%var_1239 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1238, i32* %var_1239
+%var_1240 = getelementptr i32, i32* %var_6, i32 2
+%var_1241 = load i32, i32* %var_1240
+call void @printi(i32 %var_1241)
+%var_1243 = add i32 300, 0
+%var_1244 = call  i32 @Byte()
+%var_1245 = mul i32 %var_1243, %var_1244
+%var_1246 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1245, i32* %var_1246
+%var_1247 = getelementptr i32, i32* %var_6, i32 2
+%var_1248 = load i32, i32* %var_1247
+call void @printi(i32 %var_1248)
+%var_1250 = add i32 300, 0
+%var_1251 = add i32 1, 0
+%var_1252 = add i32 3, 0
+%var_1253 = add i32 %var_1251, %var_1252
+%var_1254 = and i32 255, %var_1253
+%var_1255 = mul i32 %var_1250, %var_1254
+%var_1256 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1255, i32* %var_1256
+%var_1257 = getelementptr i32, i32* %var_6, i32 2
+%var_1258 = load i32, i32* %var_1257
+call void @printi(i32 %var_1258)
+%var_1260 = add i32 300, 0
+%var_1261 = add i32 2, 0
+%var_1262 = mul i32 %var_1260, %var_1261
+%var_1263 = add i32 4, 0
+%var_1264 = mul i32 %var_1262, %var_1263
+%var_1265 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1264, i32* %var_1265
+%var_1266 = getelementptr i32, i32* %var_6, i32 2
+%var_1267 = load i32, i32* %var_1266
+call void @printi(i32 %var_1267)
+%var_1269 = getelementptr i32, i32* %var_6, i32 0
+%var_1270 = load i32, i32* %var_1269
+%var_1271 = add i32 1, 0
+%var_1272 = mul i32 %var_1270, %var_1271
+%var_1273 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1272, i32* %var_1273
+%var_1274 = getelementptr i32, i32* %var_6, i32 2
+%var_1275 = load i32, i32* %var_1274
+call void @printi(i32 %var_1275)
+%var_1277 = getelementptr i32, i32* %var_6, i32 0
+%var_1278 = load i32, i32* %var_1277
+%var_1279 = getelementptr i32, i32* %var_6, i32 1
+%var_1280 = load i32, i32* %var_1279
+%var_1281 = mul i32 %var_1278, %var_1280
+%var_1282 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1281, i32* %var_1282
+%var_1283 = getelementptr i32, i32* %var_6, i32 2
+%var_1284 = load i32, i32* %var_1283
+call void @printi(i32 %var_1284)
+%var_1286 = getelementptr i32, i32* %var_6, i32 0
+%var_1287 = load i32, i32* %var_1286
+%var_1288 = call  i32 @Byte()
+%var_1289 = mul i32 %var_1287, %var_1288
+%var_1290 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1289, i32* %var_1290
+%var_1291 = getelementptr i32, i32* %var_6, i32 2
+%var_1292 = load i32, i32* %var_1291
+call void @printi(i32 %var_1292)
+%var_1294 = getelementptr i32, i32* %var_6, i32 0
+%var_1295 = load i32, i32* %var_1294
+%var_1296 = add i32 1, 0
+%var_1297 = add i32 3, 0
+%var_1298 = add i32 %var_1296, %var_1297
+%var_1299 = and i32 255, %var_1298
+%var_1300 = mul i32 %var_1295, %var_1299
+%var_1301 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1300, i32* %var_1301
+%var_1302 = getelementptr i32, i32* %var_6, i32 2
+%var_1303 = load i32, i32* %var_1302
+call void @printi(i32 %var_1303)
+%var_1305 = getelementptr i32, i32* %var_6, i32 0
+%var_1306 = load i32, i32* %var_1305
+%var_1307 = add i32 2, 0
+%var_1308 = mul i32 %var_1306, %var_1307
+%var_1309 = add i32 4, 0
+%var_1310 = mul i32 %var_1308, %var_1309
+%var_1311 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1310, i32* %var_1311
+%var_1312 = getelementptr i32, i32* %var_6, i32 2
+%var_1313 = load i32, i32* %var_1312
+call void @printi(i32 %var_1313)
+%var_1315 = call  i32 @Int()
+%var_1316 = add i32 1, 0
+%var_1317 = mul i32 %var_1315, %var_1316
+%var_1318 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1317, i32* %var_1318
+%var_1319 = getelementptr i32, i32* %var_6, i32 2
+%var_1320 = load i32, i32* %var_1319
+call void @printi(i32 %var_1320)
+%var_1322 = call  i32 @Int()
+%var_1323 = getelementptr i32, i32* %var_6, i32 1
+%var_1324 = load i32, i32* %var_1323
+%var_1325 = mul i32 %var_1322, %var_1324
+%var_1326 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1325, i32* %var_1326
+%var_1327 = getelementptr i32, i32* %var_6, i32 2
+%var_1328 = load i32, i32* %var_1327
+call void @printi(i32 %var_1328)
+%var_1330 = call  i32 @Int()
+%var_1331 = call  i32 @Byte()
+%var_1332 = mul i32 %var_1330, %var_1331
+%var_1333 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1332, i32* %var_1333
+%var_1334 = getelementptr i32, i32* %var_6, i32 2
+%var_1335 = load i32, i32* %var_1334
+call void @printi(i32 %var_1335)
+%var_1337 = call  i32 @Int()
+%var_1338 = add i32 1, 0
+%var_1339 = add i32 3, 0
+%var_1340 = add i32 %var_1338, %var_1339
+%var_1341 = and i32 255, %var_1340
+%var_1342 = mul i32 %var_1337, %var_1341
+%var_1343 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1342, i32* %var_1343
+%var_1344 = getelementptr i32, i32* %var_6, i32 2
+%var_1345 = load i32, i32* %var_1344
+call void @printi(i32 %var_1345)
+%var_1347 = call  i32 @Int()
+%var_1348 = add i32 2, 0
+%var_1349 = mul i32 %var_1347, %var_1348
+%var_1350 = add i32 4, 0
+%var_1351 = mul i32 %var_1349, %var_1350
+%var_1352 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1351, i32* %var_1352
+%var_1353 = getelementptr i32, i32* %var_6, i32 2
+%var_1354 = load i32, i32* %var_1353
+call void @printi(i32 %var_1354)
+%var_1356 = add i32 200, 0
+%var_1357 = add i32 400, 0
+%var_1358 = add i32 %var_1356, %var_1357
+%var_1359 = add i32 1, 0
+%var_1360 = mul i32 %var_1358, %var_1359
+%var_1361 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1360, i32* %var_1361
+%var_1362 = getelementptr i32, i32* %var_6, i32 2
+%var_1363 = load i32, i32* %var_1362
+call void @printi(i32 %var_1363)
+%var_1365 = add i32 200, 0
+%var_1366 = add i32 400, 0
+%var_1367 = add i32 %var_1365, %var_1366
+%var_1368 = getelementptr i32, i32* %var_6, i32 1
+%var_1369 = load i32, i32* %var_1368
+%var_1370 = mul i32 %var_1367, %var_1369
+%var_1371 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1370, i32* %var_1371
+%var_1372 = getelementptr i32, i32* %var_6, i32 2
+%var_1373 = load i32, i32* %var_1372
+call void @printi(i32 %var_1373)
+%var_1375 = add i32 200, 0
+%var_1376 = add i32 400, 0
+%var_1377 = add i32 %var_1375, %var_1376
+%var_1378 = call  i32 @Byte()
+%var_1379 = mul i32 %var_1377, %var_1378
+%var_1380 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1379, i32* %var_1380
+%var_1381 = getelementptr i32, i32* %var_6, i32 2
+%var_1382 = load i32, i32* %var_1381
+call void @printi(i32 %var_1382)
+%var_1384 = add i32 200, 0
+%var_1385 = add i32 400, 0
+%var_1386 = add i32 %var_1384, %var_1385
+%var_1387 = add i32 1, 0
+%var_1388 = add i32 3, 0
+%var_1389 = add i32 %var_1387, %var_1388
+%var_1390 = and i32 255, %var_1389
+%var_1391 = mul i32 %var_1386, %var_1390
+%var_1392 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1391, i32* %var_1392
+%var_1393 = getelementptr i32, i32* %var_6, i32 2
+%var_1394 = load i32, i32* %var_1393
+call void @printi(i32 %var_1394)
+%var_1396 = add i32 200, 0
+%var_1397 = add i32 400, 0
+%var_1398 = add i32 %var_1396, %var_1397
+%var_1399 = add i32 2, 0
+%var_1400 = mul i32 %var_1398, %var_1399
+%var_1401 = add i32 4, 0
+%var_1402 = mul i32 %var_1400, %var_1401
+%var_1403 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1402, i32* %var_1403
+%var_1404 = getelementptr i32, i32* %var_6, i32 2
+%var_1405 = load i32, i32* %var_1404
+call void @printi(i32 %var_1405)
+%var_1407 = add i32 350, 0
+%var_1408 = add i32 2, 0
+%var_1409 = mul i32 %var_1407, %var_1408
+%var_1410 = add i32 1, 0
+%var_1411 = mul i32 %var_1409, %var_1410
+%var_1412 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1411, i32* %var_1412
+%var_1413 = getelementptr i32, i32* %var_6, i32 2
+%var_1414 = load i32, i32* %var_1413
+call void @printi(i32 %var_1414)
+%var_1416 = add i32 350, 0
+%var_1417 = add i32 2, 0
+%var_1418 = mul i32 %var_1416, %var_1417
+%var_1419 = getelementptr i32, i32* %var_6, i32 1
+%var_1420 = load i32, i32* %var_1419
+%var_1421 = mul i32 %var_1418, %var_1420
+%var_1422 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1421, i32* %var_1422
+%var_1423 = getelementptr i32, i32* %var_6, i32 2
+%var_1424 = load i32, i32* %var_1423
+call void @printi(i32 %var_1424)
+%var_1426 = add i32 350, 0
+%var_1427 = add i32 2, 0
+%var_1428 = mul i32 %var_1426, %var_1427
+%var_1429 = call  i32 @Byte()
+%var_1430 = mul i32 %var_1428, %var_1429
+%var_1431 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1430, i32* %var_1431
+%var_1432 = getelementptr i32, i32* %var_6, i32 2
+%var_1433 = load i32, i32* %var_1432
+call void @printi(i32 %var_1433)
+%var_1435 = add i32 350, 0
+%var_1436 = add i32 2, 0
+%var_1437 = mul i32 %var_1435, %var_1436
+%var_1438 = add i32 1, 0
+%var_1439 = add i32 3, 0
+%var_1440 = add i32 %var_1438, %var_1439
+%var_1441 = and i32 255, %var_1440
+%var_1442 = mul i32 %var_1437, %var_1441
+%var_1443 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1442, i32* %var_1443
+%var_1444 = getelementptr i32, i32* %var_6, i32 2
+%var_1445 = load i32, i32* %var_1444
+call void @printi(i32 %var_1445)
+%var_1447 = add i32 350, 0
+%var_1448 = add i32 2, 0
+%var_1449 = mul i32 %var_1447, %var_1448
+%var_1450 = add i32 2, 0
+%var_1451 = mul i32 %var_1449, %var_1450
+%var_1452 = add i32 4, 0
+%var_1453 = mul i32 %var_1451, %var_1452
+%var_1454 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1453, i32* %var_1454
+%var_1455 = getelementptr i32, i32* %var_6, i32 2
+%var_1456 = load i32, i32* %var_1455
+call void @printi(i32 %var_1456)
+%var_1458 = add i32 0, 0
+%var_1459 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1458, i32* %var_1459
+%var_1460 = add i32 1, 0
+%var_1461 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1460, i32* %var_1461
+%var_1462 = getelementptr i32, i32* %var_6, i32 3
+%var_1463 = load i32, i32* %var_1462
+call void @printi(i32 %var_1463)
+%var_1465 = getelementptr i32, i32* %var_6, i32 1
+%var_1466 = load i32, i32* %var_1465
+%var_1467 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1466, i32* %var_1467
+%var_1468 = getelementptr i32, i32* %var_6, i32 3
+%var_1469 = load i32, i32* %var_1468
+call void @printi(i32 %var_1469)
+%var_1471 = call  i32 @Byte()
+%var_1472 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1471, i32* %var_1472
+%var_1473 = getelementptr i32, i32* %var_6, i32 3
+%var_1474 = load i32, i32* %var_1473
+call void @printi(i32 %var_1474)
+%var_1476 = add i32 1, 0
+%var_1477 = add i32 3, 0
+%var_1478 = add i32 %var_1476, %var_1477
+%var_1479 = and i32 255, %var_1478
+%var_1480 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1479, i32* %var_1480
+%var_1481 = getelementptr i32, i32* %var_6, i32 3
+%var_1482 = load i32, i32* %var_1481
+call void @printi(i32 %var_1482)
+%var_1484 = add i32 2, 0
+%var_1485 = add i32 4, 0
+%var_1486 = mul i32 %var_1484, %var_1485
+%var_1487 = and i32 255, %var_1486
+%var_1488 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1487, i32* %var_1488
+%var_1489 = getelementptr i32, i32* %var_6, i32 3
+%var_1490 = load i32, i32* %var_1489
+call void @printi(i32 %var_1490)
+%var_1492 = add i32 1, 0
+%var_1493 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1492, i32* %var_1493
+%var_1494 = getelementptr i32, i32* %var_6, i32 3
+%var_1495 = load i32, i32* %var_1494
+call void @printi(i32 %var_1495)
+%var_1497 = getelementptr i32, i32* %var_6, i32 1
+%var_1498 = load i32, i32* %var_1497
+%var_1499 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1498, i32* %var_1499
+%var_1500 = getelementptr i32, i32* %var_6, i32 3
+%var_1501 = load i32, i32* %var_1500
+call void @printi(i32 %var_1501)
+%var_1503 = call  i32 @Byte()
+%var_1504 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1503, i32* %var_1504
+%var_1505 = getelementptr i32, i32* %var_6, i32 3
+%var_1506 = load i32, i32* %var_1505
+call void @printi(i32 %var_1506)
+%var_1508 = add i32 1, 0
+%var_1509 = add i32 3, 0
+%var_1510 = add i32 %var_1508, %var_1509
+%var_1511 = and i32 255, %var_1510
+%var_1512 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1511, i32* %var_1512
+%var_1513 = getelementptr i32, i32* %var_6, i32 3
+%var_1514 = load i32, i32* %var_1513
+call void @printi(i32 %var_1514)
+%var_1516 = add i32 2, 0
+%var_1517 = add i32 4, 0
+%var_1518 = mul i32 %var_1516, %var_1517
+%var_1519 = and i32 255, %var_1518
+%var_1520 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1519, i32* %var_1520
+%var_1521 = getelementptr i32, i32* %var_6, i32 3
+%var_1522 = load i32, i32* %var_1521
+call void @printi(i32 %var_1522)
+%var_1524 = add i32 1, 0
+%var_1525 = add i32 1, 0
+%var_1526 = mul i32 %var_1524, %var_1525
+%var_1527 = and i32 255, %var_1526
+%var_1528 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1527, i32* %var_1528
+%var_1529 = getelementptr i32, i32* %var_6, i32 3
+%var_1530 = load i32, i32* %var_1529
+call void @printi(i32 %var_1530)
+%var_1532 = add i32 1, 0
+%var_1533 = getelementptr i32, i32* %var_6, i32 1
+%var_1534 = load i32, i32* %var_1533
+%var_1535 = mul i32 %var_1532, %var_1534
+%var_1536 = and i32 255, %var_1535
+%var_1537 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1536, i32* %var_1537
+%var_1538 = getelementptr i32, i32* %var_6, i32 3
+%var_1539 = load i32, i32* %var_1538
+call void @printi(i32 %var_1539)
+%var_1541 = add i32 1, 0
+%var_1542 = call  i32 @Byte()
+%var_1543 = mul i32 %var_1541, %var_1542
+%var_1544 = and i32 255, %var_1543
+%var_1545 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1544, i32* %var_1545
+%var_1546 = getelementptr i32, i32* %var_6, i32 3
+%var_1547 = load i32, i32* %var_1546
+call void @printi(i32 %var_1547)
+%var_1549 = add i32 1, 0
+%var_1550 = add i32 1, 0
+%var_1551 = add i32 3, 0
+%var_1552 = add i32 %var_1550, %var_1551
+%var_1553 = and i32 255, %var_1552
+%var_1554 = mul i32 %var_1549, %var_1553
+%var_1555 = and i32 255, %var_1554
+%var_1556 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1555, i32* %var_1556
+%var_1557 = getelementptr i32, i32* %var_6, i32 3
+%var_1558 = load i32, i32* %var_1557
+call void @printi(i32 %var_1558)
+%var_1560 = add i32 1, 0
+%var_1561 = add i32 2, 0
+%var_1562 = mul i32 %var_1560, %var_1561
+%var_1563 = and i32 255, %var_1562
+%var_1564 = add i32 4, 0
+%var_1565 = mul i32 %var_1563, %var_1564
+%var_1566 = and i32 255, %var_1565
+%var_1567 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1566, i32* %var_1567
+%var_1568 = getelementptr i32, i32* %var_6, i32 3
+%var_1569 = load i32, i32* %var_1568
+call void @printi(i32 %var_1569)
+%var_1571 = getelementptr i32, i32* %var_6, i32 1
+%var_1572 = load i32, i32* %var_1571
+%var_1573 = add i32 1, 0
+%var_1574 = mul i32 %var_1572, %var_1573
+%var_1575 = and i32 255, %var_1574
+%var_1576 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1575, i32* %var_1576
+%var_1577 = getelementptr i32, i32* %var_6, i32 3
+%var_1578 = load i32, i32* %var_1577
+call void @printi(i32 %var_1578)
+%var_1580 = getelementptr i32, i32* %var_6, i32 1
+%var_1581 = load i32, i32* %var_1580
+%var_1582 = getelementptr i32, i32* %var_6, i32 1
+%var_1583 = load i32, i32* %var_1582
+%var_1584 = mul i32 %var_1581, %var_1583
+%var_1585 = and i32 255, %var_1584
+%var_1586 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1585, i32* %var_1586
+%var_1587 = getelementptr i32, i32* %var_6, i32 3
+%var_1588 = load i32, i32* %var_1587
+call void @printi(i32 %var_1588)
+%var_1590 = getelementptr i32, i32* %var_6, i32 1
+%var_1591 = load i32, i32* %var_1590
+%var_1592 = call  i32 @Byte()
+%var_1593 = mul i32 %var_1591, %var_1592
+%var_1594 = and i32 255, %var_1593
+%var_1595 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1594, i32* %var_1595
+%var_1596 = getelementptr i32, i32* %var_6, i32 3
+%var_1597 = load i32, i32* %var_1596
+call void @printi(i32 %var_1597)
+%var_1599 = getelementptr i32, i32* %var_6, i32 1
+%var_1600 = load i32, i32* %var_1599
+%var_1601 = add i32 1, 0
+%var_1602 = add i32 3, 0
+%var_1603 = add i32 %var_1601, %var_1602
+%var_1604 = and i32 255, %var_1603
+%var_1605 = mul i32 %var_1600, %var_1604
+%var_1606 = and i32 255, %var_1605
+%var_1607 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1606, i32* %var_1607
+%var_1608 = getelementptr i32, i32* %var_6, i32 3
+%var_1609 = load i32, i32* %var_1608
+call void @printi(i32 %var_1609)
+%var_1611 = getelementptr i32, i32* %var_6, i32 1
+%var_1612 = load i32, i32* %var_1611
+%var_1613 = add i32 2, 0
+%var_1614 = mul i32 %var_1612, %var_1613
+%var_1615 = and i32 255, %var_1614
+%var_1616 = add i32 4, 0
+%var_1617 = mul i32 %var_1615, %var_1616
+%var_1618 = and i32 255, %var_1617
+%var_1619 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1618, i32* %var_1619
+%var_1620 = getelementptr i32, i32* %var_6, i32 3
+%var_1621 = load i32, i32* %var_1620
+call void @printi(i32 %var_1621)
+%var_1623 = call  i32 @Byte()
+%var_1624 = add i32 1, 0
+%var_1625 = mul i32 %var_1623, %var_1624
+%var_1626 = and i32 255, %var_1625
+%var_1627 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1626, i32* %var_1627
+%var_1628 = getelementptr i32, i32* %var_6, i32 3
+%var_1629 = load i32, i32* %var_1628
+call void @printi(i32 %var_1629)
+%var_1631 = call  i32 @Byte()
+%var_1632 = getelementptr i32, i32* %var_6, i32 1
+%var_1633 = load i32, i32* %var_1632
+%var_1634 = mul i32 %var_1631, %var_1633
+%var_1635 = and i32 255, %var_1634
+%var_1636 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1635, i32* %var_1636
+%var_1637 = getelementptr i32, i32* %var_6, i32 3
+%var_1638 = load i32, i32* %var_1637
+call void @printi(i32 %var_1638)
+%var_1640 = call  i32 @Byte()
+%var_1641 = call  i32 @Byte()
+%var_1642 = mul i32 %var_1640, %var_1641
+%var_1643 = and i32 255, %var_1642
+%var_1644 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1643, i32* %var_1644
+%var_1645 = getelementptr i32, i32* %var_6, i32 3
+%var_1646 = load i32, i32* %var_1645
+call void @printi(i32 %var_1646)
+%var_1648 = call  i32 @Byte()
+%var_1649 = add i32 1, 0
+%var_1650 = add i32 3, 0
+%var_1651 = add i32 %var_1649, %var_1650
+%var_1652 = and i32 255, %var_1651
+%var_1653 = mul i32 %var_1648, %var_1652
+%var_1654 = and i32 255, %var_1653
+%var_1655 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1654, i32* %var_1655
+%var_1656 = getelementptr i32, i32* %var_6, i32 3
+%var_1657 = load i32, i32* %var_1656
+call void @printi(i32 %var_1657)
+%var_1659 = call  i32 @Byte()
+%var_1660 = add i32 2, 0
+%var_1661 = mul i32 %var_1659, %var_1660
+%var_1662 = and i32 255, %var_1661
+%var_1663 = add i32 4, 0
+%var_1664 = mul i32 %var_1662, %var_1663
+%var_1665 = and i32 255, %var_1664
+%var_1666 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1665, i32* %var_1666
+%var_1667 = getelementptr i32, i32* %var_6, i32 3
+%var_1668 = load i32, i32* %var_1667
+call void @printi(i32 %var_1668)
+%var_1670 = add i32 1, 0
+%var_1671 = add i32 3, 0
+%var_1672 = add i32 %var_1670, %var_1671
+%var_1673 = and i32 255, %var_1672
+%var_1674 = add i32 1, 0
+%var_1675 = mul i32 %var_1673, %var_1674
+%var_1676 = and i32 255, %var_1675
+%var_1677 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1676, i32* %var_1677
+%var_1678 = getelementptr i32, i32* %var_6, i32 3
+%var_1679 = load i32, i32* %var_1678
+call void @printi(i32 %var_1679)
+%var_1681 = add i32 1, 0
+%var_1682 = add i32 3, 0
+%var_1683 = add i32 %var_1681, %var_1682
+%var_1684 = and i32 255, %var_1683
+%var_1685 = getelementptr i32, i32* %var_6, i32 1
+%var_1686 = load i32, i32* %var_1685
+%var_1687 = mul i32 %var_1684, %var_1686
+%var_1688 = and i32 255, %var_1687
+%var_1689 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1688, i32* %var_1689
+%var_1690 = getelementptr i32, i32* %var_6, i32 3
+%var_1691 = load i32, i32* %var_1690
+call void @printi(i32 %var_1691)
+%var_1693 = add i32 1, 0
+%var_1694 = add i32 3, 0
+%var_1695 = add i32 %var_1693, %var_1694
+%var_1696 = and i32 255, %var_1695
+%var_1697 = call  i32 @Byte()
+%var_1698 = mul i32 %var_1696, %var_1697
+%var_1699 = and i32 255, %var_1698
+%var_1700 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1699, i32* %var_1700
+%var_1701 = getelementptr i32, i32* %var_6, i32 3
+%var_1702 = load i32, i32* %var_1701
+call void @printi(i32 %var_1702)
+%var_1704 = add i32 1, 0
+%var_1705 = add i32 3, 0
+%var_1706 = add i32 %var_1704, %var_1705
+%var_1707 = and i32 255, %var_1706
+%var_1708 = add i32 1, 0
+%var_1709 = add i32 3, 0
+%var_1710 = add i32 %var_1708, %var_1709
+%var_1711 = and i32 255, %var_1710
+%var_1712 = mul i32 %var_1707, %var_1711
+%var_1713 = and i32 255, %var_1712
+%var_1714 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1713, i32* %var_1714
+%var_1715 = getelementptr i32, i32* %var_6, i32 3
+%var_1716 = load i32, i32* %var_1715
+call void @printi(i32 %var_1716)
+%var_1718 = add i32 1, 0
+%var_1719 = add i32 3, 0
+%var_1720 = add i32 %var_1718, %var_1719
+%var_1721 = and i32 255, %var_1720
+%var_1722 = add i32 2, 0
+%var_1723 = mul i32 %var_1721, %var_1722
+%var_1724 = and i32 255, %var_1723
+%var_1725 = add i32 4, 0
+%var_1726 = mul i32 %var_1724, %var_1725
+%var_1727 = and i32 255, %var_1726
+%var_1728 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1727, i32* %var_1728
+%var_1729 = getelementptr i32, i32* %var_6, i32 3
+%var_1730 = load i32, i32* %var_1729
+call void @printi(i32 %var_1730)
+%var_1732 = add i32 2, 0
+%var_1733 = add i32 4, 0
+%var_1734 = mul i32 %var_1732, %var_1733
+%var_1735 = and i32 255, %var_1734
+%var_1736 = add i32 1, 0
+%var_1737 = mul i32 %var_1735, %var_1736
+%var_1738 = and i32 255, %var_1737
+%var_1739 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1738, i32* %var_1739
+%var_1740 = getelementptr i32, i32* %var_6, i32 3
+%var_1741 = load i32, i32* %var_1740
+call void @printi(i32 %var_1741)
+%var_1743 = add i32 2, 0
+%var_1744 = add i32 4, 0
+%var_1745 = mul i32 %var_1743, %var_1744
+%var_1746 = and i32 255, %var_1745
+%var_1747 = getelementptr i32, i32* %var_6, i32 1
+%var_1748 = load i32, i32* %var_1747
+%var_1749 = mul i32 %var_1746, %var_1748
+%var_1750 = and i32 255, %var_1749
+%var_1751 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1750, i32* %var_1751
+%var_1752 = getelementptr i32, i32* %var_6, i32 3
+%var_1753 = load i32, i32* %var_1752
+call void @printi(i32 %var_1753)
+%var_1755 = add i32 2, 0
+%var_1756 = add i32 4, 0
+%var_1757 = mul i32 %var_1755, %var_1756
+%var_1758 = and i32 255, %var_1757
+%var_1759 = call  i32 @Byte()
+%var_1760 = mul i32 %var_1758, %var_1759
+%var_1761 = and i32 255, %var_1760
+%var_1762 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1761, i32* %var_1762
+%var_1763 = getelementptr i32, i32* %var_6, i32 3
+%var_1764 = load i32, i32* %var_1763
+call void @printi(i32 %var_1764)
+%var_1766 = add i32 2, 0
+%var_1767 = add i32 4, 0
+%var_1768 = mul i32 %var_1766, %var_1767
+%var_1769 = and i32 255, %var_1768
+%var_1770 = add i32 1, 0
+%var_1771 = add i32 3, 0
+%var_1772 = add i32 %var_1770, %var_1771
+%var_1773 = and i32 255, %var_1772
+%var_1774 = mul i32 %var_1769, %var_1773
+%var_1775 = and i32 255, %var_1774
+%var_1776 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1775, i32* %var_1776
+%var_1777 = getelementptr i32, i32* %var_6, i32 3
+%var_1778 = load i32, i32* %var_1777
+call void @printi(i32 %var_1778)
+%var_1780 = add i32 2, 0
+%var_1781 = add i32 4, 0
+%var_1782 = mul i32 %var_1780, %var_1781
+%var_1783 = and i32 255, %var_1782
+%var_1784 = add i32 2, 0
+%var_1785 = mul i32 %var_1783, %var_1784
+%var_1786 = and i32 255, %var_1785
+%var_1787 = add i32 4, 0
+%var_1788 = mul i32 %var_1786, %var_1787
+%var_1789 = and i32 255, %var_1788
+%var_1790 = getelementptr i32, i32* %var_6, i32 3
+store i32 %var_1789, i32* %var_1790
+%var_1791 = getelementptr i32, i32* %var_6, i32 3
+%var_1792 = load i32, i32* %var_1791
+call void @printi(i32 %var_1792)
+%var_1794 = add i32 1, 0
+%var_1795 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1794, i32* %var_1795
+%var_1796 = getelementptr i32, i32* %var_6, i32 2
+%var_1797 = load i32, i32* %var_1796
+call void @printi(i32 %var_1797)
+%var_1799 = getelementptr i32, i32* %var_6, i32 1
+%var_1800 = load i32, i32* %var_1799
+%var_1801 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1800, i32* %var_1801
+%var_1802 = getelementptr i32, i32* %var_6, i32 2
+%var_1803 = load i32, i32* %var_1802
+call void @printi(i32 %var_1803)
+%var_1805 = call  i32 @Byte()
+%var_1806 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1805, i32* %var_1806
+%var_1807 = getelementptr i32, i32* %var_6, i32 2
+%var_1808 = load i32, i32* %var_1807
+call void @printi(i32 %var_1808)
+%var_1810 = add i32 1, 0
+%var_1811 = add i32 3, 0
+%var_1812 = add i32 %var_1810, %var_1811
+%var_1813 = and i32 255, %var_1812
+%var_1814 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1813, i32* %var_1814
+%var_1815 = getelementptr i32, i32* %var_6, i32 2
+%var_1816 = load i32, i32* %var_1815
+call void @printi(i32 %var_1816)
+%var_1818 = add i32 2, 0
+%var_1819 = add i32 4, 0
+%var_1820 = mul i32 %var_1818, %var_1819
+%var_1821 = and i32 255, %var_1820
+%var_1822 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1821, i32* %var_1822
+%var_1823 = getelementptr i32, i32* %var_6, i32 2
+%var_1824 = load i32, i32* %var_1823
+call void @printi(i32 %var_1824)
+%var_1826 = add i32 1, 0
+%var_1827 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1826, i32* %var_1827
+%var_1828 = getelementptr i32, i32* %var_6, i32 2
+%var_1829 = load i32, i32* %var_1828
+call void @printi(i32 %var_1829)
+%var_1831 = getelementptr i32, i32* %var_6, i32 1
+%var_1832 = load i32, i32* %var_1831
+%var_1833 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1832, i32* %var_1833
+%var_1834 = getelementptr i32, i32* %var_6, i32 2
+%var_1835 = load i32, i32* %var_1834
+call void @printi(i32 %var_1835)
+%var_1837 = call  i32 @Byte()
+%var_1838 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1837, i32* %var_1838
+%var_1839 = getelementptr i32, i32* %var_6, i32 2
+%var_1840 = load i32, i32* %var_1839
+call void @printi(i32 %var_1840)
+%var_1842 = add i32 1, 0
+%var_1843 = add i32 3, 0
+%var_1844 = add i32 %var_1842, %var_1843
+%var_1845 = and i32 255, %var_1844
+%var_1846 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1845, i32* %var_1846
+%var_1847 = getelementptr i32, i32* %var_6, i32 2
+%var_1848 = load i32, i32* %var_1847
+call void @printi(i32 %var_1848)
+%var_1850 = add i32 2, 0
+%var_1851 = add i32 4, 0
+%var_1852 = mul i32 %var_1850, %var_1851
+%var_1853 = and i32 255, %var_1852
+%var_1854 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1853, i32* %var_1854
+%var_1855 = getelementptr i32, i32* %var_6, i32 2
+%var_1856 = load i32, i32* %var_1855
+call void @printi(i32 %var_1856)
+%var_1858 = add i32 1, 0
+%var_1859 = add i32 1, 0
+%var_1860 = mul i32 %var_1858, %var_1859
+%var_1861 = and i32 255, %var_1860
+%var_1862 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1861, i32* %var_1862
+%var_1863 = getelementptr i32, i32* %var_6, i32 2
+%var_1864 = load i32, i32* %var_1863
+call void @printi(i32 %var_1864)
+%var_1866 = add i32 1, 0
+%var_1867 = getelementptr i32, i32* %var_6, i32 1
+%var_1868 = load i32, i32* %var_1867
+%var_1869 = mul i32 %var_1866, %var_1868
+%var_1870 = and i32 255, %var_1869
+%var_1871 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1870, i32* %var_1871
+%var_1872 = getelementptr i32, i32* %var_6, i32 2
+%var_1873 = load i32, i32* %var_1872
+call void @printi(i32 %var_1873)
+%var_1875 = add i32 1, 0
+%var_1876 = call  i32 @Byte()
+%var_1877 = mul i32 %var_1875, %var_1876
+%var_1878 = and i32 255, %var_1877
+%var_1879 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1878, i32* %var_1879
+%var_1880 = getelementptr i32, i32* %var_6, i32 2
+%var_1881 = load i32, i32* %var_1880
+call void @printi(i32 %var_1881)
+%var_1883 = add i32 1, 0
+%var_1884 = add i32 1, 0
+%var_1885 = add i32 3, 0
+%var_1886 = add i32 %var_1884, %var_1885
+%var_1887 = and i32 255, %var_1886
+%var_1888 = mul i32 %var_1883, %var_1887
+%var_1889 = and i32 255, %var_1888
+%var_1890 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1889, i32* %var_1890
+%var_1891 = getelementptr i32, i32* %var_6, i32 2
+%var_1892 = load i32, i32* %var_1891
+call void @printi(i32 %var_1892)
+%var_1894 = add i32 1, 0
+%var_1895 = add i32 2, 0
+%var_1896 = mul i32 %var_1894, %var_1895
+%var_1897 = and i32 255, %var_1896
+%var_1898 = add i32 4, 0
+%var_1899 = mul i32 %var_1897, %var_1898
+%var_1900 = and i32 255, %var_1899
+%var_1901 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1900, i32* %var_1901
+%var_1902 = getelementptr i32, i32* %var_6, i32 2
+%var_1903 = load i32, i32* %var_1902
+call void @printi(i32 %var_1903)
+%var_1905 = getelementptr i32, i32* %var_6, i32 1
+%var_1906 = load i32, i32* %var_1905
+%var_1907 = add i32 1, 0
+%var_1908 = mul i32 %var_1906, %var_1907
+%var_1909 = and i32 255, %var_1908
+%var_1910 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1909, i32* %var_1910
+%var_1911 = getelementptr i32, i32* %var_6, i32 2
+%var_1912 = load i32, i32* %var_1911
+call void @printi(i32 %var_1912)
+%var_1914 = getelementptr i32, i32* %var_6, i32 1
+%var_1915 = load i32, i32* %var_1914
+%var_1916 = getelementptr i32, i32* %var_6, i32 1
+%var_1917 = load i32, i32* %var_1916
+%var_1918 = mul i32 %var_1915, %var_1917
+%var_1919 = and i32 255, %var_1918
+%var_1920 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1919, i32* %var_1920
+%var_1921 = getelementptr i32, i32* %var_6, i32 2
+%var_1922 = load i32, i32* %var_1921
+call void @printi(i32 %var_1922)
+%var_1924 = getelementptr i32, i32* %var_6, i32 1
+%var_1925 = load i32, i32* %var_1924
+%var_1926 = call  i32 @Byte()
+%var_1927 = mul i32 %var_1925, %var_1926
+%var_1928 = and i32 255, %var_1927
+%var_1929 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1928, i32* %var_1929
+%var_1930 = getelementptr i32, i32* %var_6, i32 2
+%var_1931 = load i32, i32* %var_1930
+call void @printi(i32 %var_1931)
+%var_1933 = getelementptr i32, i32* %var_6, i32 1
+%var_1934 = load i32, i32* %var_1933
+%var_1935 = add i32 1, 0
+%var_1936 = add i32 3, 0
+%var_1937 = add i32 %var_1935, %var_1936
+%var_1938 = and i32 255, %var_1937
+%var_1939 = mul i32 %var_1934, %var_1938
+%var_1940 = and i32 255, %var_1939
+%var_1941 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1940, i32* %var_1941
+%var_1942 = getelementptr i32, i32* %var_6, i32 2
+%var_1943 = load i32, i32* %var_1942
+call void @printi(i32 %var_1943)
+%var_1945 = getelementptr i32, i32* %var_6, i32 1
+%var_1946 = load i32, i32* %var_1945
+%var_1947 = add i32 2, 0
+%var_1948 = mul i32 %var_1946, %var_1947
+%var_1949 = and i32 255, %var_1948
+%var_1950 = add i32 4, 0
+%var_1951 = mul i32 %var_1949, %var_1950
+%var_1952 = and i32 255, %var_1951
+%var_1953 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1952, i32* %var_1953
+%var_1954 = getelementptr i32, i32* %var_6, i32 2
+%var_1955 = load i32, i32* %var_1954
+call void @printi(i32 %var_1955)
+%var_1957 = call  i32 @Byte()
+%var_1958 = add i32 1, 0
+%var_1959 = mul i32 %var_1957, %var_1958
+%var_1960 = and i32 255, %var_1959
+%var_1961 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1960, i32* %var_1961
+%var_1962 = getelementptr i32, i32* %var_6, i32 2
+%var_1963 = load i32, i32* %var_1962
+call void @printi(i32 %var_1963)
+%var_1965 = call  i32 @Byte()
+%var_1966 = getelementptr i32, i32* %var_6, i32 1
+%var_1967 = load i32, i32* %var_1966
+%var_1968 = mul i32 %var_1965, %var_1967
+%var_1969 = and i32 255, %var_1968
+%var_1970 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1969, i32* %var_1970
+%var_1971 = getelementptr i32, i32* %var_6, i32 2
+%var_1972 = load i32, i32* %var_1971
+call void @printi(i32 %var_1972)
+%var_1974 = call  i32 @Byte()
+%var_1975 = call  i32 @Byte()
+%var_1976 = mul i32 %var_1974, %var_1975
+%var_1977 = and i32 255, %var_1976
+%var_1978 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1977, i32* %var_1978
+%var_1979 = getelementptr i32, i32* %var_6, i32 2
+%var_1980 = load i32, i32* %var_1979
+call void @printi(i32 %var_1980)
+%var_1982 = call  i32 @Byte()
+%var_1983 = add i32 1, 0
+%var_1984 = add i32 3, 0
+%var_1985 = add i32 %var_1983, %var_1984
+%var_1986 = and i32 255, %var_1985
+%var_1987 = mul i32 %var_1982, %var_1986
+%var_1988 = and i32 255, %var_1987
+%var_1989 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1988, i32* %var_1989
+%var_1990 = getelementptr i32, i32* %var_6, i32 2
+%var_1991 = load i32, i32* %var_1990
+call void @printi(i32 %var_1991)
+%var_1993 = call  i32 @Byte()
+%var_1994 = add i32 2, 0
+%var_1995 = mul i32 %var_1993, %var_1994
+%var_1996 = and i32 255, %var_1995
+%var_1997 = add i32 4, 0
+%var_1998 = mul i32 %var_1996, %var_1997
+%var_1999 = and i32 255, %var_1998
+%var_2000 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_1999, i32* %var_2000
+%var_2001 = getelementptr i32, i32* %var_6, i32 2
+%var_2002 = load i32, i32* %var_2001
+call void @printi(i32 %var_2002)
+%var_2004 = add i32 1, 0
+%var_2005 = add i32 3, 0
+%var_2006 = add i32 %var_2004, %var_2005
+%var_2007 = and i32 255, %var_2006
+%var_2008 = add i32 1, 0
+%var_2009 = mul i32 %var_2007, %var_2008
+%var_2010 = and i32 255, %var_2009
+%var_2011 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_2010, i32* %var_2011
+%var_2012 = getelementptr i32, i32* %var_6, i32 2
+%var_2013 = load i32, i32* %var_2012
+call void @printi(i32 %var_2013)
+%var_2015 = add i32 1, 0
+%var_2016 = add i32 3, 0
+%var_2017 = add i32 %var_2015, %var_2016
+%var_2018 = and i32 255, %var_2017
+%var_2019 = getelementptr i32, i32* %var_6, i32 1
+%var_2020 = load i32, i32* %var_2019
+%var_2021 = mul i32 %var_2018, %var_2020
+%var_2022 = and i32 255, %var_2021
+%var_2023 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_2022, i32* %var_2023
+%var_2024 = getelementptr i32, i32* %var_6, i32 2
+%var_2025 = load i32, i32* %var_2024
+call void @printi(i32 %var_2025)
+%var_2027 = add i32 1, 0
+%var_2028 = add i32 3, 0
+%var_2029 = add i32 %var_2027, %var_2028
+%var_2030 = and i32 255, %var_2029
+%var_2031 = call  i32 @Byte()
+%var_2032 = mul i32 %var_2030, %var_2031
+%var_2033 = and i32 255, %var_2032
+%var_2034 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_2033, i32* %var_2034
+%var_2035 = getelementptr i32, i32* %var_6, i32 2
+%var_2036 = load i32, i32* %var_2035
+call void @printi(i32 %var_2036)
+%var_2038 = add i32 1, 0
+%var_2039 = add i32 3, 0
+%var_2040 = add i32 %var_2038, %var_2039
+%var_2041 = and i32 255, %var_2040
+%var_2042 = add i32 1, 0
+%var_2043 = add i32 3, 0
+%var_2044 = add i32 %var_2042, %var_2043
+%var_2045 = and i32 255, %var_2044
+%var_2046 = mul i32 %var_2041, %var_2045
+%var_2047 = and i32 255, %var_2046
+%var_2048 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_2047, i32* %var_2048
+%var_2049 = getelementptr i32, i32* %var_6, i32 2
+%var_2050 = load i32, i32* %var_2049
+call void @printi(i32 %var_2050)
+%var_2052 = add i32 1, 0
+%var_2053 = add i32 3, 0
+%var_2054 = add i32 %var_2052, %var_2053
+%var_2055 = and i32 255, %var_2054
+%var_2056 = add i32 2, 0
+%var_2057 = mul i32 %var_2055, %var_2056
+%var_2058 = and i32 255, %var_2057
+%var_2059 = add i32 4, 0
+%var_2060 = mul i32 %var_2058, %var_2059
+%var_2061 = and i32 255, %var_2060
+%var_2062 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_2061, i32* %var_2062
+%var_2063 = getelementptr i32, i32* %var_6, i32 2
+%var_2064 = load i32, i32* %var_2063
+call void @printi(i32 %var_2064)
+%var_2066 = add i32 2, 0
+%var_2067 = add i32 4, 0
+%var_2068 = mul i32 %var_2066, %var_2067
+%var_2069 = and i32 255, %var_2068
+%var_2070 = add i32 1, 0
+%var_2071 = mul i32 %var_2069, %var_2070
+%var_2072 = and i32 255, %var_2071
+%var_2073 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_2072, i32* %var_2073
+%var_2074 = getelementptr i32, i32* %var_6, i32 2
+%var_2075 = load i32, i32* %var_2074
+call void @printi(i32 %var_2075)
+%var_2077 = add i32 2, 0
+%var_2078 = add i32 4, 0
+%var_2079 = mul i32 %var_2077, %var_2078
+%var_2080 = and i32 255, %var_2079
+%var_2081 = getelementptr i32, i32* %var_6, i32 1
+%var_2082 = load i32, i32* %var_2081
+%var_2083 = mul i32 %var_2080, %var_2082
+%var_2084 = and i32 255, %var_2083
+%var_2085 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_2084, i32* %var_2085
+%var_2086 = getelementptr i32, i32* %var_6, i32 2
+%var_2087 = load i32, i32* %var_2086
+call void @printi(i32 %var_2087)
+%var_2089 = add i32 2, 0
+%var_2090 = add i32 4, 0
+%var_2091 = mul i32 %var_2089, %var_2090
+%var_2092 = and i32 255, %var_2091
+%var_2093 = call  i32 @Byte()
+%var_2094 = mul i32 %var_2092, %var_2093
+%var_2095 = and i32 255, %var_2094
+%var_2096 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_2095, i32* %var_2096
+%var_2097 = getelementptr i32, i32* %var_6, i32 2
+%var_2098 = load i32, i32* %var_2097
+call void @printi(i32 %var_2098)
+%var_2100 = add i32 2, 0
+%var_2101 = add i32 4, 0
+%var_2102 = mul i32 %var_2100, %var_2101
+%var_2103 = and i32 255, %var_2102
+%var_2104 = add i32 1, 0
+%var_2105 = add i32 3, 0
+%var_2106 = add i32 %var_2104, %var_2105
+%var_2107 = and i32 255, %var_2106
+%var_2108 = mul i32 %var_2103, %var_2107
+%var_2109 = and i32 255, %var_2108
+%var_2110 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_2109, i32* %var_2110
+%var_2111 = getelementptr i32, i32* %var_6, i32 2
+%var_2112 = load i32, i32* %var_2111
+call void @printi(i32 %var_2112)
+%var_2114 = add i32 2, 0
+%var_2115 = add i32 4, 0
+%var_2116 = mul i32 %var_2114, %var_2115
+%var_2117 = and i32 255, %var_2116
+%var_2118 = add i32 2, 0
+%var_2119 = mul i32 %var_2117, %var_2118
+%var_2120 = and i32 255, %var_2119
+%var_2121 = add i32 4, 0
+%var_2122 = mul i32 %var_2120, %var_2121
+%var_2123 = and i32 255, %var_2122
+%var_2124 = getelementptr i32, i32* %var_6, i32 2
+store i32 %var_2123, i32* %var_2124
+%var_2125 = getelementptr i32, i32* %var_6, i32 2
+%var_2126 = load i32, i32* %var_2125
+call void @printi(i32 %var_2126)
+ret void }

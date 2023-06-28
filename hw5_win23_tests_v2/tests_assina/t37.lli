@@ -1,0 +1,37 @@
+@var_3 = constant [18 x i8] c"Called basicFunc!\00"
+@var_7 = constant [9 x i8] c"Finished\00"
+@.division_zero_error_str = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @print(i8* getelementptr([23 x i8], [23 x i8]* @.division_zero_error_str, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int_specifier = constant [4 x i8] c"%d\0A\00"
+@.str_specifier = constant [4 x i8] c"%s\0A\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str_specifier, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0), i32 %0)
+ret void
+}
+define void @basicFunc(){
+%var_2 = alloca i32, i32 50
+%var_3.ptr = getelementptr [18 x i8], [18 x i8]* @var_3, i32 0, i32 0
+call void @print(i8* %var_3.ptr)
+ret void }
+define void @main(){
+%var_5 = alloca i32, i32 50
+call void @basicFunc()
+%var_7.ptr = getelementptr [9 x i8], [9 x i8]* @var_7, i32 0, i32 0
+call void @print(i8* %var_7.ptr)
+ret void }

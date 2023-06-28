@@ -1,0 +1,62 @@
+@var_3 = constant [74 x i8] c"You thought we were done with byte calculations?? HA! don't make me laugh\00"
+@var_5 = constant [22 x i8] c"Expecting 254 255 254\00"
+@var_30 = constant [7 x i8] c"OK bye\00"
+@.division_zero_error_str = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @print(i8* getelementptr([23 x i8], [23 x i8]* @.division_zero_error_str, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int_specifier = constant [4 x i8] c"%d\0A\00"
+@.str_specifier = constant [4 x i8] c"%s\0A\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str_specifier, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0), i32 %0)
+ret void
+}
+define void @main(){
+%var_2 = alloca i32, i32 50
+%var_3.ptr = getelementptr [74 x i8], [74 x i8]* @var_3, i32 0, i32 0
+call void @print(i8* %var_3.ptr)
+%var_5.ptr = getelementptr [22 x i8], [22 x i8]* @var_5, i32 0, i32 0
+call void @print(i8* %var_5.ptr)
+%var_7 = add i32 254, 0
+%var_8 = getelementptr i32, i32* %var_2, i32 0
+store i32 %var_7, i32* %var_8
+%var_9 = getelementptr i32, i32* %var_2, i32 0
+%var_10 = load i32, i32* %var_9
+call void @printi(i32 %var_10)
+%var_12 = getelementptr i32, i32* %var_2, i32 0
+%var_13 = load i32, i32* %var_12
+%var_14 = add i32 1, 0
+%var_15 = add i32 %var_13, %var_14
+%var_16 = and i32 255, %var_15
+%var_17 = getelementptr i32, i32* %var_2, i32 0
+store i32 %var_16, i32* %var_17
+%var_18 = getelementptr i32, i32* %var_2, i32 0
+%var_19 = load i32, i32* %var_18
+call void @printi(i32 %var_19)
+%var_21 = getelementptr i32, i32* %var_2, i32 0
+%var_22 = load i32, i32* %var_21
+%var_23 = add i32 2, 0
+%var_24 = mul i32 %var_22, %var_23
+%var_25 = and i32 255, %var_24
+%var_26 = getelementptr i32, i32* %var_2, i32 0
+store i32 %var_25, i32* %var_26
+%var_27 = getelementptr i32, i32* %var_2, i32 0
+%var_28 = load i32, i32* %var_27
+call void @printi(i32 %var_28)
+%var_30.ptr = getelementptr [7 x i8], [7 x i8]* @var_30, i32 0, i32 0
+call void @print(i8* %var_30.ptr)
+ret void }

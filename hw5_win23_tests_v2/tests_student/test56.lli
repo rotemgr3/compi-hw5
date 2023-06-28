@@ -1,0 +1,138 @@
+@var_45 = constant [104 x i8] c"There is only one thing that makes a dream impossible to achieve: the fear of failure. ― Paulo Coelho\00"
+@var_49 = constant [87 x i8] c"It’s not whether you get knocked down. It’s whether you get up. – Vince Lombardi\00"
+@.division_zero_error_str = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @print(i8* getelementptr([23 x i8], [23 x i8]* @.division_zero_error_str, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int_specifier = constant [4 x i8] c"%d\0A\00"
+@.str_specifier = constant [4 x i8] c"%s\0A\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str_specifier, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0), i32 %0)
+ret void
+}
+define i32 @Func(){
+%var_2 = alloca i32, i32 50
+%var_3 = add i32 5, 0
+%var_4 = getelementptr i32, i32* %var_2, i32 0
+store i32 %var_3, i32* %var_4
+%var_5 = add i32 2, 0
+%var_6 = add i32 5, 0
+%var_7 = icmp slt i32 %var_5, %var_6
+br i1 %var_7, label %label_0, label %label_2
+br label %label_0
+label_0:
+%var_8 = getelementptr i32, i32* %var_2, i32 0
+%var_9 = load i32, i32* %var_8
+%var_10 = add i32 3, 0
+%var_11 = add i32 %var_9, %var_10
+%var_12 = add i32 2, 0
+%var_13 = icmp sgt i32 %var_11, %var_12
+br i1 %var_13, label %label_1, label %label_2
+br label %label_1
+label_1:
+br label %label_3
+label_2:
+br label %label_3
+label_3:
+%var_14 = phi i32 [ 1, %label_1], [0, %label_2]
+%var_15 = getelementptr i32, i32* %var_2, i32 1
+store i32 %var_14, i32* %var_15
+%var_16 = getelementptr i32, i32* %var_2, i32 1
+%var_17 = load i32, i32* %var_16
+%var_18 = icmp eq i32 0, %var_17
+br i1 %var_18, label %label_5, label %label_4
+%var_19 = getelementptr i32, i32* %var_2, i32 1
+%var_20 = load i32, i32* %var_19
+br label %label_4
+label_4:
+br label %label_6
+label_5:
+br label %label_6
+label_6:
+%var_21 = phi i32 [ 1, %label_4], [0, %label_5]
+ret i32 %var_21
+ret i32 0 }
+define i32 @Func2(){
+%var_22 = alloca i32, i32 50
+%var_23 = add i32 5, 0
+%var_24 = getelementptr i32, i32* %var_22, i32 0
+store i32 %var_23, i32* %var_24
+%var_25 = add i32 2, 0
+%var_26 = add i32 5, 0
+%var_27 = icmp slt i32 %var_25, %var_26
+br i1 %var_27, label %label_7, label %label_9
+br label %label_7
+label_7:
+%var_28 = getelementptr i32, i32* %var_22, i32 0
+%var_29 = load i32, i32* %var_28
+%var_30 = add i32 3, 0
+%var_31 = add i32 %var_29, %var_30
+%var_32 = add i32 2, 0
+%var_33 = icmp sgt i32 %var_31, %var_32
+br i1 %var_33, label %label_8, label %label_9
+br label %label_8
+label_8:
+br label %label_10
+label_9:
+br label %label_10
+label_10:
+%var_34 = phi i32 [ 1, %label_8], [0, %label_9]
+%var_35 = getelementptr i32, i32* %var_22, i32 1
+store i32 %var_34, i32* %var_35
+%var_36 = getelementptr i32, i32* %var_22, i32 1
+%var_37 = load i32, i32* %var_36
+%var_38 = icmp eq i32 0, %var_37
+br i1 %var_38, label %label_11, label %label_13
+br label %label_11
+label_11:
+%var_39 = call i32 @Func()
+%var_40 = icmp eq i32 0, %var_39
+br i1 %var_40, label %label_13, label %label_12
+br label %label_12
+label_12:
+br label %label_14
+label_13:
+br label %label_14
+label_14:
+%var_41 = phi i32 [ 1, %label_12], [0, %label_13]
+ret i32 %var_41
+ret i32 0 }
+define void @maxTestsCheckCorrectRelopBoolReturn(){
+%var_42 = alloca i32, i32 50
+%var_43 = call i32 @Func()
+%var_44 = icmp eq i32 0, %var_43
+br i1 %var_44, label %label_16, label %label_15
+br label %label_15
+label_15:
+%var_45.ptr = getelementptr [104 x i8], [104 x i8]* @var_45, i32 0, i32 0
+call void @print(i8* %var_45.ptr)
+br label %label_16
+label_16:
+%var_47 = call i32 @Func2()
+%var_48 = icmp eq i32 0, %var_47
+br i1 %var_48, label %label_17, label %label_18
+br label %label_17
+label_17:
+%var_49.ptr = getelementptr [87 x i8], [87 x i8]* @var_49, i32 0, i32 0
+call void @print(i8* %var_49.ptr)
+br label %label_18
+label_18:
+ret void }
+define void @main(){
+%var_51 = alloca i32, i32 50
+call void @maxTestsCheckCorrectRelopBoolReturn()
+ret void }

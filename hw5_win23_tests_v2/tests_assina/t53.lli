@@ -1,0 +1,96 @@
+@var_36 = constant [30 x i8] c"Should be seeing 90 (I think)\00"
+@var_42 = constant [29 x i8] c"Should be seeing 8 (I think)\00"
+@.division_zero_error_str = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @print(i8* getelementptr([23 x i8], [23 x i8]* @.division_zero_error_str, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int_specifier = constant [4 x i8] c"%d\0A\00"
+@.str_specifier = constant [4 x i8] c"%s\0A\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str_specifier, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0), i32 %0)
+ret void
+}
+define void @soGood(){
+%var_2 = alloca i32, i32 50
+ret void
+ret void
+ret void
+ret void
+ret void
+ret void }
+define i32 @nest1_int_int_int(i32, i32, i32){
+%var_3 = alloca i32, i32 50
+%var_4 = add i32 %0, %1
+%var_5 = add i32 %var_4, %2
+ret i32 %var_5
+ret i32 0 }
+define i32 @nest2_int_int(i32, i32){
+%var_6 = alloca i32, i32 50
+%var_7 = add i32 0, 0
+%var_8 = getelementptr i32, i32* %var_6, i32 0
+store i32 %var_7, i32* %var_8
+%var_9 = and i32 255, %0
+%var_10 = and i32 255, %1
+%var_11 = add i32 %var_9, %var_10
+%var_12 = and i32 255, %var_11
+%var_13 = getelementptr i32, i32* %var_6, i32 0
+store i32 %var_12, i32* %var_13
+%var_14 = getelementptr i32, i32* %var_6, i32 0
+%var_15 = load i32, i32* %var_14
+%var_16 = getelementptr i32, i32* %var_6, i32 0
+%var_17 = load i32, i32* %var_16
+%var_18 = getelementptr i32, i32* %var_6, i32 0
+%var_19 = load i32, i32* %var_18
+%var_20 = call  i32 @nest1_int_int_int(i32 %var_15, i32 %var_17, i32 %var_19)
+%var_21 = and i32 255, %var_20
+ret i32 %var_21
+ret i32 0 }
+define i32 @nest3_byte_byte(i32, i32){
+%var_22 = alloca i32, i32 50
+%var_23 = add i32 2, 0
+call void @check_division(i32 %var_23)
+%var_24 = sdiv i32 %0, %var_23
+%var_25 = add i32 3, 0
+call void @check_division(i32 %var_25)
+%var_26 = sdiv i32 %1, %var_25
+%var_27 = call  i32 @nest2_int_int(i32 %var_24, i32 %var_26)
+%var_28 = add i32 2, 0
+call void @check_division(i32 %var_28)
+%var_29 = sdiv i32 %1, %var_28
+%var_30 = add i32 3, 0
+call void @check_division(i32 %var_30)
+%var_31 = sdiv i32 %0, %var_30
+%var_32 = call  i32 @nest2_int_int(i32 %var_29, i32 %var_31)
+%var_33 = add i32 %var_27, %var_32
+%var_34 = and i32 255, %var_33
+ret i32 %var_34
+ret i32 0 }
+define void @main(){
+%var_35 = alloca i32, i32 50
+%var_36.ptr = getelementptr [30 x i8], [30 x i8]* @var_36, i32 0, i32 0
+call void @print(i8* %var_36.ptr)
+%var_38 = add i32 6, 0
+%var_39 = add i32 30, 0
+%var_40 = call  i32 @nest3_byte_byte(i32 %var_38, i32 %var_39)
+call void @printi(i32 %var_40)
+%var_42.ptr = getelementptr [29 x i8], [29 x i8]* @var_42, i32 0, i32 0
+call void @print(i8* %var_42.ptr)
+%var_44 = add i32 71, 0
+%var_45 = add i32 37, 0
+%var_46 = call  i32 @nest3_byte_byte(i32 %var_44, i32 %var_45)
+call void @printi(i32 %var_46)
+ret void }

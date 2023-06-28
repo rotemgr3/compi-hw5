@@ -1,0 +1,68 @@
+@var_7 = constant [13 x i8] c"Expecting 45\00"
+@var_17 = constant [5 x i8] c"done\00"
+@var_19 = constant [7 x i8] c"FAILED\00"
+@.division_zero_error_str = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @print(i8* getelementptr([23 x i8], [23 x i8]* @.division_zero_error_str, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int_specifier = constant [4 x i8] c"%d\0A\00"
+@.str_specifier = constant [4 x i8] c"%s\0A\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str_specifier, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0), i32 %0)
+ret void
+}
+define i32 @advancedFunc_int(i32){
+%var_2 = alloca i32, i32 50
+%var_3 = and i32 255, %0
+ret i32 %var_3
+ret i32 0 }
+define i32 @getTrue(){
+%var_4 = alloca i32, i32 50
+br label %label_0
+br label %label_0
+label_0:
+br label %label_2
+label_1:
+br label %label_2
+label_2:
+%var_5 = phi i32 [ 1, %label_0], [0, %label_1]
+ret i32 %var_5
+ret i32 0 }
+define void @main(){
+%var_6 = alloca i32, i32 50
+%var_7.ptr = getelementptr [13 x i8], [13 x i8]* @var_7, i32 0, i32 0
+call void @print(i8* %var_7.ptr)
+%var_9 = call i32 @getTrue()
+%var_10 = icmp eq i32 0, %var_9
+br i1 %var_10, label %label_60, label %label_48
+br label %label_48
+label_48:
+%var_11 = add i32 45, 0
+%var_12 = call  i32 @advancedFunc_int(i32 %var_11)
+%var_13 = getelementptr i32, i32* %var_6, i32 0
+store i32 %var_12, i32* %var_13
+%var_14 = getelementptr i32, i32* %var_6, i32 0
+%var_15 = load i32, i32* %var_14
+call void @printi(i32 %var_15)
+%var_17.ptr = getelementptr [5 x i8], [5 x i8]* @var_17, i32 0, i32 0
+call void @print(i8* %var_17.ptr)
+ret void
+br label %label_60
+label_60:
+%var_19.ptr = getelementptr [7 x i8], [7 x i8]* @var_19, i32 0, i32 0
+call void @print(i8* %var_19.ptr)
+ret void }

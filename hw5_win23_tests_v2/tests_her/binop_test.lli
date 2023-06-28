@@ -1,0 +1,309 @@
+@.division_zero_error_str = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @print(i8* getelementptr([23 x i8], [23 x i8]* @.division_zero_error_str, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int_specifier = constant [4 x i8] c"%d\0A\00"
+@.str_specifier = constant [4 x i8] c"%s\0A\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str_specifier, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0), i32 %0)
+ret void
+}
+define void @main(){
+%var_2 = alloca i32, i32 50
+%var_3 = add i32 2, 0
+%var_4 = add i32 3, 0
+%var_5 = add i32 %var_3, %var_4
+call void @printi(i32 %var_5)
+%var_7 = add i32 10, 0
+%var_8 = add i32 8, 0
+%var_9 = sub i32 %var_7, %var_8
+call void @printi(i32 %var_9)
+%var_11 = add i32 2, 0
+%var_12 = add i32 3, 0
+%var_13 = mul i32 %var_11, %var_12
+call void @printi(i32 %var_13)
+%var_15 = add i32 4, 0
+%var_16 = add i32 2, 0
+call void @check_division(i32 %var_16)
+%var_17 = sdiv i32 %var_15, %var_16
+call void @printi(i32 %var_17)
+%var_19 = add i32 2, 0
+%var_20 = add i32 3, 0
+%var_21 = add i32 5, 0
+%var_22 = mul i32 %var_20, %var_21
+%var_23 = add i32 5, 0
+call void @check_division(i32 %var_23)
+%var_24 = sdiv i32 %var_22, %var_23
+%var_25 = add i32 %var_19, %var_24
+call void @printi(i32 %var_25)
+%var_27 = add i32 2, 0
+%var_28 = add i32 3, 0
+%var_29 = mul i32 %var_27, %var_28
+%var_30 = add i32 5, 0
+%var_31 = add i32 5, 0
+%var_32 = mul i32 %var_30, %var_31
+%var_33 = add i32 %var_29, %var_32
+call void @printi(i32 %var_33)
+%var_35 = add i32 6, 0
+%var_36 = add i32 3, 0
+call void @check_division(i32 %var_36)
+%var_37 = sdiv i32 %var_35, %var_36
+%var_38 = add i32 200, 0
+%var_39 = add i32 5, 0
+call void @check_division(i32 %var_39)
+%var_40 = sdiv i32 %var_38, %var_39
+%var_41 = add i32 %var_37, %var_40
+call void @printi(i32 %var_41)
+%var_43 = add i32 5, 0
+%var_44 = add i32 5, 0
+%var_45 = mul i32 %var_43, %var_44
+%var_46 = add i32 2, 0
+%var_47 = add i32 3, 0
+%var_48 = mul i32 %var_46, %var_47
+%var_49 = sub i32 %var_45, %var_48
+call void @printi(i32 %var_49)
+%var_51 = add i32 300, 0
+%var_52 = add i32 3, 0
+call void @check_division(i32 %var_52)
+%var_53 = sdiv i32 %var_51, %var_52
+%var_54 = add i32 200, 0
+%var_55 = add i32 5, 0
+call void @check_division(i32 %var_55)
+%var_56 = sdiv i32 %var_54, %var_55
+%var_57 = sub i32 %var_53, %var_56
+call void @printi(i32 %var_57)
+%var_59 = add i32 5, 0
+%var_60 = add i32 5, 0
+%var_61 = mul i32 %var_59, %var_60
+%var_62 = add i32 2, 0
+%var_63 = add i32 3, 0
+%var_64 = mul i32 %var_62, %var_63
+%var_65 = sub i32 %var_61, %var_64
+call void @printi(i32 %var_65)
+%var_67 = add i32 300, 0
+%var_68 = add i32 3, 0
+call void @check_division(i32 %var_68)
+%var_69 = sdiv i32 %var_67, %var_68
+%var_70 = add i32 200, 0
+%var_71 = add i32 5, 0
+call void @check_division(i32 %var_71)
+%var_72 = sdiv i32 %var_70, %var_71
+%var_73 = sub i32 %var_69, %var_72
+call void @printi(i32 %var_73)
+%var_75 = add i32 2, 0
+%var_76 = add i32 3, 0
+%var_77 = add i32 %var_75, %var_76
+%var_78 = and i32 255, %var_77
+call void @printi(i32 %var_78)
+%var_80 = add i32 10, 0
+%var_81 = add i32 8, 0
+%var_82 = sub i32 %var_80, %var_81
+%var_83 = and i32 255, %var_82
+call void @printi(i32 %var_83)
+%var_85 = add i32 2, 0
+%var_86 = add i32 3, 0
+%var_87 = mul i32 %var_85, %var_86
+%var_88 = and i32 255, %var_87
+call void @printi(i32 %var_88)
+%var_90 = add i32 4, 0
+%var_91 = add i32 2, 0
+call void @check_division(i32 %var_91)
+%var_92 = udiv i32 %var_90, %var_91
+%var_93 = and i32 255, %var_92
+call void @printi(i32 %var_93)
+%var_95 = add i32 2, 0
+%var_96 = add i32 3, 0
+%var_97 = add i32 5, 0
+%var_98 = mul i32 %var_96, %var_97
+%var_99 = and i32 255, %var_98
+%var_100 = add i32 5, 0
+call void @check_division(i32 %var_100)
+%var_101 = udiv i32 %var_99, %var_100
+%var_102 = and i32 255, %var_101
+%var_103 = add i32 %var_95, %var_102
+%var_104 = and i32 255, %var_103
+call void @printi(i32 %var_104)
+%var_106 = add i32 2, 0
+%var_107 = add i32 3, 0
+%var_108 = mul i32 %var_106, %var_107
+%var_109 = and i32 255, %var_108
+%var_110 = add i32 5, 0
+%var_111 = add i32 5, 0
+%var_112 = mul i32 %var_110, %var_111
+%var_113 = and i32 255, %var_112
+%var_114 = add i32 %var_109, %var_113
+%var_115 = and i32 255, %var_114
+call void @printi(i32 %var_115)
+%var_117 = add i32 6, 0
+%var_118 = add i32 3, 0
+call void @check_division(i32 %var_118)
+%var_119 = udiv i32 %var_117, %var_118
+%var_120 = and i32 255, %var_119
+%var_121 = add i32 200, 0
+%var_122 = add i32 5, 0
+call void @check_division(i32 %var_122)
+%var_123 = udiv i32 %var_121, %var_122
+%var_124 = and i32 255, %var_123
+%var_125 = add i32 %var_120, %var_124
+%var_126 = and i32 255, %var_125
+call void @printi(i32 %var_126)
+%var_128 = add i32 5, 0
+%var_129 = add i32 5, 0
+%var_130 = mul i32 %var_128, %var_129
+%var_131 = and i32 255, %var_130
+%var_132 = add i32 2, 0
+%var_133 = add i32 3, 0
+%var_134 = mul i32 %var_132, %var_133
+%var_135 = and i32 255, %var_134
+%var_136 = sub i32 %var_131, %var_135
+%var_137 = and i32 255, %var_136
+call void @printi(i32 %var_137)
+%var_139 = add i32 100, 0
+%var_140 = add i32 2, 0
+call void @check_division(i32 %var_140)
+%var_141 = udiv i32 %var_139, %var_140
+%var_142 = and i32 255, %var_141
+%var_143 = add i32 200, 0
+%var_144 = add i32 10, 0
+call void @check_division(i32 %var_144)
+%var_145 = udiv i32 %var_143, %var_144
+%var_146 = and i32 255, %var_145
+%var_147 = sub i32 %var_142, %var_146
+%var_148 = and i32 255, %var_147
+call void @printi(i32 %var_148)
+%var_150 = add i32 5, 0
+%var_151 = add i32 5, 0
+%var_152 = mul i32 %var_150, %var_151
+%var_153 = and i32 255, %var_152
+%var_154 = add i32 2, 0
+%var_155 = add i32 3, 0
+%var_156 = mul i32 %var_154, %var_155
+%var_157 = and i32 255, %var_156
+%var_158 = sub i32 %var_153, %var_157
+%var_159 = and i32 255, %var_158
+call void @printi(i32 %var_159)
+%var_161 = add i32 100, 0
+%var_162 = add i32 2, 0
+call void @check_division(i32 %var_162)
+%var_163 = udiv i32 %var_161, %var_162
+%var_164 = and i32 255, %var_163
+%var_165 = add i32 200, 0
+%var_166 = add i32 20, 0
+call void @check_division(i32 %var_166)
+%var_167 = udiv i32 %var_165, %var_166
+%var_168 = and i32 255, %var_167
+%var_169 = sub i32 %var_164, %var_168
+%var_170 = and i32 255, %var_169
+call void @printi(i32 %var_170)
+%var_172 = add i32 2, 0
+%var_173 = add i32 3, 0
+%var_174 = add i32 %var_172, %var_173
+call void @printi(i32 %var_174)
+%var_176 = add i32 10, 0
+%var_177 = add i32 8, 0
+%var_178 = sub i32 %var_176, %var_177
+call void @printi(i32 %var_178)
+%var_180 = add i32 2, 0
+%var_181 = add i32 3, 0
+%var_182 = mul i32 %var_180, %var_181
+call void @printi(i32 %var_182)
+%var_184 = add i32 4, 0
+%var_185 = add i32 2, 0
+call void @check_division(i32 %var_185)
+%var_186 = sdiv i32 %var_184, %var_185
+call void @printi(i32 %var_186)
+%var_188 = add i32 2, 0
+%var_189 = add i32 3, 0
+%var_190 = add i32 %var_188, %var_189
+call void @printi(i32 %var_190)
+%var_192 = add i32 10, 0
+%var_193 = add i32 8, 0
+%var_194 = sub i32 %var_192, %var_193
+call void @printi(i32 %var_194)
+%var_196 = add i32 2, 0
+%var_197 = add i32 3, 0
+%var_198 = mul i32 %var_196, %var_197
+call void @printi(i32 %var_198)
+%var_200 = add i32 4, 0
+%var_201 = add i32 2, 0
+call void @check_division(i32 %var_201)
+%var_202 = sdiv i32 %var_200, %var_201
+call void @printi(i32 %var_202)
+%var_204 = add i32 2, 0
+%var_205 = add i32 3, 0
+%var_206 = add i32 5, 0
+%var_207 = mul i32 %var_205, %var_206
+%var_208 = add i32 5, 0
+call void @check_division(i32 %var_208)
+%var_209 = sdiv i32 %var_207, %var_208
+%var_210 = add i32 %var_204, %var_209
+call void @printi(i32 %var_210)
+%var_212 = add i32 2, 0
+%var_213 = add i32 3, 0
+%var_214 = mul i32 %var_212, %var_213
+%var_215 = add i32 5, 0
+%var_216 = add i32 5, 0
+%var_217 = mul i32 %var_215, %var_216
+%var_218 = add i32 %var_214, %var_217
+call void @printi(i32 %var_218)
+%var_220 = add i32 6, 0
+%var_221 = add i32 3, 0
+call void @check_division(i32 %var_221)
+%var_222 = sdiv i32 %var_220, %var_221
+%var_223 = add i32 200, 0
+%var_224 = add i32 5, 0
+call void @check_division(i32 %var_224)
+%var_225 = sdiv i32 %var_223, %var_224
+%var_226 = add i32 %var_222, %var_225
+call void @printi(i32 %var_226)
+%var_228 = add i32 5, 0
+%var_229 = add i32 5, 0
+%var_230 = mul i32 %var_228, %var_229
+%var_231 = add i32 2, 0
+%var_232 = add i32 3, 0
+%var_233 = mul i32 %var_231, %var_232
+%var_234 = sub i32 %var_230, %var_233
+call void @printi(i32 %var_234)
+%var_236 = add i32 100, 0
+%var_237 = add i32 2, 0
+call void @check_division(i32 %var_237)
+%var_238 = sdiv i32 %var_236, %var_237
+%var_239 = add i32 200, 0
+%var_240 = add i32 10, 0
+call void @check_division(i32 %var_240)
+%var_241 = sdiv i32 %var_239, %var_240
+%var_242 = sub i32 %var_238, %var_241
+call void @printi(i32 %var_242)
+%var_244 = add i32 5, 0
+%var_245 = add i32 5, 0
+%var_246 = mul i32 %var_244, %var_245
+%var_247 = add i32 2, 0
+%var_248 = add i32 3, 0
+%var_249 = mul i32 %var_247, %var_248
+%var_250 = sub i32 %var_246, %var_249
+call void @printi(i32 %var_250)
+%var_252 = add i32 100, 0
+%var_253 = add i32 2, 0
+call void @check_division(i32 %var_253)
+%var_254 = sdiv i32 %var_252, %var_253
+%var_255 = add i32 200, 0
+%var_256 = add i32 20, 0
+call void @check_division(i32 %var_256)
+%var_257 = sdiv i32 %var_255, %var_256
+%var_258 = sub i32 %var_254, %var_257
+call void @printi(i32 %var_258)
+ret void }

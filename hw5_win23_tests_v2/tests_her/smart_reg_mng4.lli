@@ -1,0 +1,60 @@
+@var_9 = constant [5 x i8] c"left\00"
+@var_22 = constant [5 x i8] c"both\00"
+@.division_zero_error_str = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @print(i8* getelementptr([23 x i8], [23 x i8]* @.division_zero_error_str, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int_specifier = constant [4 x i8] c"%d\0A\00"
+@.str_specifier = constant [4 x i8] c"%s\0A\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str_specifier, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0), i32 %0)
+ret void
+}
+define i32 @foo0_int_int(i32, i32){
+%var_2 = alloca i32, i32 50
+%var_3 = add i32 0, 0
+ret i32 0
+ret i32 0 }
+define i32 @foo1_int_int(i32, i32){
+%var_4 = alloca i32, i32 50
+%var_5 = add i32 1, 0
+ret i32 1
+ret i32 0 }
+define i32 @foo2_int_int(i32, i32){
+%var_6 = alloca i32, i32 50
+%var_7 = add i32 2, 0
+ret i32 2
+ret i32 0 }
+define void @main(){
+%var_8 = alloca i32, i32 50
+%var_9.ptr = getelementptr [5 x i8], [5 x i8]* @var_9, i32 0, i32 0
+call void @print(i8* %var_9.ptr)
+%var_11 = add i32 7, 0
+%var_12 = add i32 2, 0
+%var_13 = add i32 2, 0
+%var_14 = call  i32 @foo2_int_int(i32 %var_12, i32 %var_13)
+%var_15 = add i32 8, 0
+%var_16 = call  i32 @foo1_int_int(i32 %var_14, i32 %var_15)
+%var_17 = call  i32 @foo0_int_int(i32 %var_11, i32 %var_16)
+%var_18 = getelementptr i32, i32* %var_8, i32 0
+store i32 %var_17, i32* %var_18
+%var_19 = getelementptr i32, i32* %var_8, i32 0
+%var_20 = load i32, i32* %var_19
+call void @printi(i32 %var_20)
+%var_22.ptr = getelementptr [5 x i8], [5 x i8]* @var_22, i32 0, i32 0
+call void @print(i8* %var_22.ptr)
+ret void }

@@ -33,7 +33,7 @@
 Program: Funcs                                                                  {$$ = new Program();}
 Funcs: /*epsilon*/                                                              {}                                            
 Funcs: FuncDecl Funcs                                                           {}                                        
-FuncDecl: OverRide RetType ID LPAREN Formals {$$ = new Funcdecl(dynamic_cast<Override*>($1), dynamic_cast<Rettype*>($2), $3, dynamic_cast<Formals*>($5));} RPAREN LBRACE Statements RBRACE Pop {gen_ir.gen_close_func(dynamic_cast<Rettype*>($2));}
+FuncDecl: OverRide RetType ID LPAREN Formals {$$ = new Funcdecl(dynamic_cast<Override*>($1), dynamic_cast<Rettype*>($2), $3, dynamic_cast<Formals*>($5));} RPAREN LBRACE Statements RBRACE Pop {gen_ir.gen_end_func(dynamic_cast<Rettype*>($2));}
 OverRide: /*epsilon*/                                                           {$$ = new Override(false);}                                                      
 OverRide: OVERRIDE                                                              {$$ = new Override(true);}
 RetType: Type                                                                   {$$ = new Rettype(dynamic_cast<Type*>($1));}
@@ -59,13 +59,8 @@ Statement: BREAK SC                                                             
 Statement: CONTINUE SC                                                          {$$ = new Statement($1);}
 Call: ID LPAREN ExpList RPAREN                                                  {$$ = new Call($1, dynamic_cast<Explist*>($3));}
 Call: ID LPAREN RPAREN                                                          {$$ = new Call($1);}
-
 ExpList: Exp                                                        {$$ = new Explist(gen_ir.gen_bool_exp2(dynamic_cast<Exp *>($1)));}
-         | Exp {$1 = gen_ir.gen_bool_exp2(dynamic_cast<Exp *>($1));} COMMA ExpList    {$$ = new Explist(dynamic_cast<Exp*>($1), dynamic_cast<Explist*>($4));}  // {$$ = $4;(dynamic_cast<Explist *>($$)->expressions).insert((dynamic_cast<Explist *>($$)->expressions).begin(), std::make_shared<Exp>(dynamic_cast<Exp*>($1)));}
-
-
-// ExpList: Exp                                                                    {$$ = new Explist(dynamic_cast<Exp*>($1));}
-// ExpList: Exp COMMA ExpList                                                      {$$ = new Explist(dynamic_cast<Exp*>($1), dynamic_cast<Explist*>($3));}
+ExpList: Exp {$1 = gen_ir.gen_bool_exp2(dynamic_cast<Exp *>($1));} COMMA ExpList    {$$ = new Explist(dynamic_cast<Exp*>($1), dynamic_cast<Explist*>($4));}  // {$$ = $4;(dynamic_cast<Explist *>($$)->expressions).insert((dynamic_cast<Explist *>($$)->expressions).begin(), std::make_shared<Exp>(dynamic_cast<Exp*>($1)));}
 Type: INT                                                                       {$$ = new Type($1);}
 Type: BYTE                                                                      {$$ = new Type($1);}
 Type: BOOL                                                                      {$$ = new Type($1);}

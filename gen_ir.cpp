@@ -28,13 +28,7 @@ string GenIR::new_label() {
 void GenIR::gen_binop(Exp &res, const Exp &exp1, const Exp &exp2, const string &op) {
     res.reg = new_reg();
     string llvm_op;
-    if (op == "+") {
-        llvm_op = "add";
-    }
-    else if (op == "-") {
-        llvm_op = "sub";
-    }
-    else if (op == "*") {
+    if (op == "*") {
         llvm_op = "mul";
     }
     else if (op == "/") {
@@ -47,6 +41,13 @@ void GenIR::gen_binop(Exp &res, const Exp &exp1, const Exp &exp2, const string &
         // Check devision by zero
         buffer.emit("call void @check_division(i32 " + exp2.reg + ")");
     }
+    else if (op == "+") {
+        llvm_op = "add";
+    }
+    else if (op == "-") {
+        llvm_op = "sub";
+    }
+    
     // Emit the instruction
     buffer.emit(res.reg + " = " + llvm_op + " i32 " + exp1.reg + ", " + exp2.reg);
 
@@ -59,16 +60,16 @@ void GenIR::gen_binop(Exp &res, const Exp &exp1, const Exp &exp2, const string &
 }
 
 void GenIR::gen_boolop(Exp &res, const Exp &exp1, const Exp &exp2, const string &op, const string &label) {
-    if (op == "and") {
-        buffer.bpatch(exp1.true_list, label);
-        res.true_list = AddrList(exp2.true_list);
-        res.false_list = buffer.merge(exp1.false_list, exp2.false_list);
-    }
-    // op == "or" 
-    else  {
+    if (op == "or") {
         buffer.bpatch(exp1.false_list, label);
         res.true_list = buffer.merge(exp1.true_list, exp2.true_list);
         res.false_list = AddrList(exp2.false_list);
+    }
+    // op == "and" 
+    else  {
+        buffer.bpatch(exp1.true_list, label);
+        res.true_list = AddrList(exp2.true_list);
+        res.false_list = buffer.merge(exp1.false_list, exp2.false_list);
     }
 }
 
@@ -77,33 +78,27 @@ void GenIR::gen_notop(Exp &res, const Exp &exp) {
     res.false_list = AddrList(exp.true_list);
 }
 
-void GenIR::gen_label(const string &label) {
-    // Not sure about this:
-    // buffer.emit("br label %" + label);
-    buffer.emit(label + ":");
-}
-
 void GenIR::gen_relop(Exp &res, const Exp &exp1, const Exp &exp2, const string &op) {
-    res.reg = new_reg();
     string llvm_op;
-    if (op == "==") {
-        llvm_op = "eq";
-    } else if (op == "!=") {
-        llvm_op = "ne";
-    } else if (op == ">") {
+    res.reg = new_reg();
+    if (op == ">") {
         llvm_op = "sgt";
     } else if (op == ">=") {
         llvm_op = "sge";
+    } else if (op == "==") {
+        llvm_op = "eq";
     } else if (op == "<") {
         llvm_op = "slt";
-    } else {
+    } else if (op == "!=") {
+        llvm_op = "ne"; 
+    } else { // op == "<="
         llvm_op = "sle";
     }
 
     buffer.emit(res.reg + " = icmp " + llvm_op + " i32 " + exp1.reg + ", " + exp2.reg);
     int address = buffer.emit("br i1 " + res.reg + ", label @, label @");
-    res.true_list = buffer.makelist(pair<int, BranchLabelIndex>(address, FIRST));
     res.false_list = buffer.makelist(pair<int, BranchLabelIndex>(address, SECOND));
+    res.true_list = buffer.makelist(pair<int, BranchLabelIndex>(address, FIRST)); 
 }
 
 void GenIR::gen_int_and_byte(Exp &exp) {
@@ -142,8 +137,8 @@ void GenIR::gen_id(Exp &exp) {
         string cond = new_reg();
         buffer.emit(cond + " = icmp eq i32 0, " + exp.reg);
         int address = buffer.emit("br i1 " + cond + ", label @, label @");
-        exp.true_list = buffer.makelist(pair<int, BranchLabelIndex>(address, SECOND));
         exp.false_list = buffer.makelist(pair<int, BranchLabelIndex>(address, FIRST));
+        exp.true_list = buffer.makelist(pair<int, BranchLabelIndex>(address, SECOND));
     }
 }
 
@@ -161,7 +156,7 @@ void GenIR::gen_store(string head, int offset, string reg) {
     buffer.emit("store i32 " + reg + ", i32* " + ptr_reg);
 }
 
-void GenIR::gen_call(Call &call) {
+void GenIR::gen_call(Call &call, string new_name) {
     call.reg = new_reg();
     string arg_str = "";
     for (auto exp : call.exp_list->expressions) {
@@ -176,29 +171,30 @@ void GenIR::gen_call(Call &call) {
     }
     
     if (call.ret_type == "void")
-        buffer.emit("call void @" + call.id + "(" + arg_str + ")");
+        buffer.emit("call void @" + new_name + "(" + arg_str + ")");
     else if(call.ret_type == "string"){
-        buffer.emit(call.reg + " = call  i8* @" + call.id + "(" + arg_str + ")");
+        buffer.emit(call.reg + " = call  i8* @" + new_name + "(" + arg_str + ")");
     }
     else if(call.ret_type == "bool") {
-        buffer.emit(call.reg + " = call i32 @" + call.id + "(" + arg_str + ")");
+        buffer.emit(call.reg + " = call i32 @" + new_name + "(" + arg_str + ")");
         string cond = new_reg();
         buffer.emit(cond + " = icmp eq i32 0, " + call.reg);
         int address = buffer.emit("br i1 " + cond + ", label @, label @");
         call.true_list = buffer.makelist(pair<int, BranchLabelIndex>(address, SECOND));
         call.false_list = buffer.makelist(pair<int, BranchLabelIndex>(address, FIRST));
     } else {
-        buffer.emit(call.reg + " = call  i32 @" + call.id + "(" + arg_str + ")");
+        buffer.emit(call.reg + " = call  i32 @" + new_name + "(" + arg_str + ")");
     }
 }
 
 void GenIR::gen_assign(Exp &exp, int offset) {
-    if (exp.type == "bool") {
-        auto new_exp = gen_bool_exp(exp);
-        gen_store(symbol_table_stack.get_current_symbol_table()->head, offset, new_exp->reg);
-    } else {
+    if (exp.type != "bool") {
         gen_store(symbol_table_stack.get_current_symbol_table()->head, offset, exp.reg);
+        return;
     }
+
+    auto new_exp = gen_bool_exp(exp);
+    gen_store(symbol_table_stack.get_current_symbol_table()->head, offset, new_exp->reg);
 }
 
 shared_ptr<Exp> GenIR::gen_bool_exp(Exp &exp) {
@@ -215,18 +211,23 @@ shared_ptr<Exp> GenIR::gen_bool_exp(Exp &exp) {
 
     buffer.emit("br label %" + true_list);
     buffer.emit(true_list + ":");
+    // string true_list = buffer.genLabel(true);
     int addr1 = buffer.emit("br label @");
 
     buffer.emit(false_list + ":");
+    // string false_list = buffer.genLabel(false);
     int addr2 = buffer.emit("br label @");
 
     buffer.emit(next_list + ":");
+    // string next_list = buffer.genLabel(false);
+
+
+    buffer.bpatch(exp.true_list, true_list);
+    buffer.bpatch(exp.false_list, false_list);
 
     AddrList next = buffer.merge(buffer.makelist(pair<int, BranchLabelIndex>(addr1, FIRST)),
                                buffer.makelist(pair<int, BranchLabelIndex>(addr2, FIRST)));
 
-    buffer.bpatch(exp.true_list, true_list);
-    buffer.bpatch(exp.false_list, false_list);
     buffer.bpatch(next, next_list);
     buffer.emit(new_exp->reg + " = phi i32 [ 1, %" + true_list +"], [0, %" + false_list + "]");
 
@@ -254,11 +255,12 @@ Exp* GenIR::gen_bool_exp2(Exp *exp) {
 
     buffer.emit(next_list + ":");
 
+    buffer.bpatch(exp->true_list, true_list);
+    buffer.bpatch(exp->false_list, false_list);
+
     AddrList next = buffer.merge(buffer.makelist(pair<int, BranchLabelIndex>(addr1, FIRST)),
                                buffer.makelist(pair<int, BranchLabelIndex>(addr2, FIRST)));
 
-    buffer.bpatch(exp->true_list, true_list);
-    buffer.bpatch(exp->false_list, false_list);
     buffer.bpatch(next, next_list);
     buffer.emit(new_exp->reg + " = phi i32 [ 1, %" + true_list +"], [0, %" + false_list + "]");
 
@@ -269,9 +271,9 @@ void GenIR::gen_return(Exp &exp, bool print_reg) {
     string str = print_reg ? exp.reg : exp.value;
     if (exp.type == "string") {
         buffer.emit("ret i8* " + str);
-    } else {
-        buffer.emit("ret i32 " + str);
+        return;
     }
+    buffer.emit("ret i32 " + str);
 }
 
 void GenIR::gen_funcdecl(string id, string return_type, vector<shared_ptr<Formaldecl>> params) {
@@ -302,7 +304,7 @@ string GenIR::allocate_function_frame() {
     return head;
 }
 
-void GenIR::gen_close_func(Rettype *rettype) {
+void GenIR::gen_end_func(Rettype *rettype) {
     string str = rettype->type->type == "void" ? "void" : "i32 0";
     buffer.emit("ret " + str + " }");
 }
@@ -314,13 +316,13 @@ void GenIR::gen_nextlist_label(Exp *exp) {
 }
 
 void GenIR::gen_init() {
-    buffer.emit("@.DIV_BY_ZERO_ERROR = internal constant [23 x i8] c\"Error division by zero\\00\"");
+    buffer.emit("@.division_zero_error_str = internal constant [23 x i8] c\"Error division by zero\\00\"");
 
     buffer.emit("define void @check_division(i32) {");
     buffer.emit("%valid = icmp eq i32 %0, 0");
     buffer.emit("br i1 %valid, label %ILLEGAL, label %LEGAL");
     buffer.emit("ILLEGAL:");
-    buffer.emit("call void @printzero(i8* getelementptr([23 x i8], [23 x i8]* @.DIV_BY_ZERO_ERROR, i32 0, i32 0))");
+    buffer.emit("call void @print(i8* getelementptr([23 x i8], [23 x i8]* @.division_zero_error_str, i32 0, i32 0))");
     buffer.emit("call void @exit(i32 0)");
     buffer.emit("ret void");
     buffer.emit("LEGAL:");

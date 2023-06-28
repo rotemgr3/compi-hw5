@@ -556,10 +556,10 @@ static const yytype_int8 yyrline[] =
        0,    33,    33,    34,    35,    36,    36,    37,    38,    39,
       40,    41,    42,    43,    44,    45,    46,    47,    48,    49,
       50,    51,    52,    53,    54,    55,    56,    56,    57,    57,
-      58,    59,    60,    61,    63,    64,    64,    69,    70,    71,
-      72,    73,    74,    75,    76,    77,    78,    79,    80,    81,
-      82,    83,    84,    85,    86,    87,    88,    90,    91,    92,
-      93
+      58,    59,    60,    61,    62,    63,    63,    64,    65,    66,
+      67,    68,    69,    70,    71,    72,    73,    74,    75,    76,
+      77,    78,    79,    80,    81,    82,    83,    85,    86,    87,
+      88
 };
 #endif
 
@@ -1254,7 +1254,7 @@ yyreduce:
 
   case 6: /* FuncDecl: OverRide RetType ID LPAREN Formals @1 RPAREN LBRACE Statements RBRACE Pop  */
 #line 36 "parser.ypp"
-                                                                                                                                                                                               {gen_ir.gen_close_func(dynamic_cast<Rettype*>(yyvsp[-9]));}
+                                                                                                                                                                                               {gen_ir.gen_end_func(dynamic_cast<Rettype*>(yyvsp[-9]));}
 #line 1259 "parser.tab.cpp"
     break;
 
@@ -1421,163 +1421,163 @@ yyreduce:
     break;
 
   case 34: /* ExpList: Exp  */
-#line 63 "parser.ypp"
+#line 62 "parser.ypp"
                                                                     {yyval = new Explist(gen_ir.gen_bool_exp2(dynamic_cast<Exp *>(yyvsp[0])));}
 #line 1427 "parser.tab.cpp"
     break;
 
   case 35: /* $@4: %empty  */
-#line 64 "parser.ypp"
-               {yyvsp[0] = gen_ir.gen_bool_exp2(dynamic_cast<Exp *>(yyvsp[0]));}
+#line 63 "parser.ypp"
+             {yyvsp[0] = gen_ir.gen_bool_exp2(dynamic_cast<Exp *>(yyvsp[0]));}
 #line 1433 "parser.tab.cpp"
     break;
 
   case 36: /* ExpList: Exp $@4 COMMA ExpList  */
-#line 64 "parser.ypp"
-                                                                                      {yyval = new Explist(dynamic_cast<Exp*>(yyvsp[-3]), dynamic_cast<Explist*>(yyvsp[0]));}
+#line 63 "parser.ypp"
+                                                                                    {yyval = new Explist(dynamic_cast<Exp*>(yyvsp[-3]), dynamic_cast<Explist*>(yyvsp[0]));}
 #line 1439 "parser.tab.cpp"
     break;
 
   case 37: /* Type: INT  */
-#line 69 "parser.ypp"
+#line 64 "parser.ypp"
                                                                                 {yyval = new Type(yyvsp[0]);}
 #line 1445 "parser.tab.cpp"
     break;
 
   case 38: /* Type: BYTE  */
-#line 70 "parser.ypp"
+#line 65 "parser.ypp"
                                                                                 {yyval = new Type(yyvsp[0]);}
 #line 1451 "parser.tab.cpp"
     break;
 
   case 39: /* Type: BOOL  */
-#line 71 "parser.ypp"
+#line 66 "parser.ypp"
                                                                                 {yyval = new Type(yyvsp[0]);}
 #line 1457 "parser.tab.cpp"
     break;
 
   case 40: /* Exp: LPAREN Exp RPAREN  */
-#line 72 "parser.ypp"
+#line 67 "parser.ypp"
                                                                                 {yyval = new Exp(dynamic_cast<Exp*>(yyvsp[-1]));}
 #line 1463 "parser.tab.cpp"
     break;
 
   case 41: /* Exp: Exp PLUS Exp  */
-#line 73 "parser.ypp"
+#line 68 "parser.ypp"
                                                                                 {yyval = new Exp(dynamic_cast<Exp*>(yyvsp[-2]), yyvsp[-1], dynamic_cast<Exp*>(yyvsp[0]));}
 #line 1469 "parser.tab.cpp"
     break;
 
   case 42: /* Exp: Exp MINUS Exp  */
-#line 74 "parser.ypp"
+#line 69 "parser.ypp"
                                                                                 {yyval = new Exp(dynamic_cast<Exp*>(yyvsp[-2]), yyvsp[-1], dynamic_cast<Exp*>(yyvsp[0]));}
 #line 1475 "parser.tab.cpp"
     break;
 
   case 43: /* Exp: Exp MULT Exp  */
-#line 75 "parser.ypp"
+#line 70 "parser.ypp"
                                                                                 {yyval = new Exp(dynamic_cast<Exp*>(yyvsp[-2]), yyvsp[-1], dynamic_cast<Exp*>(yyvsp[0]));}
 #line 1481 "parser.tab.cpp"
     break;
 
   case 44: /* Exp: Exp DIV Exp  */
-#line 76 "parser.ypp"
+#line 71 "parser.ypp"
                                                                                 {yyval = new Exp(dynamic_cast<Exp*>(yyvsp[-2]), yyvsp[-1], dynamic_cast<Exp*>(yyvsp[0]));}
 #line 1487 "parser.tab.cpp"
     break;
 
   case 45: /* Exp: ID  */
-#line 77 "parser.ypp"
+#line 72 "parser.ypp"
                                                                                 {yyval = new Exp(yyvsp[0]);}
 #line 1493 "parser.tab.cpp"
     break;
 
   case 46: /* Exp: Call  */
-#line 78 "parser.ypp"
+#line 73 "parser.ypp"
                                                                                 {yyval = new Exp(dynamic_cast<Call*>(yyvsp[0]));}
 #line 1499 "parser.tab.cpp"
     break;
 
   case 47: /* Exp: NUM  */
-#line 79 "parser.ypp"
+#line 74 "parser.ypp"
                                                                                 {yyval = new Exp(yyvsp[0]);}
 #line 1505 "parser.tab.cpp"
     break;
 
   case 48: /* Exp: NUM B  */
-#line 80 "parser.ypp"
+#line 75 "parser.ypp"
                                                                                 {yyval = new Exp(yyvsp[-1], yyvsp[0]);}
 #line 1511 "parser.tab.cpp"
     break;
 
   case 49: /* Exp: STRING  */
-#line 81 "parser.ypp"
+#line 76 "parser.ypp"
                                                                                 {yyval = new Exp(yyvsp[0]);}
 #line 1517 "parser.tab.cpp"
     break;
 
   case 50: /* Exp: TRUE  */
-#line 82 "parser.ypp"
+#line 77 "parser.ypp"
                                                                                 {yyval = new Exp(yyvsp[0]);}
 #line 1523 "parser.tab.cpp"
     break;
 
   case 51: /* Exp: FALSE  */
-#line 83 "parser.ypp"
+#line 78 "parser.ypp"
                                                                                 {yyval = new Exp(yyvsp[0]);}
 #line 1529 "parser.tab.cpp"
     break;
 
   case 52: /* Exp: NOT Exp  */
-#line 84 "parser.ypp"
+#line 79 "parser.ypp"
                                                                                 {yyval = new Exp(yyvsp[-1], dynamic_cast<Exp*>(yyvsp[0]));}
 #line 1535 "parser.tab.cpp"
     break;
 
   case 53: /* Exp: Exp AND Label Exp  */
-#line 85 "parser.ypp"
+#line 80 "parser.ypp"
                                                                                 {yyval = new Exp(dynamic_cast<Exp*>(yyvsp[-3]), yyvsp[-2], dynamic_cast<Exp*>(yyvsp[0]), dynamic_cast<Label*>(yyvsp[-1]));}
 #line 1541 "parser.tab.cpp"
     break;
 
   case 54: /* Exp: Exp OR Label Exp  */
-#line 86 "parser.ypp"
+#line 81 "parser.ypp"
                                                                                 {yyval = new Exp(dynamic_cast<Exp*>(yyvsp[-3]), yyvsp[-2], dynamic_cast<Exp*>(yyvsp[0]), dynamic_cast<Label*>(yyvsp[-1]));}
 #line 1547 "parser.tab.cpp"
     break;
 
   case 55: /* Exp: Exp RELOP Exp  */
-#line 87 "parser.ypp"
+#line 82 "parser.ypp"
                                                                                 {yyval = new Exp(dynamic_cast<Exp*>(yyvsp[-2]), yyvsp[-1], dynamic_cast<Exp*>(yyvsp[0]));}
 #line 1553 "parser.tab.cpp"
     break;
 
   case 56: /* Exp: LPAREN Type RPAREN Exp  */
-#line 88 "parser.ypp"
+#line 83 "parser.ypp"
                                                                                 {yyval = new Exp(dynamic_cast<Type*>(yyvsp[-2]), dynamic_cast<Exp*>(yyvsp[0]));}
 #line 1559 "parser.tab.cpp"
     break;
 
   case 57: /* Push: %empty  */
-#line 90 "parser.ypp"
+#line 85 "parser.ypp"
                                                                                 {symbol_table_stack.push_symbol_table();}
 #line 1565 "parser.tab.cpp"
     break;
 
   case 58: /* Pop: %empty  */
-#line 91 "parser.ypp"
+#line 86 "parser.ypp"
                                                                                 {symbol_table_stack.pop_symbol_table();}
 #line 1571 "parser.tab.cpp"
     break;
 
   case 59: /* verify_bool: Exp  */
-#line 92 "parser.ypp"
+#line 87 "parser.ypp"
                                                                                 {verify_bool(yyvsp[0]);}
 #line 1577 "parser.tab.cpp"
     break;
 
   case 60: /* Label: %empty  */
-#line 93 "parser.ypp"
+#line 88 "parser.ypp"
                                                                                 {yyval = new Label();}
 #line 1583 "parser.tab.cpp"
     break;
@@ -1777,7 +1777,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 94 "parser.ypp"
+#line 89 "parser.ypp"
 
 
 SymbolTableStack symbol_table_stack = SymbolTableStack();

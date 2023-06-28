@@ -1,0 +1,89 @@
+@var_52 = constant [23 x i8] c"this should not happen\00"
+@.division_zero_error_str = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @print(i8* getelementptr([23 x i8], [23 x i8]* @.division_zero_error_str, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int_specifier = constant [4 x i8] c"%d\0A\00"
+@.str_specifier = constant [4 x i8] c"%s\0A\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str_specifier, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0), i32 %0)
+ret void
+}
+define i32 @zero(){
+%var_2 = alloca i32, i32 50
+%var_3 = add i32 0, 0
+ret i32 0
+ret i32 0 }
+define i32 @willThisNeedManyRegisters_int_int_int_int_int_int_int(i32, i32, i32, i32, i32, i32, i32){
+%var_4 = alloca i32, i32 50
+%var_5 = call  i32 @zero()
+%var_6 = mul i32 %var_5, %0
+%var_7 = mul i32 %var_6, %0
+%var_8 = mul i32 %0, %0
+%var_9 = add i32 %var_7, %var_8
+%var_10 = mul i32 %1, %2
+%var_11 = mul i32 %var_10, %0
+%var_12 = add i32 %var_9, %var_11
+%var_13 = mul i32 %3, %1
+%var_14 = mul i32 %var_13, %4
+call void @check_division(i32 %5)
+%var_15 = sdiv i32 %var_14, %5
+%var_16 = sub i32 %var_12, %var_15
+%var_17 = add i32 %var_16, %5
+%var_18 = mul i32 %6, %6
+%var_19 = mul i32 %var_18, %6
+%var_20 = add i32 %var_17, %var_19
+%var_21 = sub i32 %var_20, %1
+ret i32 %var_21
+ret i32 0 }
+define void @main(){
+%var_22 = alloca i32, i32 50
+%var_23 = add i32 2, 0
+%var_24 = add i32 3, 0
+%var_25 = add i32 6, 0
+%var_26 = mul i32 %var_24, %var_25
+%var_27 = add i32 4, 0
+call void @check_division(i32 %var_27)
+%var_28 = sdiv i32 %var_26, %var_27
+%var_29 = add i32 %var_23, %var_28
+%var_30 = add i32 1, 0
+%var_31 = sub i32 %var_29, %var_30
+call void @printi(i32 %var_31)
+%var_33 = add i32 23, 0
+%var_34 = add i32 12, 0
+%var_35 = mul i32 %var_33, %var_34
+%var_36 = add i32 459, 0
+%var_37 = add i32 %var_35, %var_36
+call void @printi(i32 %var_37)
+%var_39 = add i32 0, 0
+%var_40 = add i32 1, 0
+%var_41 = add i32 2, 0
+%var_42 = add i32 3, 0
+%var_43 = add i32 4, 0
+%var_44 = add i32 5, 0
+%var_45 = add i32 6, 0
+%var_46 = call  i32 @willThisNeedManyRegisters_int_int_int_int_int_int_int(i32 %var_39, i32 %var_40, i32 %var_41, i32 %var_42, i32 %var_43, i32 %var_44, i32 %var_45)
+call void @printi(i32 %var_46)
+%var_48 = add i32 12, 0
+%var_49 = call  i32 @zero()
+call void @check_division(i32 %var_49)
+%var_50 = sdiv i32 %var_48, %var_49
+%var_51 = getelementptr i32, i32* %var_22, i32 0
+store i32 %var_50, i32* %var_51
+%var_52.ptr = getelementptr [23 x i8], [23 x i8]* @var_52, i32 0, i32 0
+call void @print(i8* %var_52.ptr)
+ret void }

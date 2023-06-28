@@ -1,0 +1,420 @@
+@var_3 = constant [14 x i8] c"test number 1\00"
+@var_9 = constant [14 x i8] c"test number 2\00"
+@var_15 = constant [14 x i8] c"test number 3\00"
+@var_21 = constant [14 x i8] c"test number 4\00"
+@var_27 = constant [14 x i8] c"test number 5\00"
+@var_37 = constant [14 x i8] c"test number 6\00"
+@var_47 = constant [14 x i8] c"test number 7\00"
+@var_57 = constant [14 x i8] c"test number 8\00"
+@var_67 = constant [14 x i8] c"test number 9\00"
+@var_77 = constant [15 x i8] c"test number 10\00"
+@var_87 = constant [15 x i8] c"test number 11\00"
+@var_97 = constant [15 x i8] c"test number 12\00"
+@var_104 = constant [15 x i8] c"test number 13\00"
+@var_111 = constant [15 x i8] c"test number 14\00"
+@var_118 = constant [15 x i8] c"test number 15\00"
+@var_125 = constant [15 x i8] c"test number 16\00"
+@var_138 = constant [15 x i8] c"test number 17\00"
+@var_151 = constant [15 x i8] c"test number 18\00"
+@var_164 = constant [15 x i8] c"test number 19\00"
+@var_177 = constant [15 x i8] c"test number 20\00"
+@var_190 = constant [15 x i8] c"test number 21\00"
+@var_203 = constant [15 x i8] c"test number 22\00"
+@var_216 = constant [15 x i8] c"test number 23\00"
+@var_222 = constant [15 x i8] c"test number 24\00"
+@var_228 = constant [15 x i8] c"test number 25\00"
+@var_234 = constant [15 x i8] c"test number 26\00"
+@var_240 = constant [15 x i8] c"test number 27\00"
+@var_246 = constant [15 x i8] c"test number 28\00"
+@var_252 = constant [15 x i8] c"test number 29\00"
+@var_258 = constant [15 x i8] c"test number 30\00"
+@var_264 = constant [15 x i8] c"test number 31\00"
+@var_274 = constant [15 x i8] c"test number 32\00"
+@var_284 = constant [15 x i8] c"test number 33\00"
+@var_294 = constant [15 x i8] c"test number 34\00"
+@var_304 = constant [15 x i8] c"test number 35\00"
+@var_314 = constant [15 x i8] c"test number 36\00"
+@var_324 = constant [15 x i8] c"test number 37\00"
+@.division_zero_error_str = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @print(i8* getelementptr([23 x i8], [23 x i8]* @.division_zero_error_str, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int_specifier = constant [4 x i8] c"%d\0A\00"
+@.str_specifier = constant [4 x i8] c"%s\0A\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str_specifier, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0), i32 %0)
+ret void
+}
+define void @main(){
+%var_2 = alloca i32, i32 50
+%var_3.ptr = getelementptr [14 x i8], [14 x i8]* @var_3, i32 0, i32 0
+call void @print(i8* %var_3.ptr)
+%var_5 = add i32 2, 0
+%var_6 = add i32 3, 0
+%var_7 = add i32 %var_5, %var_6
+call void @printi(i32 %var_7)
+%var_9.ptr = getelementptr [14 x i8], [14 x i8]* @var_9, i32 0, i32 0
+call void @print(i8* %var_9.ptr)
+%var_11 = add i32 10, 0
+%var_12 = add i32 8, 0
+%var_13 = sub i32 %var_11, %var_12
+call void @printi(i32 %var_13)
+%var_15.ptr = getelementptr [14 x i8], [14 x i8]* @var_15, i32 0, i32 0
+call void @print(i8* %var_15.ptr)
+%var_17 = add i32 2, 0
+%var_18 = add i32 3, 0
+%var_19 = mul i32 %var_17, %var_18
+call void @printi(i32 %var_19)
+%var_21.ptr = getelementptr [14 x i8], [14 x i8]* @var_21, i32 0, i32 0
+call void @print(i8* %var_21.ptr)
+%var_23 = add i32 4, 0
+%var_24 = add i32 2, 0
+call void @check_division(i32 %var_24)
+%var_25 = sdiv i32 %var_23, %var_24
+call void @printi(i32 %var_25)
+%var_27.ptr = getelementptr [14 x i8], [14 x i8]* @var_27, i32 0, i32 0
+call void @print(i8* %var_27.ptr)
+%var_29 = add i32 2, 0
+%var_30 = add i32 3, 0
+%var_31 = add i32 5, 0
+%var_32 = mul i32 %var_30, %var_31
+%var_33 = add i32 5, 0
+call void @check_division(i32 %var_33)
+%var_34 = sdiv i32 %var_32, %var_33
+%var_35 = add i32 %var_29, %var_34
+call void @printi(i32 %var_35)
+%var_37.ptr = getelementptr [14 x i8], [14 x i8]* @var_37, i32 0, i32 0
+call void @print(i8* %var_37.ptr)
+%var_39 = add i32 2, 0
+%var_40 = add i32 3, 0
+%var_41 = mul i32 %var_39, %var_40
+%var_42 = add i32 5, 0
+%var_43 = add i32 5, 0
+%var_44 = mul i32 %var_42, %var_43
+%var_45 = add i32 %var_41, %var_44
+call void @printi(i32 %var_45)
+%var_47.ptr = getelementptr [14 x i8], [14 x i8]* @var_47, i32 0, i32 0
+call void @print(i8* %var_47.ptr)
+%var_49 = add i32 6, 0
+%var_50 = add i32 3, 0
+call void @check_division(i32 %var_50)
+%var_51 = sdiv i32 %var_49, %var_50
+%var_52 = add i32 200, 0
+%var_53 = add i32 5, 0
+call void @check_division(i32 %var_53)
+%var_54 = sdiv i32 %var_52, %var_53
+%var_55 = add i32 %var_51, %var_54
+call void @printi(i32 %var_55)
+%var_57.ptr = getelementptr [14 x i8], [14 x i8]* @var_57, i32 0, i32 0
+call void @print(i8* %var_57.ptr)
+%var_59 = add i32 5, 0
+%var_60 = add i32 5, 0
+%var_61 = mul i32 %var_59, %var_60
+%var_62 = add i32 2, 0
+%var_63 = add i32 3, 0
+%var_64 = mul i32 %var_62, %var_63
+%var_65 = sub i32 %var_61, %var_64
+call void @printi(i32 %var_65)
+%var_67.ptr = getelementptr [14 x i8], [14 x i8]* @var_67, i32 0, i32 0
+call void @print(i8* %var_67.ptr)
+%var_69 = add i32 300, 0
+%var_70 = add i32 3, 0
+call void @check_division(i32 %var_70)
+%var_71 = sdiv i32 %var_69, %var_70
+%var_72 = add i32 200, 0
+%var_73 = add i32 5, 0
+call void @check_division(i32 %var_73)
+%var_74 = sdiv i32 %var_72, %var_73
+%var_75 = sub i32 %var_71, %var_74
+call void @printi(i32 %var_75)
+%var_77.ptr = getelementptr [15 x i8], [15 x i8]* @var_77, i32 0, i32 0
+call void @print(i8* %var_77.ptr)
+%var_79 = add i32 5, 0
+%var_80 = add i32 5, 0
+%var_81 = mul i32 %var_79, %var_80
+%var_82 = add i32 2, 0
+%var_83 = add i32 3, 0
+%var_84 = mul i32 %var_82, %var_83
+%var_85 = sub i32 %var_81, %var_84
+call void @printi(i32 %var_85)
+%var_87.ptr = getelementptr [15 x i8], [15 x i8]* @var_87, i32 0, i32 0
+call void @print(i8* %var_87.ptr)
+%var_89 = add i32 300, 0
+%var_90 = add i32 3, 0
+call void @check_division(i32 %var_90)
+%var_91 = sdiv i32 %var_89, %var_90
+%var_92 = add i32 200, 0
+%var_93 = add i32 5, 0
+call void @check_division(i32 %var_93)
+%var_94 = sdiv i32 %var_92, %var_93
+%var_95 = sub i32 %var_91, %var_94
+call void @printi(i32 %var_95)
+%var_97.ptr = getelementptr [15 x i8], [15 x i8]* @var_97, i32 0, i32 0
+call void @print(i8* %var_97.ptr)
+%var_99 = add i32 2, 0
+%var_100 = add i32 3, 0
+%var_101 = add i32 %var_99, %var_100
+%var_102 = and i32 255, %var_101
+call void @printi(i32 %var_102)
+%var_104.ptr = getelementptr [15 x i8], [15 x i8]* @var_104, i32 0, i32 0
+call void @print(i8* %var_104.ptr)
+%var_106 = add i32 10, 0
+%var_107 = add i32 8, 0
+%var_108 = sub i32 %var_106, %var_107
+%var_109 = and i32 255, %var_108
+call void @printi(i32 %var_109)
+%var_111.ptr = getelementptr [15 x i8], [15 x i8]* @var_111, i32 0, i32 0
+call void @print(i8* %var_111.ptr)
+%var_113 = add i32 2, 0
+%var_114 = add i32 3, 0
+%var_115 = mul i32 %var_113, %var_114
+%var_116 = and i32 255, %var_115
+call void @printi(i32 %var_116)
+%var_118.ptr = getelementptr [15 x i8], [15 x i8]* @var_118, i32 0, i32 0
+call void @print(i8* %var_118.ptr)
+%var_120 = add i32 4, 0
+%var_121 = add i32 2, 0
+call void @check_division(i32 %var_121)
+%var_122 = udiv i32 %var_120, %var_121
+%var_123 = and i32 255, %var_122
+call void @printi(i32 %var_123)
+%var_125.ptr = getelementptr [15 x i8], [15 x i8]* @var_125, i32 0, i32 0
+call void @print(i8* %var_125.ptr)
+%var_127 = add i32 2, 0
+%var_128 = add i32 3, 0
+%var_129 = add i32 5, 0
+%var_130 = mul i32 %var_128, %var_129
+%var_131 = and i32 255, %var_130
+%var_132 = add i32 5, 0
+call void @check_division(i32 %var_132)
+%var_133 = udiv i32 %var_131, %var_132
+%var_134 = and i32 255, %var_133
+%var_135 = add i32 %var_127, %var_134
+%var_136 = and i32 255, %var_135
+call void @printi(i32 %var_136)
+%var_138.ptr = getelementptr [15 x i8], [15 x i8]* @var_138, i32 0, i32 0
+call void @print(i8* %var_138.ptr)
+%var_140 = add i32 2, 0
+%var_141 = add i32 3, 0
+%var_142 = mul i32 %var_140, %var_141
+%var_143 = and i32 255, %var_142
+%var_144 = add i32 5, 0
+%var_145 = add i32 5, 0
+%var_146 = mul i32 %var_144, %var_145
+%var_147 = and i32 255, %var_146
+%var_148 = add i32 %var_143, %var_147
+%var_149 = and i32 255, %var_148
+call void @printi(i32 %var_149)
+%var_151.ptr = getelementptr [15 x i8], [15 x i8]* @var_151, i32 0, i32 0
+call void @print(i8* %var_151.ptr)
+%var_153 = add i32 6, 0
+%var_154 = add i32 3, 0
+call void @check_division(i32 %var_154)
+%var_155 = udiv i32 %var_153, %var_154
+%var_156 = and i32 255, %var_155
+%var_157 = add i32 200, 0
+%var_158 = add i32 5, 0
+call void @check_division(i32 %var_158)
+%var_159 = udiv i32 %var_157, %var_158
+%var_160 = and i32 255, %var_159
+%var_161 = add i32 %var_156, %var_160
+%var_162 = and i32 255, %var_161
+call void @printi(i32 %var_162)
+%var_164.ptr = getelementptr [15 x i8], [15 x i8]* @var_164, i32 0, i32 0
+call void @print(i8* %var_164.ptr)
+%var_166 = add i32 5, 0
+%var_167 = add i32 5, 0
+%var_168 = mul i32 %var_166, %var_167
+%var_169 = and i32 255, %var_168
+%var_170 = add i32 2, 0
+%var_171 = add i32 3, 0
+%var_172 = mul i32 %var_170, %var_171
+%var_173 = and i32 255, %var_172
+%var_174 = sub i32 %var_169, %var_173
+%var_175 = and i32 255, %var_174
+call void @printi(i32 %var_175)
+%var_177.ptr = getelementptr [15 x i8], [15 x i8]* @var_177, i32 0, i32 0
+call void @print(i8* %var_177.ptr)
+%var_179 = add i32 100, 0
+%var_180 = add i32 2, 0
+call void @check_division(i32 %var_180)
+%var_181 = udiv i32 %var_179, %var_180
+%var_182 = and i32 255, %var_181
+%var_183 = add i32 200, 0
+%var_184 = add i32 10, 0
+call void @check_division(i32 %var_184)
+%var_185 = udiv i32 %var_183, %var_184
+%var_186 = and i32 255, %var_185
+%var_187 = sub i32 %var_182, %var_186
+%var_188 = and i32 255, %var_187
+call void @printi(i32 %var_188)
+%var_190.ptr = getelementptr [15 x i8], [15 x i8]* @var_190, i32 0, i32 0
+call void @print(i8* %var_190.ptr)
+%var_192 = add i32 5, 0
+%var_193 = add i32 5, 0
+%var_194 = mul i32 %var_192, %var_193
+%var_195 = and i32 255, %var_194
+%var_196 = add i32 2, 0
+%var_197 = add i32 3, 0
+%var_198 = mul i32 %var_196, %var_197
+%var_199 = and i32 255, %var_198
+%var_200 = sub i32 %var_195, %var_199
+%var_201 = and i32 255, %var_200
+call void @printi(i32 %var_201)
+%var_203.ptr = getelementptr [15 x i8], [15 x i8]* @var_203, i32 0, i32 0
+call void @print(i8* %var_203.ptr)
+%var_205 = add i32 100, 0
+%var_206 = add i32 2, 0
+call void @check_division(i32 %var_206)
+%var_207 = udiv i32 %var_205, %var_206
+%var_208 = and i32 255, %var_207
+%var_209 = add i32 200, 0
+%var_210 = add i32 20, 0
+call void @check_division(i32 %var_210)
+%var_211 = udiv i32 %var_209, %var_210
+%var_212 = and i32 255, %var_211
+%var_213 = sub i32 %var_208, %var_212
+%var_214 = and i32 255, %var_213
+call void @printi(i32 %var_214)
+%var_216.ptr = getelementptr [15 x i8], [15 x i8]* @var_216, i32 0, i32 0
+call void @print(i8* %var_216.ptr)
+%var_218 = add i32 2, 0
+%var_219 = add i32 3, 0
+%var_220 = add i32 %var_218, %var_219
+call void @printi(i32 %var_220)
+%var_222.ptr = getelementptr [15 x i8], [15 x i8]* @var_222, i32 0, i32 0
+call void @print(i8* %var_222.ptr)
+%var_224 = add i32 10, 0
+%var_225 = add i32 8, 0
+%var_226 = sub i32 %var_224, %var_225
+call void @printi(i32 %var_226)
+%var_228.ptr = getelementptr [15 x i8], [15 x i8]* @var_228, i32 0, i32 0
+call void @print(i8* %var_228.ptr)
+%var_230 = add i32 2, 0
+%var_231 = add i32 3, 0
+%var_232 = mul i32 %var_230, %var_231
+call void @printi(i32 %var_232)
+%var_234.ptr = getelementptr [15 x i8], [15 x i8]* @var_234, i32 0, i32 0
+call void @print(i8* %var_234.ptr)
+%var_236 = add i32 4, 0
+%var_237 = add i32 2, 0
+call void @check_division(i32 %var_237)
+%var_238 = sdiv i32 %var_236, %var_237
+call void @printi(i32 %var_238)
+%var_240.ptr = getelementptr [15 x i8], [15 x i8]* @var_240, i32 0, i32 0
+call void @print(i8* %var_240.ptr)
+%var_242 = add i32 2, 0
+%var_243 = add i32 3, 0
+%var_244 = add i32 %var_242, %var_243
+call void @printi(i32 %var_244)
+%var_246.ptr = getelementptr [15 x i8], [15 x i8]* @var_246, i32 0, i32 0
+call void @print(i8* %var_246.ptr)
+%var_248 = add i32 10, 0
+%var_249 = add i32 8, 0
+%var_250 = sub i32 %var_248, %var_249
+call void @printi(i32 %var_250)
+%var_252.ptr = getelementptr [15 x i8], [15 x i8]* @var_252, i32 0, i32 0
+call void @print(i8* %var_252.ptr)
+%var_254 = add i32 2, 0
+%var_255 = add i32 3, 0
+%var_256 = mul i32 %var_254, %var_255
+call void @printi(i32 %var_256)
+%var_258.ptr = getelementptr [15 x i8], [15 x i8]* @var_258, i32 0, i32 0
+call void @print(i8* %var_258.ptr)
+%var_260 = add i32 4, 0
+%var_261 = add i32 2, 0
+call void @check_division(i32 %var_261)
+%var_262 = sdiv i32 %var_260, %var_261
+call void @printi(i32 %var_262)
+%var_264.ptr = getelementptr [15 x i8], [15 x i8]* @var_264, i32 0, i32 0
+call void @print(i8* %var_264.ptr)
+%var_266 = add i32 2, 0
+%var_267 = add i32 3, 0
+%var_268 = add i32 5, 0
+%var_269 = mul i32 %var_267, %var_268
+%var_270 = add i32 5, 0
+call void @check_division(i32 %var_270)
+%var_271 = sdiv i32 %var_269, %var_270
+%var_272 = add i32 %var_266, %var_271
+call void @printi(i32 %var_272)
+%var_274.ptr = getelementptr [15 x i8], [15 x i8]* @var_274, i32 0, i32 0
+call void @print(i8* %var_274.ptr)
+%var_276 = add i32 2, 0
+%var_277 = add i32 3, 0
+%var_278 = mul i32 %var_276, %var_277
+%var_279 = add i32 5, 0
+%var_280 = add i32 5, 0
+%var_281 = mul i32 %var_279, %var_280
+%var_282 = add i32 %var_278, %var_281
+call void @printi(i32 %var_282)
+%var_284.ptr = getelementptr [15 x i8], [15 x i8]* @var_284, i32 0, i32 0
+call void @print(i8* %var_284.ptr)
+%var_286 = add i32 6, 0
+%var_287 = add i32 3, 0
+call void @check_division(i32 %var_287)
+%var_288 = sdiv i32 %var_286, %var_287
+%var_289 = add i32 200, 0
+%var_290 = add i32 5, 0
+call void @check_division(i32 %var_290)
+%var_291 = sdiv i32 %var_289, %var_290
+%var_292 = add i32 %var_288, %var_291
+call void @printi(i32 %var_292)
+%var_294.ptr = getelementptr [15 x i8], [15 x i8]* @var_294, i32 0, i32 0
+call void @print(i8* %var_294.ptr)
+%var_296 = add i32 5, 0
+%var_297 = add i32 5, 0
+%var_298 = mul i32 %var_296, %var_297
+%var_299 = add i32 2, 0
+%var_300 = add i32 3, 0
+%var_301 = mul i32 %var_299, %var_300
+%var_302 = sub i32 %var_298, %var_301
+call void @printi(i32 %var_302)
+%var_304.ptr = getelementptr [15 x i8], [15 x i8]* @var_304, i32 0, i32 0
+call void @print(i8* %var_304.ptr)
+%var_306 = add i32 100, 0
+%var_307 = add i32 2, 0
+call void @check_division(i32 %var_307)
+%var_308 = sdiv i32 %var_306, %var_307
+%var_309 = add i32 200, 0
+%var_310 = add i32 10, 0
+call void @check_division(i32 %var_310)
+%var_311 = sdiv i32 %var_309, %var_310
+%var_312 = sub i32 %var_308, %var_311
+call void @printi(i32 %var_312)
+%var_314.ptr = getelementptr [15 x i8], [15 x i8]* @var_314, i32 0, i32 0
+call void @print(i8* %var_314.ptr)
+%var_316 = add i32 5, 0
+%var_317 = add i32 5, 0
+%var_318 = mul i32 %var_316, %var_317
+%var_319 = add i32 2, 0
+%var_320 = add i32 3, 0
+%var_321 = mul i32 %var_319, %var_320
+%var_322 = sub i32 %var_318, %var_321
+call void @printi(i32 %var_322)
+%var_324.ptr = getelementptr [15 x i8], [15 x i8]* @var_324, i32 0, i32 0
+call void @print(i8* %var_324.ptr)
+%var_326 = add i32 100, 0
+%var_327 = add i32 2, 0
+call void @check_division(i32 %var_327)
+%var_328 = sdiv i32 %var_326, %var_327
+%var_329 = add i32 200, 0
+%var_330 = add i32 20, 0
+call void @check_division(i32 %var_330)
+%var_331 = sdiv i32 %var_329, %var_330
+%var_332 = sub i32 %var_328, %var_331
+call void @printi(i32 %var_332)
+ret void }

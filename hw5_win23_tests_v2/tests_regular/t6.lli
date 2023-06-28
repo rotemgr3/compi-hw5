@@ -1,0 +1,58 @@
+@.division_zero_error_str = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @print(i8* getelementptr([23 x i8], [23 x i8]* @.division_zero_error_str, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int_specifier = constant [4 x i8] c"%d\0A\00"
+@.str_specifier = constant [4 x i8] c"%s\0A\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str_specifier, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0), i32 %0)
+ret void
+}
+define void @maxTestsAssignVarToVar2(){
+%var_2 = alloca i32, i32 50
+%var_3 = add i32 3, 0
+%var_4 = getelementptr i32, i32* %var_2, i32 0
+store i32 %var_3, i32* %var_4
+%var_5 = add i32 5, 0
+%var_6 = getelementptr i32, i32* %var_2, i32 1
+store i32 %var_5, i32* %var_6
+%var_7 = add i32 0, 0
+%var_8 = getelementptr i32, i32* %var_2, i32 2
+store i32 %var_7, i32* %var_8
+%var_9 = getelementptr i32, i32* %var_2, i32 0
+%var_10 = load i32, i32* %var_9
+%var_11 = getelementptr i32, i32* %var_2, i32 2
+store i32 %var_10, i32* %var_11
+%var_12 = getelementptr i32, i32* %var_2, i32 1
+%var_13 = load i32, i32* %var_12
+%var_14 = getelementptr i32, i32* %var_2, i32 0
+store i32 %var_13, i32* %var_14
+%var_15 = getelementptr i32, i32* %var_2, i32 2
+%var_16 = load i32, i32* %var_15
+%var_17 = getelementptr i32, i32* %var_2, i32 1
+store i32 %var_16, i32* %var_17
+%var_18 = getelementptr i32, i32* %var_2, i32 0
+%var_19 = load i32, i32* %var_18
+call void @printi(i32 %var_19)
+%var_21 = getelementptr i32, i32* %var_2, i32 1
+%var_22 = load i32, i32* %var_21
+call void @printi(i32 %var_22)
+ret void }
+define void @main(){
+%var_24 = alloca i32, i32 50
+call void @maxTestsAssignVarToVar2()
+ret void }

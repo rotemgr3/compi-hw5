@@ -1,0 +1,94 @@
+@.division_zero_error_str = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @print(i8* getelementptr([23 x i8], [23 x i8]* @.division_zero_error_str, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int_specifier = constant [4 x i8] c"%d\0A\00"
+@.str_specifier = constant [4 x i8] c"%s\0A\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str_specifier, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0), i32 %0)
+ret void
+}
+define i32 @foo(){
+%var_2 = alloca i32, i32 50
+%var_3 = add i32 0, 0
+%var_4 = getelementptr i32, i32* %var_2, i32 0
+store i32 %var_3, i32* %var_4
+%var_5 = getelementptr i32, i32* %var_2, i32 0
+%var_6 = load i32, i32* %var_5
+%var_7 = getelementptr i32, i32* %var_2, i32 0
+%var_8 = load i32, i32* %var_7
+ret i32 %var_8
+ret i32 0 }
+define i32 @bar(){
+%var_9 = alloca i32, i32 50
+%var_10 = add i32 0, 0
+%var_11 = getelementptr i32, i32* %var_9, i32 0
+store i32 %var_10, i32* %var_11
+%var_12 = getelementptr i32, i32* %var_9, i32 0
+%var_13 = load i32, i32* %var_12
+%var_14 = getelementptr i32, i32* %var_9, i32 0
+%var_15 = load i32, i32* %var_14
+ret i32 %var_15
+ret i32 0 }
+define i32 @zoo(){
+%var_16 = alloca i32, i32 50
+br label %label_52
+br label %label_49
+label_49:
+br label %label_54
+label_52:
+br label %label_54
+label_54:
+%var_18 = phi i32 [ 1, %label_49], [0, %label_52]
+%var_19 = getelementptr i32, i32* %var_16, i32 0
+store i32 %var_18, i32* %var_19
+%var_20 = getelementptr i32, i32* %var_16, i32 0
+%var_21 = load i32, i32* %var_20
+%var_22 = icmp eq i32 0, %var_21
+br i1 %var_22, label %label_67, label %label_64
+%var_23 = getelementptr i32, i32* %var_16, i32 0
+%var_24 = load i32, i32* %var_23
+br label %label_64
+label_64:
+br label %label_69
+label_67:
+br label %label_69
+label_69:
+%var_25 = phi i32 [ 1, %label_64], [0, %label_67]
+ret i32 %var_25
+ret i32 0 }
+define void @main(){
+%var_26 = alloca i32, i32 50
+%var_27 = call  i32 @foo()
+call void @printi(i32 %var_27)
+%var_29 = call  i32 @bar()
+call void @printi(i32 %var_29)
+%var_31 = call i32 @zoo()
+%var_32 = icmp eq i32 0, %var_31
+br i1 %var_32, label %label_1, label %label_0
+br label %label_0
+label_0:
+%var_33 = add i32 1, 0
+call void @printi(i32 %var_33)
+br label %label_2
+br label %label_1
+label_1:
+%var_35 = add i32 0, 0
+call void @printi(i32 %var_35)
+br label %label_2
+label_2:
+ret void }

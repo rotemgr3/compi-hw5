@@ -1,0 +1,83 @@
+@var_11 = constant [23 x i8] c"this is recursion test\00"
+@var_13 = constant [33 x i8] c"we will calculate factorial num:\00"
+@var_24 = constant [34 x i8] c"factorial(2) should be 2. actual:\00"
+@var_29 = constant [37 x i8] c"factorial(7) should be 5040. actual:\00"
+@var_34 = constant [34 x i8] c"factorial(0) should be 1. actual:\00"
+@var_39 = constant [8 x i8] c"OK bye!\00"
+@.division_zero_error_str = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @print(i8* getelementptr([23 x i8], [23 x i8]* @.division_zero_error_str, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int_specifier = constant [4 x i8] c"%d\0A\00"
+@.str_specifier = constant [4 x i8] c"%s\0A\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str_specifier, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0), i32 %0)
+ret void
+}
+define i32 @factorial_int(i32){
+%var_2 = alloca i32, i32 50
+%var_3 = add i32 1, 0
+%var_4 = icmp sle i32 %0, %var_3
+br i1 %var_4, label %label_29, label %label_33
+br label %label_29
+label_29:
+%var_5 = add i32 1, 0
+ret i32 1
+br label %label_33
+label_33:
+%var_6 = add i32 1, 0
+%var_7 = sub i32 %0, %var_6
+%var_8 = call  i32 @factorial_int(i32 %var_7)
+%var_9 = mul i32 %var_8, %0
+ret i32 %var_9
+ret i32 0 }
+define void @main(){
+%var_10 = alloca i32, i32 50
+%var_11.ptr = getelementptr [23 x i8], [23 x i8]* @var_11, i32 0, i32 0
+call void @print(i8* %var_11.ptr)
+%var_13.ptr = getelementptr [33 x i8], [33 x i8]* @var_13, i32 0, i32 0
+call void @print(i8* %var_13.ptr)
+%var_15 = add i32 2, 0
+%var_16 = call  i32 @factorial_int(i32 %var_15)
+%var_17 = getelementptr i32, i32* %var_10, i32 0
+store i32 %var_16, i32* %var_17
+%var_18 = add i32 7, 0
+%var_19 = call  i32 @factorial_int(i32 %var_18)
+%var_20 = getelementptr i32, i32* %var_10, i32 1
+store i32 %var_19, i32* %var_20
+%var_21 = add i32 0, 0
+%var_22 = call  i32 @factorial_int(i32 %var_21)
+%var_23 = getelementptr i32, i32* %var_10, i32 2
+store i32 %var_22, i32* %var_23
+%var_24.ptr = getelementptr [34 x i8], [34 x i8]* @var_24, i32 0, i32 0
+call void @print(i8* %var_24.ptr)
+%var_26 = getelementptr i32, i32* %var_10, i32 0
+%var_27 = load i32, i32* %var_26
+call void @printi(i32 %var_27)
+%var_29.ptr = getelementptr [37 x i8], [37 x i8]* @var_29, i32 0, i32 0
+call void @print(i8* %var_29.ptr)
+%var_31 = getelementptr i32, i32* %var_10, i32 1
+%var_32 = load i32, i32* %var_31
+call void @printi(i32 %var_32)
+%var_34.ptr = getelementptr [34 x i8], [34 x i8]* @var_34, i32 0, i32 0
+call void @print(i8* %var_34.ptr)
+%var_36 = getelementptr i32, i32* %var_10, i32 2
+%var_37 = load i32, i32* %var_36
+call void @printi(i32 %var_37)
+%var_39.ptr = getelementptr [8 x i8], [8 x i8]* @var_39, i32 0, i32 0
+call void @print(i8* %var_39.ptr)
+ret void }
