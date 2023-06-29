@@ -387,10 +387,7 @@ Statement::Statement(Statement* statement, Exp *exp, Label *label) {
     cont_list = buffer.merge(cont_list, statement->cont_list);
 
     buffer.bpatch(exp->true_list, label->text);
-    // string new_label = gen_ir.new_label();
-    // buffer.emit("br label %" + new_label);
-    // buffer.emit(new_label + ":");
-    string new_label = buffer.genLabel(true);
+    string new_label = gen_ir.genLabel(true);
     buffer.bpatch(exp->false_list, new_label);
     buffer.bpatch(exp->next_list, new_label);
 }
@@ -405,19 +402,13 @@ Statement::Statement(Statement* statement1, Statement* statement2, Exp *exp, Lab
 
     buffer.bpatch(exp->true_list, true_label->text);
     buffer.bpatch(exp->false_list, false_label->text);
-    // string new_label = gen_ir.new_label();
-    // buffer.emit("br label %" + new_label);
-    // buffer.emit(new_label + ":");
-    string new_label = buffer.genLabel(true);
+    string new_label = gen_ir.genLabel(true);
     buffer.bpatch(exp->next_list, new_label);
 }
 
 Statement::Statement(Exp *exp, Label *exp_label, Label *true_label, Statement *statement) {
     buffer.emit("br label %" + exp_label->text);
-    // string new_label = gen_ir.new_label();
-    // buffer.emit("br label %" + new_label);
-    // buffer.emit(new_label + ":");
-    string new_label = buffer.genLabel(true);
+    string new_label = gen_ir.genLabel(true);
 
     buffer.bpatch(exp->true_list, true_label->text);
     buffer.bpatch(exp->false_list, new_label);
@@ -461,10 +452,7 @@ Explist::Explist(Exp* exp) : expressions(){
 }
 
 Label::Label() : Node() {
-    // text = gen_ir.new_label();
-    // buffer.emit("br label %" + text);
-    // buffer.emit(text + ":");
-    text = buffer.genLabel(true);
+    text = gen_ir.genLabel(true);
 }
 
 Statements::Statements(Statement *statement) : break_list(), cont_list() {

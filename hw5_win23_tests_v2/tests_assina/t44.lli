@@ -38,11 +38,11 @@ call void @print(i8* %var_5.ptr)
 store i32 %var_7, i32* %var_8
 %var_9.ptr = getelementptr [22 x i8], [22 x i8]* @var_9, i32 0, i32 0
 call void @print(i8* %var_9.ptr)
-br label %label_35
-label_35:
-br label %label_38
-br label %label_38
-label_38:
+br label %label_0
+label_0:
+br label %label_1
+br label %label_1
+label_1:
 %var_11 = add i32 255, 0
 %var_12 = getelementptr i32, i32* %var_2, i32 1
 store i32 %var_11, i32* %var_12
@@ -67,9 +67,9 @@ call void @check_division(i32 %var_27)
 %var_29 = and i32 255, %var_28
 %var_30 = getelementptr i32, i32* %var_2, i32 1
 store i32 %var_29, i32* %var_30
-br label %label_35
-br label %label_65
-label_65:
+br label %label_0
+br label %label_2
+label_2:
 %var_31.ptr = getelementptr [19 x i8], [19 x i8]* @var_31, i32 0, i32 0
 call void @print(i8* %var_31.ptr)
 ret void }

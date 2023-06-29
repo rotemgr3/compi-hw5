@@ -25,13 +25,13 @@ ret void
 }
 define void @main(){
 %var_2 = alloca i32, i32 50
-br label %label_27
-br label %label_27
-label_27:
+br label %label_0
+br label %label_0
+label_0:
 %var_3.ptr = getelementptr [5 x i8], [5 x i8]* @var_3, i32 0, i32 0
 call void @print(i8* %var_3.ptr)
-br label %label_31
-label_31:
+br label %label_1
+label_1:
 %var_5 = add i32 1, 0
 call void @printi(i32 %var_5)
 ret void }

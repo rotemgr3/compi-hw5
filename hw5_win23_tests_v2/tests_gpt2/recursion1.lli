@@ -26,22 +26,22 @@ define i32 @foo_int(i32){
 %var_2 = alloca i32, i32 50
 %var_3 = add i32 0, 0
 %var_4 = icmp eq i32 %0, %var_3
-br i1 %var_4, label %label_29, label %label_33
-br label %label_29
-label_29:
+br i1 %var_4, label %label_0, label %label_1
+br label %label_0
+label_0:
 %var_5 = add i32 0, 0
 ret i32 0
-br label %label_33
-label_33:
+br label %label_1
+label_1:
 %var_6 = add i32 1, 0
 %var_7 = icmp eq i32 %0, %var_6
-br i1 %var_7, label %label_38, label %label_42
-br label %label_38
-label_38:
+br i1 %var_7, label %label_2, label %label_3
+br label %label_2
+label_2:
 %var_8 = add i32 1, 0
 ret i32 1
-br label %label_42
-label_42:
+br label %label_3
+label_3:
 %var_9 = add i32 2, 0
 %var_10 = sub i32 %0, %var_9
 %var_11 = call  i32 @foo_int(i32 %var_10)

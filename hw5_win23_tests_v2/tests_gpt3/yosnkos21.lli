@@ -46,29 +46,29 @@ ret i32 %var_15
 ret i32 0 }
 define i32 @zoo(){
 %var_16 = alloca i32, i32 50
-br label %label_52
-br label %label_49
-label_49:
-br label %label_54
-label_52:
-br label %label_54
-label_54:
-%var_18 = phi i32 [ 1, %label_49], [0, %label_52]
+br label %label_1
+br label %label_0
+label_0:
+br label %label_2
+label_1:
+br label %label_2
+label_2:
+%var_18 = phi i32 [ 1, %label_0], [0, %label_1]
 %var_19 = getelementptr i32, i32* %var_16, i32 0
 store i32 %var_18, i32* %var_19
 %var_20 = getelementptr i32, i32* %var_16, i32 0
 %var_21 = load i32, i32* %var_20
 %var_22 = icmp eq i32 0, %var_21
-br i1 %var_22, label %label_67, label %label_64
+br i1 %var_22, label %label_4, label %label_3
 %var_23 = getelementptr i32, i32* %var_16, i32 0
 %var_24 = load i32, i32* %var_23
-br label %label_64
-label_64:
-br label %label_69
-label_67:
-br label %label_69
-label_69:
-%var_25 = phi i32 [ 1, %label_64], [0, %label_67]
+br label %label_3
+label_3:
+br label %label_5
+label_4:
+br label %label_5
+label_5:
+%var_25 = phi i32 [ 1, %label_3], [0, %label_4]
 ret i32 %var_25
 ret i32 0 }
 define void @main(){
@@ -79,16 +79,16 @@ call void @printi(i32 %var_27)
 call void @printi(i32 %var_29)
 %var_31 = call i32 @zoo()
 %var_32 = icmp eq i32 0, %var_31
-br i1 %var_32, label %label_1, label %label_0
-br label %label_0
-label_0:
+br i1 %var_32, label %label_7, label %label_6
+br label %label_6
+label_6:
 %var_33 = add i32 1, 0
 call void @printi(i32 %var_33)
-br label %label_2
-br label %label_1
-label_1:
+br label %label_8
+br label %label_7
+label_7:
 %var_35 = add i32 0, 0
 call void @printi(i32 %var_35)
-br label %label_2
-label_2:
+br label %label_8
+label_8:
 ret void }

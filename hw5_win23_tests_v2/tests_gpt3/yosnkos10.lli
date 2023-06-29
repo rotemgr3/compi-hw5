@@ -26,28 +26,28 @@ define i32 @trutru(){
 %var_2 = alloca i32, i32 50
 %var_3 = add i32 9001, 0
 call void @printi(i32 %var_3)
-br label %label_29
-br label %label_29
-label_29:
-br label %label_34
-label_32:
-br label %label_34
-label_34:
-%var_5 = phi i32 [ 1, %label_29], [0, %label_32]
+br label %label_0
+br label %label_0
+label_0:
+br label %label_2
+label_1:
+br label %label_2
+label_2:
+%var_5 = phi i32 [ 1, %label_0], [0, %label_1]
 ret i32 %var_5
 ret i32 0 }
 define void @main(){
 %var_6 = alloca i32, i32 50
-br label %label_1
-br label %label_0
-label_0:
+br label %label_4
+br label %label_3
+label_3:
 %var_7 = call i32 @trutru()
 %var_8 = icmp eq i32 0, %var_7
-br i1 %var_8, label %label_2, label %label_1
-br label %label_1
-label_1:
+br i1 %var_8, label %label_5, label %label_4
+br label %label_4
+label_4:
 %var_9 = add i32 9002, 0
 call void @printi(i32 %var_9)
-br label %label_2
-label_2:
+br label %label_5
+label_5:
 ret void }

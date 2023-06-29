@@ -28,16 +28,16 @@ define void @main(){
 %var_3 = add i32 0, 0
 %var_4 = getelementptr i32, i32* %var_2, i32 0
 store i32 %var_3, i32* %var_4
-br label %label_29
-label_29:
+br label %label_0
+label_0:
 %var_5 = getelementptr i32, i32* %var_2, i32 0
 %var_6 = load i32, i32* %var_5
 %var_7 = getelementptr i32, i32* %var_2, i32 0
 %var_8 = load i32, i32* %var_7
 %var_9 = icmp sle i32 %var_6, %var_8
-br i1 %var_9, label %label_37, label %label_95
-br label %label_37
-label_37:
+br i1 %var_9, label %label_1, label %label_10
+br label %label_1
+label_1:
 %var_10 = add i32 0, 0
 %var_11 = getelementptr i32, i32* %var_2, i32 1
 store i32 %var_10, i32* %var_11
@@ -45,37 +45,37 @@ store i32 %var_10, i32* %var_11
 %var_13 = load i32, i32* %var_12
 %var_14 = add i32 4, 0
 %var_15 = icmp sge i32 %var_13, %var_14
-br i1 %var_15, label %label_47, label %label_51
-br label %label_47
-label_47:
-br label %label_95
-br label %label_59
-br label %label_51
-label_51:
+br i1 %var_15, label %label_2, label %label_3
+br label %label_2
+label_2:
+br label %label_10
+br label %label_4
+br label %label_3
+label_3:
 %var_16 = getelementptr i32, i32* %var_2, i32 0
 %var_17 = load i32, i32* %var_16
 %var_18 = add i32 1, 0
 %var_19 = add i32 %var_17, %var_18
 %var_20 = getelementptr i32, i32* %var_2, i32 0
 store i32 %var_19, i32* %var_20
-br label %label_59
-label_59:
-br label %label_61
-label_61:
-br label %label_64
-br label %label_64
-label_64:
+br label %label_4
+label_4:
+br label %label_5
+label_5:
+br label %label_6
+br label %label_6
+label_6:
 %var_21 = getelementptr i32, i32* %var_2, i32 1
 %var_22 = load i32, i32* %var_21
 %var_23 = getelementptr i32, i32* %var_2, i32 0
 %var_24 = load i32, i32* %var_23
 %var_25 = icmp sge i32 %var_22, %var_24
-br i1 %var_25, label %label_72, label %label_75
-br label %label_72
-label_72:
-br label %label_92
-br label %label_75
-label_75:
+br i1 %var_25, label %label_7, label %label_8
+br label %label_7
+label_7:
+br label %label_9
+br label %label_8
+label_8:
 %var_26 = getelementptr i32, i32* %var_2, i32 1
 %var_27 = load i32, i32* %var_26
 call void @printi(i32 %var_27)
@@ -90,10 +90,10 @@ call void @printi(i32 %var_32)
 %var_37 = add i32 %var_35, %var_36
 %var_38 = getelementptr i32, i32* %var_2, i32 1
 store i32 %var_37, i32* %var_38
-br label %label_61
-br label %label_92
-label_92:
-br label %label_29
-br label %label_95
-label_95:
+br label %label_5
+br label %label_9
+label_9:
+br label %label_0
+br label %label_10
+label_10:
 ret void }

@@ -33,26 +33,26 @@ call void @print(i8* %var_3.ptr)
 %var_5 = add i32 1, 0
 %var_6 = add i32 2, 0
 %var_7 = icmp slt i32 %var_5, %var_6
-br i1 %var_7, label %label_32, label %label_39
-br label %label_32
-label_32:
+br i1 %var_7, label %label_0, label %label_1
+br label %label_0
+label_0:
 %var_8 = add i32 1, 0
 %var_9 = getelementptr i32, i32* %var_2, i32 0
 store i32 %var_8, i32* %var_9
 %var_10.ptr = getelementptr [13 x i8], [13 x i8]* @var_10, i32 0, i32 0
 call void @print(i8* %var_10.ptr)
-br label %label_39
-label_39:
+br label %label_1
+label_1:
 %var_12 = add i32 1, 0
 %var_13 = add i32 2, 0
 %var_14 = icmp slt i32 %var_12, %var_13
-br i1 %var_14, label %label_49, label %label_45
-br label %label_45
-label_45:
+br i1 %var_14, label %label_3, label %label_2
+br label %label_2
+label_2:
 %var_15.ptr = getelementptr [12 x i8], [12 x i8]* @var_15, i32 0, i32 0
 call void @print(i8* %var_15.ptr)
-br label %label_49
-label_49:
+br label %label_3
+label_3:
 %var_17 = add i32 0, 0
 %var_18 = getelementptr i32, i32* %var_2, i32 0
 store i32 %var_17, i32* %var_18

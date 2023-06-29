@@ -91,81 +91,81 @@ label_8:
 store i32 %var_28, i32* %var_29
 br label %label_9
 label_9:
-br label %label_83
-br label %label_83
-label_83:
-br label %label_88
-label_86:
-br label %label_88
-label_88:
-%var_30 = phi i32 [ 1, %label_83], [0, %label_86]
+br label %label_10
+br label %label_10
+label_10:
+br label %label_12
+label_11:
+br label %label_12
+label_12:
+%var_30 = phi i32 [ 1, %label_10], [0, %label_11]
 %var_31 = getelementptr i32, i32* %var_7, i32 0
 store i32 %var_30, i32* %var_31
 %var_32 = getelementptr i32, i32* %var_7, i32 0
 %var_33 = load i32, i32* %var_32
 %var_34 = icmp eq i32 0, %var_33
-br i1 %var_34, label %label_11, label %label_10
-br label %label_10
-label_10:
-%var_35.ptr = getelementptr [4 x i8], [4 x i8]* @var_35, i32 0, i32 0
-call void @print(i8* %var_35.ptr)
-br label %label_11
-label_11:
-br label %label_12
-br label %label_12
-label_12:
-%var_37.ptr = getelementptr [4 x i8], [4 x i8]* @var_37, i32 0, i32 0
-call void @print(i8* %var_37.ptr)
+br i1 %var_34, label %label_14, label %label_13
 br label %label_13
 label_13:
-br label %label_14
+%var_35.ptr = getelementptr [4 x i8], [4 x i8]* @var_35, i32 0, i32 0
+call void @print(i8* %var_35.ptr)
 br label %label_14
 label_14:
 br label %label_15
 br label %label_15
 label_15:
-%var_39.ptr = getelementptr [4 x i8], [4 x i8]* @var_39, i32 0, i32 0
-call void @print(i8* %var_39.ptr)
-br label %label_17
+%var_37.ptr = getelementptr [4 x i8], [4 x i8]* @var_37, i32 0, i32 0
+call void @print(i8* %var_37.ptr)
 br label %label_16
 label_16:
-%var_41.ptr = getelementptr [4 x i8], [4 x i8]* @var_41, i32 0, i32 0
-call void @print(i8* %var_41.ptr)
+br label %label_17
 br label %label_17
 label_17:
-br label %label_22
+br label %label_18
 br label %label_18
 label_18:
-br label %label_19
+%var_39.ptr = getelementptr [4 x i8], [4 x i8]* @var_39, i32 0, i32 0
+call void @print(i8* %var_39.ptr)
+br label %label_20
 br label %label_19
 label_19:
-%var_43.ptr = getelementptr [8 x i8], [8 x i8]* @var_43, i32 0, i32 0
-call void @print(i8* %var_43.ptr)
-br label %label_21
+%var_41.ptr = getelementptr [4 x i8], [4 x i8]* @var_41, i32 0, i32 0
+call void @print(i8* %var_41.ptr)
 br label %label_20
 label_20:
-%var_45.ptr = getelementptr [8 x i8], [8 x i8]* @var_45, i32 0, i32 0
-call void @print(i8* %var_45.ptr)
+br label %label_25
 br label %label_21
 label_21:
 br label %label_22
+br label %label_22
 label_22:
-br label %label_23
+%var_43.ptr = getelementptr [8 x i8], [8 x i8]* @var_43, i32 0, i32 0
+call void @print(i8* %var_43.ptr)
+br label %label_24
 br label %label_23
 label_23:
-br label %label_25
+%var_45.ptr = getelementptr [8 x i8], [8 x i8]* @var_45, i32 0, i32 0
+call void @print(i8* %var_45.ptr)
 br label %label_24
 label_24:
-%var_47.ptr = getelementptr [4 x i8], [4 x i8]* @var_47, i32 0, i32 0
-call void @print(i8* %var_47.ptr)
-br label %label_26
 br label %label_25
 label_25:
-%var_49.ptr = getelementptr [4 x i8], [4 x i8]* @var_49, i32 0, i32 0
-call void @print(i8* %var_49.ptr)
+br label %label_26
 br label %label_26
 label_26:
+br label %label_28
 br label %label_27
 label_27:
+%var_47.ptr = getelementptr [4 x i8], [4 x i8]* @var_47, i32 0, i32 0
+call void @print(i8* %var_47.ptr)
+br label %label_29
+br label %label_28
+label_28:
+%var_49.ptr = getelementptr [4 x i8], [4 x i8]* @var_49, i32 0, i32 0
+call void @print(i8* %var_49.ptr)
+br label %label_29
+label_29:
+br label %label_30
+label_30:
 ret void
 ret void }

@@ -29,14 +29,14 @@ define void @emptyReturn_int(i32){
 %var_2 = alloca i32, i32 50
 %var_3 = add i32 0, 0
 %var_4 = icmp eq i32 %0, %var_3
-br i1 %var_4, label %label_29, label %label_34
-br label %label_29
-label_29:
+br i1 %var_4, label %label_0, label %label_1
+br label %label_0
+label_0:
 %var_5.ptr = getelementptr [36 x i8], [36 x i8]* @var_5, i32 0, i32 0
 call void @print(i8* %var_5.ptr)
 ret void
-br label %label_34
-label_34:
+br label %label_1
+label_1:
 call void @printi(i32 %0)
 %var_8 = add i32 1, 0
 %var_9 = sub i32 %0, %var_8
@@ -46,12 +46,12 @@ define i32 @intReturn_int(i32){
 %var_11 = alloca i32, i32 50
 %var_12 = add i32 0, 0
 %var_13 = icmp eq i32 %0, %var_12
-br i1 %var_13, label %label_46, label %label_49
-br label %label_46
-label_46:
+br i1 %var_13, label %label_2, label %label_3
+br label %label_2
+label_2:
 ret i32 %0
-br label %label_49
-label_49:
+br label %label_3
+label_3:
 %var_14 = add i32 1, 0
 %var_15 = sub i32 %0, %var_14
 %var_16 = call  i32 @intReturn_int(i32 %var_15)

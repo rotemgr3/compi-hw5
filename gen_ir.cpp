@@ -19,12 +19,6 @@ string GenIR::new_glob_reg() {
     return reg;
 }
 
-string GenIR::new_label() {
-    string new_label = "label_" + to_string(next_label);
-    next_label++;
-    return new_label;
-}
-
 void GenIR::gen_binop(Exp &res, const Exp &exp1, const Exp &exp2, const string &op) {
     res.reg = new_reg();
     string llvm_op;
@@ -205,21 +199,14 @@ shared_ptr<Exp> GenIR::gen_bool_exp(Exp &exp) {
     shared_ptr<Exp> new_exp = make_shared<Exp>();
     new_exp->reg = new_reg();
     new_exp->type = "bool";
-    string true_list = new_label();
-    string false_list = new_label();
-    string next_list = new_label();
-
-    buffer.emit("br label %" + true_list);
-    buffer.emit(true_list + ":");
-    // string true_list = buffer.genLabel(true);
+   
+    string true_list = genLabel(true);
     int addr1 = buffer.emit("br label @");
 
-    buffer.emit(false_list + ":");
-    // string false_list = buffer.genLabel(false);
+    string false_list = genLabel(false);
     int addr2 = buffer.emit("br label @");
 
-    buffer.emit(next_list + ":");
-    // string next_list = buffer.genLabel(false);
+    string next_list = genLabel(false);
 
 
     buffer.bpatch(exp.true_list, true_list);
@@ -234,36 +221,12 @@ shared_ptr<Exp> GenIR::gen_bool_exp(Exp &exp) {
     return new_exp;
 }
 
-Exp* GenIR::gen_bool_exp2(Exp *exp) {
+Exp* GenIR::gen_explist(Exp *exp) {
     if (exp->type != "bool") {
         return exp;
     }
 
-    Exp* new_exp = new Exp();
-    new_exp->reg = new_reg();
-    new_exp->type = "bool";
-    string true_list = new_label();
-    string false_list = new_label();
-    string next_list = new_label();
-
-    buffer.emit("br label %" + true_list);
-    buffer.emit(true_list + ":");
-    int addr1 = buffer.emit("br label @");
-
-    buffer.emit(false_list + ":");
-    int addr2 = buffer.emit("br label @");
-
-    buffer.emit(next_list + ":");
-
-    buffer.bpatch(exp->true_list, true_list);
-    buffer.bpatch(exp->false_list, false_list);
-
-    AddrList next = buffer.merge(buffer.makelist(pair<int, BranchLabelIndex>(addr1, FIRST)),
-                               buffer.makelist(pair<int, BranchLabelIndex>(addr2, FIRST)));
-
-    buffer.bpatch(next, next_list);
-    buffer.emit(new_exp->reg + " = phi i32 [ 1, %" + true_list +"], [0, %" + false_list + "]");
-
+    Exp* new_exp = new Exp(gen_bool_exp(*exp).get());
     return new_exp;
 }
 
@@ -328,4 +291,14 @@ void GenIR::gen_init() {
     buffer.emit("LEGAL:");
     buffer.emit("ret void");
     buffer.emit("}");
+}
+
+string GenIR::genLabel(bool with_br) {
+    string label = "label_" + to_string(next_label);
+    next_label++;
+	if (with_br) {
+		buffer.emit("br label %" + label);
+	}
+	buffer.emit(label + ":");
+	return label;
 }

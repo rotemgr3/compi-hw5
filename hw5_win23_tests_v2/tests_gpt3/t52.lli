@@ -124,24 +124,24 @@ label_11:
 %var_49 = load i32, i32* %var_48
 %var_50 = add i32 0, 0
 %var_51 = icmp eq i32 %var_49, %var_50
-br i1 %var_51, label %label_12, label %label_13
+br i1 %var_51, label %label_12, label %label_16
 br label %label_12
 label_12:
 %var_52 = getelementptr i32, i32* %var_45, i32 1
 %var_53 = load i32, i32* %var_52
 %var_54 = add i32 0, 0
 %var_55 = icmp eq i32 %var_53, %var_54
-br i1 %var_55, label %label_130, label %label_133
-br label %label_130
-label_130:
-br label %label_135
-label_133:
-br label %label_135
-label_135:
-%var_56 = phi i32 [ 1, %label_130], [0, %label_133]
-ret i32 %var_56
+br i1 %var_55, label %label_13, label %label_14
 br label %label_13
 label_13:
+br label %label_15
+label_14:
+br label %label_15
+label_15:
+%var_56 = phi i32 [ 1, %label_13], [0, %label_14]
+ret i32 %var_56
+br label %label_16
+label_16:
 %var_57 = getelementptr i32, i32* %var_45, i32 0
 %var_58 = load i32, i32* %var_57
 %var_59 = add i32 1, 0
@@ -156,28 +156,28 @@ store i32 %var_60, i32* %var_61
 %var_67 = getelementptr i32, i32* %var_45, i32 1
 store i32 %var_66, i32* %var_67
 br label %label_10
-br label %label_14
-label_14:
+br label %label_17
+label_17:
 ret i32 0 }
 define void @sayHello_int(i32){
 %var_68 = alloca i32, i32 50
 %var_69 = getelementptr i32, i32* %var_68, i32 0
 store i32 %0, i32* %var_69
-br label %label_15
-label_15:
-br label %label_16
-br label %label_16
-label_16:
+br label %label_18
+label_18:
+br label %label_19
+br label %label_19
+label_19:
 %var_70 = getelementptr i32, i32* %var_68, i32 0
 %var_71 = load i32, i32* %var_70
 %var_72 = add i32 0, 0
 %var_73 = icmp eq i32 %var_71, %var_72
-br i1 %var_73, label %label_17, label %label_18
-br label %label_17
-label_17:
+br i1 %var_73, label %label_20, label %label_21
+br label %label_20
+label_20:
 ret void
-br label %label_18
-label_18:
+br label %label_21
+label_21:
 %var_74.ptr = getelementptr [6 x i8], [6 x i8]* @var_74, i32 0, i32 0
 call void @print(i8* %var_74.ptr)
 %var_76 = getelementptr i32, i32* %var_68, i32 0
@@ -186,9 +186,9 @@ call void @print(i8* %var_74.ptr)
 %var_79 = sub i32 %var_77, %var_78
 %var_80 = getelementptr i32, i32* %var_68, i32 0
 store i32 %var_79, i32* %var_80
-br label %label_15
-br label %label_19
-label_19:
+br label %label_18
+br label %label_22
+label_22:
 ret void }
 define void @main(){
 %var_81 = alloca i32, i32 50
@@ -224,13 +224,13 @@ call void @print(i8* %var_102.ptr)
 %var_107 = load i32, i32* %var_106
 %var_108 = call i32 @areEqual_int_byte(i32 %var_105, i32 %var_107)
 %var_109 = icmp eq i32 0, %var_108
-br i1 %var_109, label %label_20, label %label_21
-br label %label_20
-label_20:
+br i1 %var_109, label %label_23, label %label_24
+br label %label_23
+label_23:
 %var_110.ptr = getelementptr [5 x i8], [5 x i8]* @var_110, i32 0, i32 0
 call void @print(i8* %var_110.ptr)
-br label %label_21
-label_21:
+br label %label_24
+label_24:
 %var_112.ptr = getelementptr [6 x i8], [6 x i8]* @var_112, i32 0, i32 0
 call void @print(i8* %var_112.ptr)
 %var_114 = getelementptr i32, i32* %var_81, i32 0

@@ -27,31 +27,31 @@ define i32 @printFoo(){
 %var_2 = alloca i32, i32 50
 %var_3.ptr = getelementptr [4 x i8], [4 x i8]* @var_3, i32 0, i32 0
 call void @print(i8* %var_3.ptr)
-br label %label_29
-br label %label_29
-label_29:
-br label %label_34
-label_32:
-br label %label_34
-label_34:
-%var_5 = phi i32 [ 1, %label_29], [0, %label_32]
+br label %label_0
+br label %label_0
+label_0:
+br label %label_2
+label_1:
+br label %label_2
+label_2:
+%var_5 = phi i32 [ 1, %label_0], [0, %label_1]
 ret i32 %var_5
 ret i32 0 }
 define void @main(){
 %var_6 = alloca i32, i32 50
-br label %label_46
-br label %label_0
-label_0:
+br label %label_4
+br label %label_3
+label_3:
 %var_7 = call i32 @printFoo()
 %var_8 = icmp eq i32 0, %var_7
-br i1 %var_8, label %label_49, label %label_46
-br label %label_46
-label_46:
-br label %label_51
-label_49:
-br label %label_51
-label_51:
-%var_9 = phi i32 [ 1, %label_46], [0, %label_49]
+br i1 %var_8, label %label_5, label %label_4
+br label %label_4
+label_4:
+br label %label_6
+label_5:
+br label %label_6
+label_6:
+%var_9 = phi i32 [ 1, %label_4], [0, %label_5]
 %var_10 = getelementptr i32, i32* %var_6, i32 0
 store i32 %var_9, i32* %var_10
 ret void

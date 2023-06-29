@@ -13,16 +13,6 @@ CodeBuffer &CodeBuffer::instance() {
 	return inst;
 }
 
-string CodeBuffer::genLabel(bool with_br){
-	std::string label = "label_";
-	label += std::to_string(buffer.size());
-	if (with_br) {
-		emit("br label %" + label);
-	}
-	emit(label + ":");
-	return label;
-}
-
 int CodeBuffer::emit(const string &s){
     buffer.push_back(s);
 	return buffer.size() - 1;

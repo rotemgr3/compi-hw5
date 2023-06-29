@@ -26,9 +26,9 @@ ret void
 define i32 @f_int_int_int_int_int_int_int_bool(i32, i32, i32, i32, i32, i32, i32, i32){
 %var_2 = alloca i32, i32 50
 %var_3 = icmp eq i32 0, %7
-br i1 %var_3, label %label_39, label %label_28
-br label %label_28
-label_28:
+br i1 %var_3, label %label_1, label %label_0
+br label %label_0
+label_0:
 %var_4 = mul i32 %0, %1
 %var_5 = mul i32 %var_4, %2
 %var_6 = mul i32 %3, %4
@@ -38,8 +38,8 @@ label_28:
 %var_10 = mul i32 %var_9, %3
 %var_11 = add i32 %var_8, %var_10
 ret i32 %var_11
-br label %label_39
-label_39:
+br label %label_1
+label_1:
 %var_12 = add i32 %0, %1
 %var_13 = add i32 %var_12, %2
 %var_14 = mul i32 %var_13, %3
@@ -66,14 +66,14 @@ define void @main(){
 %var_29 = add i32 5, 0
 %var_30 = add i32 6, 0
 %var_31 = add i32 10, 0
-br label %label_1
-br label %label_0
-label_0:
-br label %label_2
-label_1:
+br label %label_3
 br label %label_2
 label_2:
-%var_32 = phi i32 [ 1, %label_0], [0, %label_1]
+br label %label_4
+label_3:
+br label %label_4
+label_4:
+%var_32 = phi i32 [ 1, %label_2], [0, %label_3]
 %var_33 = call  i32 @f_int_int_int_int_int_int_int_bool(i32 %var_25, i32 %var_26, i32 %var_27, i32 %var_28, i32 %var_29, i32 %var_30, i32 %var_31, i32 %var_32)
 call void @printi(i32 %var_33)
 %var_35 = add i32 0, 0
@@ -97,14 +97,14 @@ call void @printi(i32 %var_33)
 %var_53 = add i32 8, 0
 %var_54 = add i32 1, 0
 %var_55 = call  i32 @g_int_int(i32 %var_53, i32 %var_54)
-br label %label_4
-br label %label_3
-label_3:
-br label %label_5
-label_4:
+br label %label_6
 br label %label_5
 label_5:
-%var_56 = phi i32 [ 1, %label_3], [0, %label_4]
+br label %label_7
+label_6:
+br label %label_7
+label_7:
+%var_56 = phi i32 [ 1, %label_5], [0, %label_6]
 %var_57 = call  i32 @f_int_int_int_int_int_int_int_bool(i32 %var_37, i32 %var_40, i32 %var_43, i32 %var_46, i32 %var_49, i32 %var_52, i32 %var_55, i32 %var_56)
 call void @printi(i32 %var_57)
 %var_59 = add i32 1, 0
@@ -114,14 +114,14 @@ call void @printi(i32 %var_57)
 %var_63 = add i32 5, 0
 %var_64 = add i32 6, 0
 %var_65 = add i32 10, 0
-br label %label_6
-br label %label_6
-label_6:
 br label %label_8
-label_7:
 br label %label_8
 label_8:
-%var_66 = phi i32 [ 1, %label_6], [0, %label_7]
+br label %label_10
+label_9:
+br label %label_10
+label_10:
+%var_66 = phi i32 [ 1, %label_8], [0, %label_9]
 %var_67 = call  i32 @f_int_int_int_int_int_int_int_bool(i32 %var_59, i32 %var_60, i32 %var_61, i32 %var_62, i32 %var_63, i32 %var_64, i32 %var_65, i32 %var_66)
 call void @printi(i32 %var_67)
 %var_69 = add i32 0, 0
@@ -145,14 +145,14 @@ call void @printi(i32 %var_67)
 %var_87 = add i32 8, 0
 %var_88 = add i32 1, 0
 %var_89 = call  i32 @g_int_int(i32 %var_87, i32 %var_88)
-br label %label_9
-br label %label_9
-label_9:
 br label %label_11
-label_10:
 br label %label_11
 label_11:
-%var_90 = phi i32 [ 1, %label_9], [0, %label_10]
+br label %label_13
+label_12:
+br label %label_13
+label_13:
+%var_90 = phi i32 [ 1, %label_11], [0, %label_12]
 %var_91 = call  i32 @f_int_int_int_int_int_int_int_bool(i32 %var_71, i32 %var_74, i32 %var_77, i32 %var_80, i32 %var_83, i32 %var_86, i32 %var_89, i32 %var_90)
 call void @printi(i32 %var_91)
 %var_93 = add i32 1, 0
@@ -162,14 +162,14 @@ call void @printi(i32 %var_91)
 %var_97 = add i32 5, 0
 %var_98 = add i32 6, 0
 %var_99 = add i32 10, 0
-br label %label_12
-br label %label_12
-label_12:
 br label %label_14
-label_13:
 br label %label_14
 label_14:
-%var_100 = phi i32 [ 1, %label_12], [0, %label_13]
+br label %label_16
+label_15:
+br label %label_16
+label_16:
+%var_100 = phi i32 [ 1, %label_14], [0, %label_15]
 %var_101 = call  i32 @f_int_int_int_int_int_int_int_bool(i32 %var_93, i32 %var_94, i32 %var_95, i32 %var_96, i32 %var_97, i32 %var_98, i32 %var_99, i32 %var_100)
 %var_102 = add i32 1, 0
 %var_103 = add i32 2, 0
@@ -178,14 +178,14 @@ label_14:
 %var_106 = add i32 5, 0
 %var_107 = add i32 6, 0
 %var_108 = add i32 10, 0
-br label %label_16
-br label %label_15
-label_15:
-br label %label_17
-label_16:
+br label %label_18
 br label %label_17
 label_17:
-%var_109 = phi i32 [ 1, %label_15], [0, %label_16]
+br label %label_19
+label_18:
+br label %label_19
+label_19:
+%var_109 = phi i32 [ 1, %label_17], [0, %label_18]
 %var_110 = call  i32 @f_int_int_int_int_int_int_int_bool(i32 %var_102, i32 %var_103, i32 %var_104, i32 %var_105, i32 %var_106, i32 %var_107, i32 %var_108, i32 %var_109)
 %var_111 = call  i32 @g_int_int(i32 %var_101, i32 %var_110)
 call void @printi(i32 %var_111)

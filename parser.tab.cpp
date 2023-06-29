@@ -1422,19 +1422,19 @@ yyreduce:
 
   case 34: /* ExpList: Exp  */
 #line 62 "parser.ypp"
-                                                                    {yyval = new Explist(gen_ir.gen_bool_exp2(dynamic_cast<Exp *>(yyvsp[0])));}
+                                                                    {yyval = new Explist(gen_ir.gen_explist(dynamic_cast<Exp *>(yyvsp[0])));}
 #line 1427 "parser.tab.cpp"
     break;
 
   case 35: /* $@4: %empty  */
 #line 63 "parser.ypp"
-             {yyvsp[0] = gen_ir.gen_bool_exp2(dynamic_cast<Exp *>(yyvsp[0]));}
+             {yyvsp[0] = gen_ir.gen_explist(dynamic_cast<Exp *>(yyvsp[0]));}
 #line 1433 "parser.tab.cpp"
     break;
 
   case 36: /* ExpList: Exp $@4 COMMA ExpList  */
 #line 63 "parser.ypp"
-                                                                                    {yyval = new Explist(dynamic_cast<Exp*>(yyvsp[-3]), dynamic_cast<Explist*>(yyvsp[0]));}
+                                                                                  {yyval = new Explist(dynamic_cast<Exp*>(yyvsp[-3]), dynamic_cast<Explist*>(yyvsp[0]));}
 #line 1439 "parser.tab.cpp"
     break;
 

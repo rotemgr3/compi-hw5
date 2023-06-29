@@ -35,11 +35,11 @@ call void @print(i8* %var_3.ptr)
 store i32 %var_5, i32* %var_6
 %var_7.ptr = getelementptr [43 x i8], [43 x i8]* @var_7, i32 0, i32 0
 call void @print(i8* %var_7.ptr)
-br label %label_33
-label_33:
-br label %label_36
-br label %label_36
-label_36:
+br label %label_0
+label_0:
+br label %label_1
+br label %label_1
+label_1:
 %var_9 = getelementptr i32, i32* %var_2, i32 0
 %var_10 = load i32, i32* %var_9
 call void @printi(i32 %var_10)
@@ -53,23 +53,23 @@ store i32 %var_15, i32* %var_16
 %var_18 = load i32, i32* %var_17
 %var_19 = add i32 10, 0
 %var_20 = icmp sge i32 %var_18, %var_19
-br i1 %var_20, label %label_52, label %label_58
-br label %label_52
-label_52:
+br i1 %var_20, label %label_2, label %label_3
+br label %label_2
+label_2:
 %var_21.ptr = getelementptr [7 x i8], [7 x i8]* @var_21, i32 0, i32 0
 call void @print(i8* %var_21.ptr)
-br label %label_66
-br label %label_63
-br label %label_58
-label_58:
+br label %label_5
+br label %label_4
+br label %label_3
+label_3:
 %var_23 = add i32 0, 0
 %var_24 = getelementptr i32, i32* %var_2, i32 1
 store i32 %var_23, i32* %var_24
-br label %label_63
-label_63:
-br label %label_33
-br label %label_66
-label_66:
+br label %label_4
+label_4:
+br label %label_0
+br label %label_5
+label_5:
 %var_25.ptr = getelementptr [44 x i8], [44 x i8]* @var_25, i32 0, i32 0
 call void @print(i8* %var_25.ptr)
 ret void }

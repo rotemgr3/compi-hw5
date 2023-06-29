@@ -20,9 +20,6 @@ public:
 
 	// ******** Methods to handle the code section ******** //
 
-	//generates a jump location label for the next command, writes it to the buffer and returns it
-	std::string genLabel(bool with_br);
-
 	//writes command to the buffer, returns its location in the buffer
 	int emit(const std::string &command);
 

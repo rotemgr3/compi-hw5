@@ -24,57 +24,57 @@ ret void
 }
 define i32 @nall(){
 %var_2 = alloca i32, i32 50
-br label %label_30
-br label %label_27
-label_27:
-br label %label_32
-label_30:
-br label %label_32
-label_32:
-%var_3 = phi i32 [ 1, %label_27], [0, %label_30]
+br label %label_1
+br label %label_0
+label_0:
+br label %label_2
+label_1:
+br label %label_2
+label_2:
+%var_3 = phi i32 [ 1, %label_0], [0, %label_1]
 %var_4 = getelementptr i32, i32* %var_2, i32 0
 store i32 %var_3, i32* %var_4
 %var_5 = getelementptr i32, i32* %var_2, i32 0
 %var_6 = load i32, i32* %var_5
 %var_7 = icmp eq i32 0, %var_6
-br i1 %var_7, label %label_58, label %label_0
-br label %label_0
-label_0:
+br i1 %var_7, label %label_7, label %label_3
+br label %label_3
+label_3:
 %var_8 = getelementptr i32, i32* %var_2, i32 0
 %var_9 = load i32, i32* %var_8
 %var_10 = icmp eq i32 0, %var_9
-br i1 %var_10, label %label_58, label %label_1
-br label %label_1
-label_1:
+br i1 %var_10, label %label_7, label %label_4
+br label %label_4
+label_4:
 %var_11 = getelementptr i32, i32* %var_2, i32 0
 %var_12 = load i32, i32* %var_11
 %var_13 = icmp eq i32 0, %var_12
-br i1 %var_13, label %label_58, label %label_2
-br label %label_2
-label_2:
-br label %label_55
-br label %label_55
-label_55:
-br label %label_60
-label_58:
-br label %label_60
-label_60:
-%var_14 = phi i32 [ 1, %label_55], [0, %label_58]
+br i1 %var_13, label %label_7, label %label_5
+br label %label_5
+label_5:
+br label %label_6
+br label %label_6
+label_6:
+br label %label_8
+label_7:
+br label %label_8
+label_8:
+%var_14 = phi i32 [ 1, %label_6], [0, %label_7]
 %var_15 = getelementptr i32, i32* %var_2, i32 1
 store i32 %var_14, i32* %var_15
 %var_16 = getelementptr i32, i32* %var_2, i32 1
 %var_17 = load i32, i32* %var_16
 %var_18 = icmp eq i32 0, %var_17
-br i1 %var_18, label %label_73, label %label_70
+br i1 %var_18, label %label_10, label %label_9
 %var_19 = getelementptr i32, i32* %var_2, i32 1
 %var_20 = load i32, i32* %var_19
-br label %label_70
-label_70:
-br label %label_75
-label_73:
-br label %label_75
-label_75:
-%var_21 = phi i32 [ 1, %label_70], [0, %label_73]
+br label %label_9
+label_9:
+br label %label_11
+label_10:
+br label %label_11
+label_11:
+%var_21 = phi i32 [ 1, %label_9], [0, %label_10]
 ret i32 %var_21
 ret i32 0 }
 define i32 @bar(){
@@ -86,18 +86,18 @@ define i32 @foo(){
 %var_25 = alloca i32, i32 50
 %var_26 = call i32 @nall()
 %var_27 = icmp eq i32 0, %var_26
-br i1 %var_27, label %label_4, label %label_3
-br label %label_3
-label_3:
+br i1 %var_27, label %label_13, label %label_12
+br label %label_12
+label_12:
 %var_28 = call i32 @bar()
 %var_29 = icmp eq i32 0, %var_28
-br i1 %var_29, label %label_5, label %label_4
-br label %label_4
-label_4:
+br i1 %var_29, label %label_14, label %label_13
+br label %label_13
+label_13:
 %var_30 = add i32 88, 0
 ret i32 88
-br label %label_5
-label_5:
+br label %label_14
+label_14:
 ret i32 0 }
 define void @main(){
 %var_31 = alloca i32, i32 50

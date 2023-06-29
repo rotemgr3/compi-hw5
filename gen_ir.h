@@ -35,7 +35,10 @@ class GenIR {
         void gen_end_func(Rettype *rettype);
         void gen_nextlist_label(Exp *exp);
         void gen_init();
-        Exp* gen_bool_exp2(Exp *exp);
+        Exp* gen_explist(Exp *exp);
+
+        //generates a jump location label for the next command, writes it to the buffer and returns it
+	    string genLabel(bool with_br);
 };
 
 #endif // GEN_IR_H

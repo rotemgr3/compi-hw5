@@ -42,71 +42,71 @@ store i32 %var_11, i32* %var_12
 %var_13 = add i32 0, 0
 %var_14 = getelementptr i32, i32* %var_2, i32 5
 store i32 %var_13, i32* %var_14
-br label %label_44
-label_44:
+br label %label_0
+label_0:
 %var_15 = getelementptr i32, i32* %var_2, i32 5
 %var_16 = load i32, i32* %var_15
 %var_17 = add i32 4, 0
 %var_18 = icmp slt i32 %var_16, %var_17
-br i1 %var_18, label %label_51, label %label_134
-br label %label_51
-label_51:
+br i1 %var_18, label %label_1, label %label_10
+br label %label_1
+label_1:
 %var_19 = getelementptr i32, i32* %var_2, i32 1
 %var_20 = load i32, i32* %var_19
 %var_21 = getelementptr i32, i32* %var_2, i32 0
 %var_22 = load i32, i32* %var_21
 %var_23 = icmp sgt i32 %var_20, %var_22
-br i1 %var_23, label %label_59, label %label_65
-br label %label_59
-label_59:
+br i1 %var_23, label %label_2, label %label_3
+br label %label_2
+label_2:
 %var_24 = getelementptr i32, i32* %var_2, i32 1
 %var_25 = load i32, i32* %var_24
 %var_26 = getelementptr i32, i32* %var_2, i32 0
 store i32 %var_25, i32* %var_26
-br label %label_65
-label_65:
+br label %label_3
+label_3:
 %var_27 = getelementptr i32, i32* %var_2, i32 2
 %var_28 = load i32, i32* %var_27
 %var_29 = getelementptr i32, i32* %var_2, i32 0
 %var_30 = load i32, i32* %var_29
 %var_31 = icmp sgt i32 %var_28, %var_30
-br i1 %var_31, label %label_73, label %label_79
-br label %label_73
-label_73:
+br i1 %var_31, label %label_4, label %label_5
+br label %label_4
+label_4:
 %var_32 = getelementptr i32, i32* %var_2, i32 2
 %var_33 = load i32, i32* %var_32
 %var_34 = getelementptr i32, i32* %var_2, i32 0
 store i32 %var_33, i32* %var_34
-br label %label_79
-label_79:
+br label %label_5
+label_5:
 %var_35 = getelementptr i32, i32* %var_2, i32 3
 %var_36 = load i32, i32* %var_35
 %var_37 = getelementptr i32, i32* %var_2, i32 0
 %var_38 = load i32, i32* %var_37
 %var_39 = icmp sgt i32 %var_36, %var_38
-br i1 %var_39, label %label_87, label %label_93
-br label %label_87
-label_87:
+br i1 %var_39, label %label_6, label %label_7
+br label %label_6
+label_6:
 %var_40 = getelementptr i32, i32* %var_2, i32 3
 %var_41 = load i32, i32* %var_40
 %var_42 = getelementptr i32, i32* %var_2, i32 0
 store i32 %var_41, i32* %var_42
-br label %label_93
-label_93:
+br label %label_7
+label_7:
 %var_43 = getelementptr i32, i32* %var_2, i32 4
 %var_44 = load i32, i32* %var_43
 %var_45 = getelementptr i32, i32* %var_2, i32 0
 %var_46 = load i32, i32* %var_45
 %var_47 = icmp sgt i32 %var_44, %var_46
-br i1 %var_47, label %label_101, label %label_107
-br label %label_101
-label_101:
+br i1 %var_47, label %label_8, label %label_9
+br label %label_8
+label_8:
 %var_48 = getelementptr i32, i32* %var_2, i32 4
 %var_49 = load i32, i32* %var_48
 %var_50 = getelementptr i32, i32* %var_2, i32 0
 store i32 %var_49, i32* %var_50
-br label %label_107
-label_107:
+br label %label_9
+label_9:
 %var_51 = getelementptr i32, i32* %var_2, i32 0
 %var_52 = load i32, i32* %var_51
 call void @printi(i32 %var_52)
@@ -131,7 +131,7 @@ store i32 %var_64, i32* %var_65
 %var_69 = add i32 %var_67, %var_68
 %var_70 = getelementptr i32, i32* %var_2, i32 5
 store i32 %var_69, i32* %var_70
-br label %label_44
-br label %label_134
-label_134:
+br label %label_0
+br label %label_10
+label_10:
 ret void }
