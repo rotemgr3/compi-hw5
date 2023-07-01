@@ -1,0 +1,19 @@
+override void myFunc()
+{
+    return;
+}
+
+override byte myFunc(byte var1)
+{
+    return var1;
+}
+
+void main() {
+	print("Should be 1b, calling my_func_byte:");
+    printi(myFunc(1b));
+	
+	print("void call, my_func:");
+	myFunc();
+	
+	return;
+}

@@ -1,0 +1,26 @@
+override void greet() {
+    print("Hello, World!");
+}
+
+override void greet(int age) {
+    print("Hello! You are ");
+    printi(age);
+    print(" years old.");
+}
+
+override void greet(bool isStudent, int age) {
+    print("Hello! You ");
+    if(isStudent)
+		print("are");
+	else
+		print("are not");
+    print(" a student and you are ");
+    printi(age);
+    print(" years old.");
+}
+
+void main() {
+    greet();
+    greet(25);
+    greet(true, 18);
+}

@@ -1,0 +1,84 @@
+@var_3 = constant [14 x i8] c"Hello, World!\00"
+@var_6 = constant [16 x i8] c"Hello! You are \00"
+@var_9 = constant [12 x i8] c" years old.\00"
+@var_12 = constant [12 x i8] c"Hello! You \00"
+@var_15 = constant [4 x i8] c"are\00"
+@var_17 = constant [8 x i8] c"are not\00"
+@var_19 = constant [24 x i8] c" a student and you are \00"
+@var_22 = constant [12 x i8] c" years old.\00"
+@.division_zero_error_str = internal constant [23 x i8] c"Error division by zero\00"
+define void @check_division(i32) {
+%valid = icmp eq i32 %0, 0
+br i1 %valid, label %ILLEGAL, label %LEGAL
+ILLEGAL:
+call void @print(i8* getelementptr([23 x i8], [23 x i8]* @.division_zero_error_str, i32 0, i32 0))
+call void @exit(i32 0)
+ret void
+LEGAL:
+ret void
+}
+declare i32 @printf(i8*, ...)
+declare void @exit(i32)
+@.int_specifier = constant [4 x i8] c"%d\0A\00"
+@.str_specifier = constant [4 x i8] c"%s\0A\00"
+define void @print(i8*){
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.str_specifier, i32 0, i32 0), i8* %0)
+ret void
+}
+define void @printi(i32){
+%format_ptr = getelementptr [4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0
+call i32 (i8*, ...) @printf(i8* getelementptr([4 x i8], [4 x i8]* @.int_specifier, i32 0, i32 0), i32 %0)
+ret void
+}
+define void @greet(){
+%var_2 = alloca i32, i32 50
+%var_3.ptr = getelementptr [14 x i8], [14 x i8]* @var_3, i32 0, i32 0
+call void @print(i8* %var_3.ptr)
+ret void }
+define void @greet_int(i32){
+%var_5 = alloca i32, i32 50
+%var_6.ptr = getelementptr [16 x i8], [16 x i8]* @var_6, i32 0, i32 0
+call void @print(i8* %var_6.ptr)
+call void @printi(i32 %0)
+%var_9.ptr = getelementptr [12 x i8], [12 x i8]* @var_9, i32 0, i32 0
+call void @print(i8* %var_9.ptr)
+ret void }
+define void @greet_bool_int(i32, i32){
+%var_11 = alloca i32, i32 50
+%var_12.ptr = getelementptr [12 x i8], [12 x i8]* @var_12, i32 0, i32 0
+call void @print(i8* %var_12.ptr)
+%var_14 = icmp eq i32 0, %0
+br i1 %var_14, label %label_1, label %label_0
+br label %label_0
+label_0:
+%var_15.ptr = getelementptr [4 x i8], [4 x i8]* @var_15, i32 0, i32 0
+call void @print(i8* %var_15.ptr)
+br label %label_2
+br label %label_1
+label_1:
+%var_17.ptr = getelementptr [8 x i8], [8 x i8]* @var_17, i32 0, i32 0
+call void @print(i8* %var_17.ptr)
+br label %label_2
+label_2:
+%var_19.ptr = getelementptr [24 x i8], [24 x i8]* @var_19, i32 0, i32 0
+call void @print(i8* %var_19.ptr)
+call void @printi(i32 %1)
+%var_22.ptr = getelementptr [12 x i8], [12 x i8]* @var_22, i32 0, i32 0
+call void @print(i8* %var_22.ptr)
+ret void }
+define void @main(){
+%var_24 = alloca i32, i32 50
+call void @greet()
+%var_26 = add i32 25, 0
+call void @greet_int(i32 %var_26)
+br label %label_3
+br label %label_3
+label_3:
+br label %label_5
+label_4:
+br label %label_5
+label_5:
+%var_28 = phi i32 [ 1, %label_3], [0, %label_4]
+%var_29 = add i32 18, 0
+call void @greet_bool_int(i32 %var_28, i32 %var_29)
+ret void }

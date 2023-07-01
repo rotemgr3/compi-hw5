@@ -1,0 +1,18 @@
+override int func(int num1, int num2) {
+	printi(1);
+	return num1;
+}
+
+override int func(int num1, byte num2) {
+	printi(2);
+	return num2;
+}
+
+void main() {
+	int x = func(1, 1);
+	int y = func(2b, 2);
+	print("x: ");
+	printi(x);
+	print("y: ");
+	printi(y);
+}

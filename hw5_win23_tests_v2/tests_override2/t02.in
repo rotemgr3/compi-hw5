@@ -1,0 +1,16 @@
+override int add(int num1, int num2) 
+{
+    return (num1 + num2);
+}
+
+override int add(byte num1, byte num2) {
+    return (num1 + num2);
+}
+
+void main() {
+    int x = add(2, 3);
+    int y = add(2b, 3);
+
+    printi(x);
+    printi(y);
+}

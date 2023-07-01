@@ -1,0 +1,15 @@
+override void printValue(int value) {
+    printi(value);
+}
+
+override void printValue(bool value) {
+    if(value)
+		print("true");
+	else
+		print("false");
+}
+
+void main() {
+    printValue(10);
+    printValue(true);
+}
